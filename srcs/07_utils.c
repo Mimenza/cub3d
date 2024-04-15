@@ -6,11 +6,11 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 09:20:58 by emimenza          #+#    #+#             */
-/*   Updated: 2023/12/10 19:22:04 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:58:29 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/so_long_bonus.h"
+#include "../incs/cub3d.h"
 
 //This function creates a double ptr.
 char	**ft_create_doubleptr(t_size size)

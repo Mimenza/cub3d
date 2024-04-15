@@ -6,7 +6,7 @@
 #    By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 10:48:36 by emimenza          #+#    #+#              #
-#    Updated: 2024/04/15 12:21:53 by emimenza         ###   ########.fr        #
+#    Updated: 2024/04/15 15:46:48 by emimenza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ MLX			=	-framework OpenGL -framework AppKit
 NAME		=	cub3d
 
 #Ficheros
-SRC_FILES	=	
+SRC_FILES	=	00_main 01_game 02_map 03_map_utils1 04_map_utils2 08_free 09_error 10_print_map
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
@@ -49,7 +49,7 @@ all:	minilibx gnl libft $(NAME)
 #Compilar 
 $(NAME):$(OBJ)
 		@$(CC) $(OBJ) $(LIBS) -o $(NAME)
-		@echo "$(GREEN)SO_LONG HAS BEEN COMPILED!$(NC)"
+		@echo "$(GREEN)CUB3D HAS BEEN COMPILED!$(NC)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
@@ -98,7 +98,7 @@ clean:
 
 
 # Eliminar temporales y ejecutable fclean_mlx
-fclean: clean  fclean_gnl fclean_libft fclean_printf
+fclean: clean  fclean_gnl fclean_libft
 	@$(RM) $(NAME)
 	@echo "$(RED)EXECUTABLE CLEANED!$(NC)"
 

@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_map5.c                                          :+:      :+:    :+:   */
+/*   10_print_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 09:47:37 by emimenza          #+#    #+#             */
-/*   Updated: 2023/12/10 19:21:47 by emimenza         ###   ########.fr       */
+/*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
+/*   Updated: 2024/04/15 15:43:15 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/so_long_bonus.h"
+#include "../incs/cub3d.h"
 
-//This funtions compares the og grid with the expanded
-//grid in order to find if the map is doable.
-int	ft_check_items_reach(char **grid, char **og_grid)
-{
-	int		x;
-	int		y;
+//Main function which prints the map into the window.
+// void	ft_print_map(t_game *game)
+// {
+// 	int		x;
+// 	int		y;
+// 	char	**grid;
+// 	int		enemy;
 
-	y = 0;
-	while (grid[y])
-	{
-		x = 0;
-		while (grid[y][x])
-		{
-			if (grid[y][x] == 'C' || grid[y][x] == 'E' || grid[y][x] == 'B')
-			{
-				if (og_grid[y][x] != 'P')
-					return (0);
-			}
-			x++;
-		}
-		y++;
-	}
-	return (1);
-}
+// 	enemy = 0;
+// 	grid = game->map.grid;
+// 	y = 0;
+// 	while (grid[y])
+// 	{
+// 		x = 0;
+// 		while (grid[y][x])
+// 		{
+// 			ft_put_img(game, x, y, enemy);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
 
 //This function prints the grid on the console.
 void	ft_print_grid(char **grid)
@@ -44,10 +42,19 @@ void	ft_print_grid(char **grid)
 	int		y;
 
 	y = 0;
-	ft_printf("\n");
+	printf("\n");
 	while (grid[y])
 	{
-		ft_printf("%s\n", grid[y]);
+		x = 0;
+		while(grid[y][x])
+		{
+			if (grid[y][x] == ' ')
+				printf("x");
+			else
+				printf("%c", grid[y][x]);
+			x ++;
+		}
+		printf("\n");
 		y++;
 	}
 }

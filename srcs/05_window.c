@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   03_window.c                                        :+:      :+:    :+:   */
+/*   05_window.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:35:31 by emimenza          #+#    #+#             */
-/*   Updated: 2023/12/10 19:21:50 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:40:50 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/so_long_bonus.h"
+#include "../incs/cub3d.h"
 
 //This function closes the window.
-int	ft_close(void)
+static int	ft_close(void)
 {
 	print_game_over();
 	exit(0);

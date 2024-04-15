@@ -6,11 +6,11 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2023/12/10 19:21:55 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:58:23 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/so_long_bonus.h"
+#include "../incs/cub3d.h"
 
 //Funtion which animates the coins.
 static void	ft_animate_coin(t_game *game)

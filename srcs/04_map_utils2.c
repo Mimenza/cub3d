@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_map1.c                                          :+:      :+:    :+:   */
+/*   04_map_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 09:27:12 by emimenza          #+#    #+#             */
-/*   Updated: 2023/12/11 08:25:59 by emimenza         ###   ########.fr       */
+/*   Created: 2024/04/15 15:32:43 by emimenza          #+#    #+#             */
+/*   Updated: 2024/04/15 15:35:53 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/so_long_bonus.h"
+#include "../incs/cub3d.h"
 
 //Read the file and return the line with all the content
 static char	*ft_read_file(char *strmap, char *t_line)
@@ -46,7 +46,6 @@ int	ft_create_grid(char *strmap, char ***grid)
 {
 	char	*file_content;
 
-	ft_printf("CREATING THE GRID....");
 	file_content = ft_strdup("");
 	file_content = ft_read_file(strmap, file_content);
 	if (file_content == NULL)
@@ -61,37 +60,6 @@ int	ft_create_grid(char *strmap, char ***grid)
 		ft_print_error(3);
 		return (0);
 	}
-	ft_printf("\033[0;32m [OK] \033[0m\n\n");
-	return (1);
-}
-
-//Checks the map size and stores the info
-int	ft_map_size(char **grid, t_size **size)
-{
-	int		x;
-	int		y;
-	int		t_x;
-
-	y = 0;
-	t_x = 0;
-	while (grid[y])
-	{
-		x = 0;
-		while (grid[y][x])
-			x++;
-		if (t_x == 0)
-			t_x = x;
-		if (t_x != 0 && t_x != x)
-		{
-			return (0);
-		}
-		y++;
-	}
-	(*size) = (t_size *)malloc(sizeof(t_size));
-	if ((*size) == NULL)
-		return (0);
-	(*size)->w = x;
-	(*size)->h = y;
 	return (1);
 }
 
@@ -101,26 +69,45 @@ int	ft_map_coll(char **grid)
 	int		x;
 	int		y;
 	int		player;
-	int		coll;
-	int		exit;
 
+	printf("CHECKING ONLY 1 PLAYER...");
 	y = 0;
 	player = 0;
-	exit = 0;
-	coll = 0;
 	while (grid[y])
 	{
 		x = 0;
 		while (grid[y][x])
 		{
-			if (0 == ft_count_item(grid[y][x], &player, &exit, &coll))
+			if (0 == ft_count_item(grid[y][x], &player))
 				return (0);
 			x++;
 		}
 		y++;
 	}
-	if (ft_check_item(0, &player, &exit, &coll) == 0)
+	if (ft_check_item(0, &player) == 0)
 		return (0);
-	ft_printf("\033[0;32m [OK] \033[0m\n\n");
-	return (coll);
+	printf("\033[0;32m [OK] \033[0m\n\n");
+	return (1);
+}
+
+//Replace the horientation with P
+void	ft_replace_p(char ***p_grid)
+{
+	int			x;
+	int			y;
+	char		**grid;
+
+	grid = (*p_grid);
+	y = 0;
+	while (grid[y])
+	{
+		x = 0;
+		while (grid[y][x])
+		{
+			if (grid[y][x] == 'N' || grid[y][x] == 'S' || grid[y][x] == 'E' || grid[y][x] == 'W')
+				grid[y][x] = 'P'; 
+			x++;
+		}
+		y++;
+	}
 }
