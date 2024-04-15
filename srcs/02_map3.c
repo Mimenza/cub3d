@@ -6,11 +6,11 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 20:10:15 by emimenza          #+#    #+#             */
-/*   Updated: 2023/12/15 08:14:51 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:38:01 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/so_long.h"
+#include "../incs/so_long_bonus.h"
 
 //Checks if the above position is expandable, and expand to it.
 int	ft_check_position(int x, int y, char **grid)
@@ -82,7 +82,7 @@ int	ft_reachable(char **grid, t_size *size)
 //Counts the entity number
 int	ft_count_item(char c, int *player, int *exit, int *coll)
 {
-	if (c != 'P' && c != 'E' && c != 'C' && c != '0' && c != '1')
+	if (c != 'P' && c != 'E' && c != 'C' && c != 49 && c != 48 && c != 'B')
 	{
 		ft_print_error(7);
 		return (0);

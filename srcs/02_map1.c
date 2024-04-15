@@ -6,11 +6,11 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 09:27:12 by emimenza          #+#    #+#             */
-/*   Updated: 2024/02/12 09:48:32 by emimenza         ###   ########.fr       */
+/*   Updated: 2023/12/11 08:25:59 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/so_long.h"
+#include "../incs/so_long_bonus.h"
 
 //Read the file and return the line with all the content
 static char	*ft_read_file(char *strmap, char *t_line)
