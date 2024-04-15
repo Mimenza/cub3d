@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:43 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/15 15:35:53 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:45:50 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,51 @@ void	ft_replace_p(char ***p_grid)
 			x++;
 		}
 		y++;
+	}
+}
+
+//Returns the size of the longest line
+static size_t	max_line(char **grid)
+{
+	size_t max;
+	int	i;
+
+	i = 0;
+	max = 0;
+	while (grid[i])
+	{
+		if (max < ft_strlen(grid[i]))
+			max = ft_strlen(grid[i]);
+		i++;
+	}
+	return (max);
+}
+
+//Fills the blank spaces till is rectangular
+void	fill_w_sp(char	***grid)
+{
+	size_t	len;
+	size_t	max;
+	int		x;
+	int		y;
+	char	*tmp;
+
+	max = max_line(*grid) - 1;
+	x = -1;
+	while ((*grid)[++x])
+	{
+		y = -1;
+		tmp = (*grid)[x];
+		len = ft_strlen((*grid)[x]);
+		(*grid)[x] = (char *)malloc(sizeof(char *) * (max + 1));
+		(*grid)[x][max + 1] = '\0';
+		while (++y <= max)
+		{
+			if (y < len)
+				(*grid)[x][y] = tmp[y];
+			else
+				(*grid)[x][y] = ' ';
+		}
+		free(tmp);
 	}
 }

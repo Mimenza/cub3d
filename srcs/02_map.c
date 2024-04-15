@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:41:11 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/15 15:35:55 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:26:13 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static char	**ft_create_and_validate_grid(char *strmap)
 	if (ft_reachable(grid, strmap) == 0)
 		return (grid);
 
-	//ft_print_grid(grid);
+	fill_w_sp(&grid);
+	ft_print_grid(grid);
 	return (grid);
 }
 

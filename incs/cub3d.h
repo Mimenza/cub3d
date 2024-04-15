@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/15 15:42:09 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:04:45 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int				ft_check_item(char c, int *player);
 int				ft_create_grid(char *strmap, char ***grid);
 int				ft_map_coll(char **grid);
 void			ft_replace_p(char ***p_grid);
+void			fill_w_sp(char	***grid);
 
 //05_WINDOW
 t_window	ft_new_window(void *mlx, int widht, int height, char *name);

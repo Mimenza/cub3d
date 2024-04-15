@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/15 15:43:15 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:38:57 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void	ft_print_grid(char **grid)
 	while (grid[y])
 	{
 		x = 0;
-		while(grid[y][x])
+		while(grid[y][x] != '\0')
 		{
 			if (grid[y][x] == ' ')
 				printf("x");
 			else
 				printf("%c", grid[y][x]);
-			x ++;
+			x++;
 		}
 		printf("\n");
 		y++;
