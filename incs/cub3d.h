@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/15 15:42:09 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:25:09 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include "../libs/Libft/libft.h"
 // ----------------------------------
 // MACROS
-# define PX 50
+# define PXW 50
+
 // Key Codes for MacOS
 # define KEY_ESC	53
 # define KEY_W		13
@@ -54,8 +55,8 @@ typedef struct s_size
 
 typedef struct s_position
 {
-	int		x;
-	int		y;
+	double		x;
+	double		y;
 }			t_position;
 
 // store all information about the window
@@ -79,7 +80,7 @@ typedef struct s_map
 typedef struct s_player
 {
 	t_position	pos;
-	int			angle;
+	double		rad;
 }				t_player;
 
 // store all information about the game
@@ -111,6 +112,7 @@ int				ft_check_item(char c, int *player);
 int				ft_create_grid(char *strmap, char ***grid);
 int				ft_map_coll(char **grid);
 void			ft_replace_p(char ***p_grid);
+void			fill_w_sp(char	***grid);
 
 //05_WINDOW
 t_window	ft_new_window(void *mlx, int widht, int height, char *name);
@@ -126,3 +128,6 @@ void		ft_print_error(int type);
 
 //10_PRINT_MAP
 void		ft_print_grid(char **grid);
+
+//11_COORDINATES
+void		draw_map(char **map);
