@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:43 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/16 11:49:47 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:24:47 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,8 @@ static char	*ft_read_file(char *strmap, char *t_line)
 	fdmap = open(path, O_RDONLY);
 	free(path);
 	if (fdmap == -1)
-	{
-		printf("%s\n", path);
-		printf("el mapa se ha abierto mal\n");
 		return (NULL);
-	}
-	while (line)
+	while (1)
 	{
 		line = get_next_line(fdmap);
 		if (line != NULL)
@@ -40,6 +36,8 @@ static char	*ft_read_file(char *strmap, char *t_line)
 			free(line);
 			free(tmp);
 		}
+		else
+			break;
 	}
 	close(fdmap);
 	return (t_line);

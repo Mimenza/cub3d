@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/16 12:25:09 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:40:05 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 // ----------------------------------
 // MACROS
 # define PXW 50
+# define BPP 32
+
+//450 height
+//800 width
 
 // Key Codes for MacOS
 # define KEY_ESC	53
@@ -64,8 +68,13 @@ typedef struct s_window
 {
 	void	*mlx;
 	void	*win;
+	void	*img;
+	char	*addrs;
+	int		line_len;
+	int		endian;
+	int		bpp;
 	t_size	*size;
-	void	*img[IMG_COUNT];
+	// void	*img[IMG_COUNT];
 }			t_window;
 
 // store all information about the map
@@ -88,7 +97,7 @@ typedef struct s_game
 {
 	t_window	window;
 	t_map		map;
-	t_player	p;
+	t_player	*p;
 	int			created;
 }			t_game;
 
@@ -115,19 +124,22 @@ void			ft_replace_p(char ***p_grid);
 void			fill_w_sp(char	***grid);
 
 //05_WINDOW
-t_window	ft_new_window(void *mlx, int widht, int height, char *name);
+t_window		ft_new_window(void *mlx, int widht, int height, char *name);
+
 //06_HOOKS
 
 //07_UTILS
 
 //08_FREE
-void		ft_free_doubleptr(char **grid);
+void			ft_free_doubleptr(char **grid);
 
 //09_ERROR
-void		ft_print_error(int type);
+void			ft_print_error(int type);
 
 //10_PRINT_MAP
 void		ft_print_grid(char **grid);
 
 //11_COORDINATES
-void		draw_map(char **map);
+void			get_player(t_game *game);
+void			ft_print_grid(char **grid);
+void			ft_print_map(t_game *game);
