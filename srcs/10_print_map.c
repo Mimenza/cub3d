@@ -6,13 +6,13 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/16 17:00:43 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:44:11 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
-
+//Places a pixel
 void	my_mlx_pixel_put(t_game *game, int x, int y, int color)
 {
 	char	*dst;
@@ -21,21 +21,57 @@ void	my_mlx_pixel_put(t_game *game, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-void draw_line_to_direction(t_game *game, int x, int y, double rad, double length, int color)
+//Drawns a line
+void draw_line_to_direction(t_game *game, int x, int y, double length, double desv)
 {
+	int		end_x;
+	int 	end_y;
+	int		steps;
+	double	dx;
+	double	dy;
+	double	c_x;
+	double	c_y;
+	int		i;
+
+	i = 0;
+
 	// Calcula las coordenadas finales de la línea
-	int end_x = x + (length * cos(rad));
-	int end_y = y + (length * sin(rad));
+	end_x = x + (length * cos(game->p->rad + desv));
+	end_y = y + (length * sin(game->p->rad + desv));
 
 	// Dibuja la línea desde (x, y) hasta (end_x, end_y)
-	while (x != end_x || y != end_y)
+	if (abs(end_x - x) > abs(end_y - y))
+		steps = abs(end_x - x);
+	else
+		steps = abs(end_y - y);
+	
+	dx = (double)(end_x - x) / steps;
+	dy = (double)(end_y - y) / steps;
+	c_x = x;
+	c_y = y;
+
+	while (i <= steps)
 	{
-		my_mlx_pixel_put(game, x, y, color);
-		double dx = end_x - x;
-		double dy = end_y - y;
-		double norm = sqrt(dx * dx + dy * dy);
-		x += (int)(dx / norm);
-		y += (int)(dy / norm);
+		my_mlx_pixel_put(game, (int)round(c_x), (int)round(c_y), 0xfa2e0a);
+		c_x += dx;
+		c_y += dy;
+		i++;
+	}
+}
+
+//Draws the fov fo the player
+void	draw_fov(t_game *game, int px_rela, int py_rela, double l)
+{
+	double start;
+	double	end;
+
+	start = -45;
+	end = 45;
+
+	while (start <= end)
+	{
+		draw_line_to_direction(game, px_rela, py_rela, l, -(start * M_PI / 180.0));
+		start += 1; //less number equals to more lines
 	}
 }
 
@@ -50,9 +86,9 @@ void	ft_print_map(t_game *game)
 	int		px_rela;	//player relative x position
 	int		py_rela;	//player relative y position
 	int		c_y;		//current y
-	double	l;
+	double	l;			//len of the line
 
-	l = 40;
+	l = 100;
 	c_y = 0;
 	posx = 0;
 	posy = 0;
@@ -68,11 +104,6 @@ void	ft_print_map(t_game *game)
 			{
 				//If para printear circulito
 				my_mlx_pixel_put(game, x, y, 0xfa2e0a);
-			}
-			else if ((x == (l * cos(game->p->rad) + px_rela)) && (y == (l * sin(game->p->rad) + py_rela)))
-			{
-				draw_line_to_direction(game, px_rela, py_rela, game->p->rad, l, 0xfa2e0a);
-				l--;
 			}
 			else if ((posx != ((x * game->map.size->w) / (game->window.size->w))) || (c_y != posy))
 			{
@@ -102,6 +133,7 @@ void	ft_print_map(t_game *game)
 		c_y = ((y * game->map.size->h) / (game->window.size->h));
 		y++;
 	}
+	draw_fov(game, px_rela, py_rela, l);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->window.img, 0, 0);
 }
 

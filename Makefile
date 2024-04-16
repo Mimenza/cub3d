@@ -6,7 +6,7 @@
 #    By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 10:48:36 by emimenza          #+#    #+#              #
-#    Updated: 2024/04/16 13:51:49 by emimenza         ###   ########.fr        #
+#    Updated: 2024/04/16 20:45:17 by emimenza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,18 +21,18 @@ DEL			=	rm -f
 CC			=	gcc
 CCFLAGS		=	-Wall -Wextra -Werror
 MLX			=	-framework OpenGL -framework AppKit
-#MLX			=	-lXext -lX11 -lm -lbsd
+# MLX			=	-lXext -lX11 -lm -lbsd
 # -g3 -fsanitize=address
 
 #Nombre ejecutable
 NAME		=	cub3d
 
 #Ficheros
-SRC_FILES	=	00_main 01_game 02_map 03_map_utils1 04_map_utils2 05_window 08_free 09_error 10_print_map 11_coordinates
+SRC_FILES	=	00_main 01_game 02_map 03_map_utils1 04_map_utils2 05_window 06_hooks 08_free 09_error 10_print_map 11_coordinates
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-MINILIBX	=	libs/minilibx
+MINILIBX	=	libs/minilibx-linux
 GNL			=	libs/gnl
 LIBFT		=	libs/Libft
 

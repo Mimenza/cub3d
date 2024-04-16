@@ -1,87 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   05_hooks.c                                         :+:      :+:    :+:   */
+/*   06_hooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/15 12:58:23 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:39:04 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
+#define MOVE_STEP 0.1
 
-//Funtion which animates the coins.
-static void	ft_animate_coin(t_game *game)
+int key_press_hook(int keycode, t_game *game)
 {
-	static int	c_frame ;
+	t_player	*player;
 
-	if (c_frame % (COIN_ROTATION / 8) == 0 && c_frame != 0)
-		game->coll_skin += 1;
-	if (c_frame == COIN_ROTATION)
-	{
-		c_frame = 0;
-		game->coll_skin = 0;
-	}
-	c_frame++;
-}
+	player = game->p;
 
-//Input loop aux function.
-static void	ft_input2(int key, t_game *game)
-{
-	if (key == KEY_D || key == KEY_RIGHT)
+	if (keycode == KEY_RIGHT) // Girar a la derecha
 	{
-		game->p.skin = 9;
-		ft_move_player(game, game->p.pos.x + 1, \
-		game->p.pos.y);
+		player->rad -= 0.05;
+		if (player->rad < 0)
+			player->rad += 2 * M_PI;
 	}
-	else if (key == KEY_A || key == KEY_LEFT)
+	else if (keycode == KEY_LEFT) // Girar a la izquierda
 	{
-		game->p.skin = 8;
-		ft_move_player(game, game->p.pos.x - 1, \
-		game->p.pos.y);
+		player->rad += 0.05;
+		if (player->rad >= 2 * M_PI)
+			player->rad -= 2 * M_PI;
 	}
-	else if (key == KEY_W || key == KEY_UP)
+	else if (keycode == KEY_A) // Mover hacia la izquierda
 	{
-		game->p.skin = 6;
-		ft_move_player(game, game->p.pos.x, \
-		game->p.pos.y - 1);
+		player->pos.x -= cos(player->rad + M_PI / 2) * MOVE_STEP;
+		player->pos.y -= sin(player->rad + M_PI / 2) * MOVE_STEP;
 	}
-	else if (key == KEY_S || key == KEY_DOWN)
+	else if (keycode == KEY_S) // Mover hacia atrás
 	{
-		game->p.skin = 7;
-		ft_move_player(game, game->p.pos.x, \
-		game->p.pos.y + 1);
+		player->pos.x -= cos(player->rad) * MOVE_STEP;
+		player->pos.y -= sin(player->rad) * MOVE_STEP;
 	}
-}
+	else if (keycode == KEY_D) // Mover hacia la derecha
+	{
+		player->pos.x += cos(player->rad + M_PI / 2) * MOVE_STEP;
+		player->pos.y += sin(player->rad + M_PI / 2) * MOVE_STEP;
+	}
+	else if (keycode == KEY_W) // Mover hacia adelante
+	{
+		player->pos.x += cos(player->rad) * MOVE_STEP;
+		player->pos.y += sin(player->rad) * MOVE_STEP;
+	}
 
-//Input loop main function.
-int	ft_input(int key, void *param)
-{
-	t_game	*game;
-
-	game = (t_game *)param;
-	mlx_clear_window(game->window.mlx, game->window.win);
-	if (key == KEY_ESC)
-	{
-		mlx_destroy_window(game->window.mlx, game->window.win);
-		ft_close();
-	}
-	ft_input2(key, game);
+	printf("El radian es de %f y la posición %f %f\n", player->rad, player->pos.x, player->pos.y);
 	ft_print_map(game);
-	return (0);
 }
 
-//Update loop function.
-int	ft_update(void *param)
-{
-	t_game		*game;
 
-	game = (t_game *)param;
-	mlx_clear_window(game->window.mlx, game->window.win);
-	ft_randomize(game);
-	ft_animate_coin(game);
-	ft_print_map(game);
-	return (0);
-}
