@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   02_map.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:41:11 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/16 13:23:07 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/04/16 23:23:05 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
+//Calculates the size of the map
 void	calculate_size(t_map *map)
 {
 	int			x;

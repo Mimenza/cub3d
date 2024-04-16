@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/16 20:39:04 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/16 23:22:47 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ int key_press_hook(int keycode, t_game *game)
 		player->pos.x += cos(player->rad) * MOVE_STEP;
 		player->pos.y += sin(player->rad) * MOVE_STEP;
 	}
-
-	printf("El radian es de %f y la posición %f %f\n", player->rad, player->pos.x, player->pos.y);
+	//printf("El radian es de %f y la posición %f %f\n", player->rad, player->pos.x, player->pos.y);
 	ft_print_map(game);
 }
 

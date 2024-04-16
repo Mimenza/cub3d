@@ -6,7 +6,7 @@
 #    By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 10:48:36 by emimenza          #+#    #+#              #
-#    Updated: 2024/04/16 20:45:17 by emimenza         ###   ########.fr        #
+#    Updated: 2024/04/16 23:01:45 by emimenza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ NC = \033[0m # No color (reiniciar)
 DEL			=	rm -f
 CC			=	gcc
 CCFLAGS		=	-Wall -Wextra -Werror
-MLX			=	-framework OpenGL -framework AppKit
-# MLX			=	-lXext -lX11 -lm -lbsd
+# MLX			=	-framework OpenGL -framework AppKit
+MLX			=	-lXext -lX11 -lm -lbsd
 # -g3 -fsanitize=address
 
 #Nombre ejecutable

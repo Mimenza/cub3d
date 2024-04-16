@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/16 20:44:11 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/16 23:36:44 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,65 @@ void	my_mlx_pixel_put(t_game *game, int x, int y, int color)
 }
 
 //Drawns a line
+// void draw_line_to_direction(t_game *game, int x, int y, double length, double desv)
+// {
+// 	int		end_x;
+// 	int 	end_y;
+// 	int		steps;
+// 	double	dx;
+// 	double	dy;
+// 	double	c_x;
+// 	double	c_y;
+// 	int		i;
+
+// 	i = 0;
+
+// 	// Calcula las coordenadas finales de la línea
+// 	end_x = x + (length * cos(game->p->rad + desv));
+// 	end_y = y + (length * sin(game->p->rad + desv));
+
+// 	// Dibuja la línea desde (x, y) hasta (end_x, end_y)
+// 	if (abs(end_x - x) > abs(end_y - y))
+// 		steps = abs(end_x - x);
+// 	else
+// 		steps = abs(end_y - y);
+	
+// 	dx = (double)(end_x - x) / steps;
+// 	dy = (double)(end_y - y) / steps;
+// 	c_x = x;
+// 	c_y = y;
+
+// 	while (i <= steps)
+// 	{
+// 		my_mlx_pixel_put(game, (int)round(c_x), (int)round(c_y), 0xfa2e0a);
+// 		c_x += dx;
+// 		c_y += dy;
+// 		i++;
+// 	}
+// }
+
 void draw_line_to_direction(t_game *game, int x, int y, double length, double desv)
 {
 	int		end_x;
-	int 	end_y;
+	int		end_y;
 	int		steps;
 	double	dx;
 	double	dy;
 	double	c_x;
 	double	c_y;
 	int		i;
+	int		map_x;
+	int		map_y;
 
-	i = 0;
-
-	// Calcula las coordenadas finales de la línea
 	end_x = x + (length * cos(game->p->rad + desv));
 	end_y = y + (length * sin(game->p->rad + desv));
+	i = 0;
 
-	// Dibuja la línea desde (x, y) hasta (end_x, end_y)
 	if (abs(end_x - x) > abs(end_y - y))
 		steps = abs(end_x - x);
 	else
 		steps = abs(end_y - y);
-	
+
 	dx = (double)(end_x - x) / steps;
 	dy = (double)(end_y - y) / steps;
 	c_x = x;
@@ -52,6 +88,15 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 
 	while (i <= steps)
 	{
+		map_x = c_x / (game->window.size->w / game->map.size->w);
+		map_y = c_y / (game->window.size->h / game->map.size->h);
+		if (map_x >= 0 && map_x < game->map.size->w && map_y >= 0 && map_y < game->map.size->h &&
+			game->map.grid[map_y][map_x] == '1')
+		{
+			// Si choca con una pared, detener el dibujo de la línea
+			break;
+		}
+
 		my_mlx_pixel_put(game, (int)round(c_x), (int)round(c_y), 0xfa2e0a);
 		c_x += dx;
 		c_y += dy;
@@ -71,7 +116,7 @@ void	draw_fov(t_game *game, int px_rela, int py_rela, double l)
 	while (start <= end)
 	{
 		draw_line_to_direction(game, px_rela, py_rela, l, -(start * M_PI / 180.0));
-		start += 1; //less number equals to more lines
+		start += 0.1; //less number equals to more lines
 	}
 }
 
@@ -88,7 +133,7 @@ void	ft_print_map(t_game *game)
 	int		c_y;		//current y
 	double	l;			//len of the line
 
-	l = 100;
+	l = 10000000;
 	c_y = 0;
 	posx = 0;
 	posy = 0;

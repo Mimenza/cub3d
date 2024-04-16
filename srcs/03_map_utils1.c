@@ -6,13 +6,13 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:33:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/16 11:33:29 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/16 23:23:19 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
-// //Checks if the above position is expandable, and expand to it.
+//Checks if the above position is expandable, and expand to it.
 static int	ft_check_position(int x, int y, char **grid, int *w_flag)
 {
 	if (grid[y][x] == ' ')
@@ -29,7 +29,7 @@ static int	ft_check_position(int x, int y, char **grid, int *w_flag)
 	return (0);
 }
 
-// //Aux function which checks if the map is doable
+//Aux function which checks if the map is doable
 static int	ft_expandable(char **grid, int *w_flag)
 {
 	int			x;
