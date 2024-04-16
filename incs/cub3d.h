@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/15 16:04:45 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:11:03 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@
 # include "../libs/Libft/libft.h"
 // ----------------------------------
 // MACROS
-# define PX 50
+# define PXW 50
+# define BPP 32
+
+//450 height
+//800 width
+
 // Key Codes for MacOS
 # define KEY_ESC	53
 # define KEY_W		13
@@ -63,8 +68,13 @@ typedef struct s_window
 {
 	void	*mlx;
 	void	*win;
+	void	*img;
+	char	*addrs;
+	int		line_len;
+	int		endian;
+	int		bpp;
 	t_size	*size;
-	void	*img[IMG_COUNT];
+	// void	*img[IMG_COUNT];
 }			t_window;
 
 // store all information about the map
@@ -114,16 +124,18 @@ void			ft_replace_p(char ***p_grid);
 void			fill_w_sp(char	***grid);
 
 //05_WINDOW
-t_window	ft_new_window(void *mlx, int widht, int height, char *name);
+t_window		ft_new_window(void *mlx, int widht, int height, char *name);
+
 //06_HOOKS
 
 //07_UTILS
 
 //08_FREE
-void		ft_free_doubleptr(char **grid);
+void			ft_free_doubleptr(char **grid);
 
 //09_ERROR
-void		ft_print_error(int type);
+void			ft_print_error(int type);
 
 //10_PRINT_MAP
-void		ft_print_grid(char **grid);
+void			ft_print_grid(char **grid);
+void			ft_print_map(t_game *game);

@@ -6,7 +6,7 @@
 #    By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 10:48:36 by emimenza          #+#    #+#              #
-#    Updated: 2024/04/15 15:46:48 by emimenza         ###   ########.fr        #
+#    Updated: 2024/04/16 10:12:06 by emimenza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ MLX			=	-framework OpenGL -framework AppKit
 NAME		=	cub3d
 
 #Ficheros
-SRC_FILES	=	00_main 01_game 02_map 03_map_utils1 04_map_utils2 08_free 09_error 10_print_map
+SRC_FILES	=	00_main 01_game 02_map 03_map_utils1 04_map_utils2 05_window 08_free 09_error 10_print_map
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 

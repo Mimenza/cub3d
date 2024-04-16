@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:43 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/15 16:45:50 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:17:08 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*ft_read_file(char *strmap, char *t_line)
 	free(path);
 	if (fdmap == -1)
 		return (NULL);
-	while (line)
+	while (1)
 	{
 		line = get_next_line(fdmap);
 		if (line != NULL)
@@ -36,6 +36,8 @@ static char	*ft_read_file(char *strmap, char *t_line)
 			free(line);
 			free(tmp);
 		}
+		else
+			break;
 	}
 	close(fdmap);
 	return (t_line);
