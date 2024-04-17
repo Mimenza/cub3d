@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   11_coordinates.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:20:29 by anurtiag          #+#    #+#             */
-/*   Updated: 2024/04/16 19:31:58 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/17 07:56:37 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	ft_get_player_dir(t_player **player, char **map, size_t i, size_t j)
 	}
 	else if (map[i][j] == 'E')
 	{
-		(*player)->rad = 180 * M_PI / 180;
+		(*player)->rad = 0 * M_PI / 180;
 	}
 	else if (map[i][j] == 'W')
 	{
-		(*player)->rad = 0 * M_PI / 180;
+		(*player)->rad = 180 * M_PI / 180;
 	}
 }
 
