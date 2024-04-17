@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+         #
+#    By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 10:48:36 by emimenza          #+#    #+#              #
-#    Updated: 2024/04/17 07:32:15 by anurtiag         ###   ########.fr        #
+#    Updated: 2024/04/17 16:39:28 by emimenza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ NC = \033[0m # No color (reiniciar)
 DEL			=	rm -f
 CC			=	gcc
 CCFLAGS		=	-Wall -Wextra -Werror
-MLX			=	-framework OpenGL -framework AppKit
-# MLX			=	-lXext -lX11 -lm -lbsd
+# MLX			=	-framework OpenGL -framework AppKit
+MLX			=	-lXext -lX11 -lm -lbsd
 # -g3 -fsanitize=address
 
 #Nombre ejecutable
@@ -32,7 +32,7 @@ SRC_FILES	=	00_main 01_game 02_map 03_map_utils1 04_map_utils2 05_window 06_hook
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-MINILIBX	=	libs/minilibx
+MINILIBX	=	libs/minilibx-linux
 GNL			=	libs/gnl
 LIBFT		=	libs/Libft
 

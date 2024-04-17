@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/17 07:36:03 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:37:57 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,34 @@
 // MACROS
 # define PXW 50
 # define BPP 32
+# define ANGLE_S -45
+# define ANGLE_E 45
+# define ITER 1
 //# define M_PI 3.1415926535897932384
 //450 height
 //800 width
 
 // Key Codes for MacOS
-# define KEY_ESC	53
-# define KEY_W		13
-# define KEY_A		0
-# define KEY_S		1
-# define KEY_D		2
-# define KEY_UP		126
-# define KEY_DOWN	125
-# define KEY_LEFT	123
-# define KEY_RIGHT	124
+// # define KEY_ESC	53
+// # define KEY_W		13
+// # define KEY_A		0
+// # define KEY_S		1
+// # define KEY_D		2
+// # define KEY_UP		126
+// # define KEY_DOWN	125
+// # define KEY_LEFT	123
+// # define KEY_RIGHT	124
 
 // Key Codes for Linux
-// # define KEY_ESC	65307
-// # define KEY_W		119
-// # define KEY_A		97
-// # define KEY_S		115
-// # define KEY_D		100
-// # define KEY_UP		65362
-// # define KEY_DOWN	65364
-// # define KEY_RIGHT	65361
-// # define KEY_LEFT	65363
+# define KEY_ESC	65307
+# define KEY_W		119
+# define KEY_A		97
+# define KEY_S		115
+# define KEY_D		100
+# define KEY_UP		65362
+# define KEY_DOWN	65364
+# define KEY_RIGHT	65361
+# define KEY_LEFT	65363
 
 // Assets location
 # define IMG_COUNT	20
