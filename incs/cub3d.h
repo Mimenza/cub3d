@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/17 07:36:03 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:34:08 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,14 @@
 # include "../libs/Libft/libft.h"
 // ----------------------------------
 // MACROS
-# define PXW 50
-# define BPP 32
+# define PXW 90			//variable for the window size
+# define BPP 32			//bites per pixel
+# define ANGLE_S -45	//fov start angle
+# define ANGLE_E 45		//fov end angle
+# define ITER 10		//number of iters of the rays (less = more)
+# define RES 1			//scalation of the minimap (pwx % res must return 0)
+# define R_SPEED 0.2	//rotation speed
+
 //# define M_PI 3.1415926535897932384
 //450 height
 //800 width
@@ -35,8 +41,8 @@
 # define KEY_D		2
 # define KEY_UP		126
 # define KEY_DOWN	125
-# define KEY_LEFT	123
-# define KEY_RIGHT	124
+# define KEY_LEFT	124
+# define KEY_RIGHT	123
 
 // Key Codes for Linux
 // # define KEY_ESC	65307

@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/17 14:13:56 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:23:58 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	ft_start_game(t_game game)
 	get_player(&game);
 	ft_print_map(&game);
 	//mlx_hook(mlx, 2, 0, *key_press_hook, &game);
-	//mlx_hook(game.window.win, 2, 0, key_press_hook, &game);
-	mlx_key_hook(game.window.win, *key_press_hook, &game);
+	mlx_hook(game.window.win, 2, 0, key_press_hook, &game);
+	//mlx_key_hook(game.window.win, *key_press_hook, &game);
 	mlx_loop(mlx);
 }
 
