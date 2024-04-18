@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/18 11:20:05 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:49:41 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,94 @@ void	my_mlx_pixel_put(t_game *game, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-void draw_line_to_direction(t_game *game, int x, int y, double length, double desv)
+void draw_v_line(t_game *game, double desv, int size, int c_i, int color)
 {
-	int end_x;         // End x-coordinate of the line
-	int end_y;         // End y-coordinate of the line
-	double steps;      // Number of steps to take along the line
-	double dx;         // Change in x-coordinate per step
-	double dy;         // Change in y-coordinate per step
-	double c_x;        // Current x-coordinate during line traversal
-	double c_y;        // Current y-coordinate during line traversal
-	double dtw;        // Distance to wall (distance to the first wall encountered)
+	int column_w;
+	int column_h;
+	int y;
+	int wall_h;
 
+	wall_h = size * 20;
+	column_w = (game->window.size->w) / ((ANGLE_E - ANGLE_S) / (ITER));
+	column_h = game->window.size->h;
+
+	// Calcula el inicio y el final de la pared en la columna
+	int draw_start = (column_h - wall_h) / 2;
+	int draw_end = draw_start + wall_h;
+
+	// Desplaza la posición horizontalmente para la columna actual
+	int start_x = c_i * column_w;
+
+	int x = start_x;
+	while (x < start_x + column_w)
+	{
+		y = 0;
+		while (y < column_h)
+		{
+			if (y < draw_start)
+				my_mlx_pixel_put(game, x, y, 0x8d9ed6); // Color superior
+			else if (y < draw_end)
+				my_mlx_pixel_put(game, x, y, color); // Color de la pared
+			else
+				my_mlx_pixel_put(game, x, y, 0x96867a); // Color inferior
+
+			y++;
+		}
+		x++;
+	}
+}
+
+void draw_line(t_game *game, int x0, int y0, int x1, int y1, int color)
+{
+	int dx = abs(x1 - x0);
+	int dy = abs(y1 - y0);
+	int sx = (x0 < x1) ? 1 : -1;
+	int sy = (y0 < y1) ? 1 : -1;
+	int err = dx - dy;
+
+	while (1)
+	{
+		my_mlx_pixel_put(game, x0, y0, color);
+
+		if (x0 == x1 && y0 == y1)
+			break;
+
+		int e2 = 2 * err;
+		
+		if (e2 > -dy)
+		{
+			err -= dy;
+			x0 += sx;
+		}
+
+		if (e2 < dx)
+		{
+			err += dx;
+			y0 += sy;
+		}
+	}
+}
+
+
+void draw_line_to_direction(t_game *game, int x, int y, double length, double desv, int c_i)
+{
+	int			end_x;      // End x-coordinate of the line
+	int			end_y;      // End y-coordinate of the line
+	double		steps;   // Number of steps to take along the line
+	double		dx;      // Change in x-coordinate per step
+	double		dy;      // Change in y-coordinate per step
+	double		c_x;     // Current x-coordinate during line traversal
+	double		c_y;     // Current y-coordinate during line traversal
+	double		dtw;     // Distance to wall (distance to the first wall encountered)
+	int			color;
+	double		map_y;
+	double		map_x;
+	int			i;
+
+	i = 0;
+	map_x = 0;
+	map_y = 0;
+	color = 0xfa2e0a;
 	dtw = -1;
 	end_x = x + (length * cos(game->p->rad + desv));
 	end_y = y + (length * sin(game->p->rad + desv));
@@ -46,32 +123,33 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	c_x = x;
 	c_y = y;
 
-	int i;
-	for (i = 0; i <= steps; i++)
+	while (i <= steps)
 	{
-		int map_x = (int)(c_x / ((game->window.size->w / RES )/ game->map.size->w));
-		int map_y = (int)(c_y / ((game->window.size->h / RES ) / game->map.size->h));
-		if (map_x >= 0 && map_x < game->map.size->w && map_y >= 0 && map_y < game->map.size->h &&
-			game->map.grid[map_y][map_x] == '1')
+		map_x = (c_x / ((game->window.size->w / RES) / game->map.size->w));
+		map_y = (c_y / ((game->window.size->h / RES) / game->map.size->h));
+
+		if ((int)map_x >= 0 && (int)map_x < game->map.size->w && (int)map_y >= 0 && (int)map_y < game->map.size->h &&
+			game->map.grid[(int)map_y][(int)map_x] == '1')
 		{
-			// Once a wall is found, calculate distance to wall
-			dtw = sqrt((c_x - x) * (c_x - x) + (c_y - y) * (c_y - y));
+			dtw = 3000 / sqrt((c_x - x) * (c_x - x) + (c_y - y) * (c_y - y));
 			break;
 		}
 
-		my_mlx_pixel_put(game, (int)round(c_x), (int)round(c_y), 0xfa2e0a);
-		// Move along the line
 		c_x += dx;
 		c_y += dy;
+		i++;
 	}
-
-	// i = 0;
-	// while (i <= dtw)
-	// {
-	// 	printf("0");
-	// 	i +=5;
-	// }
-	// printf("\n");
+	if (fmod(map_y, 1) > 0.96 || fmod(map_y, 1) < 0.040)
+	{
+		draw_line(game, x, y, (int)c_x, (int)c_y, 0x8a1a96); //minimapa
+		//draw_v_line(game, desv, dtw, c_i, 0x8a1a96); //3d
+	}
+	else
+	{
+		draw_line(game, x, y, (int)c_x, (int)c_y, 0x2c8f1d); //minimapa
+		//draw_v_line(game, desv, dtw, c_i, 0x2c8f1d);	//3d
+	}
+		
 }
 
 //Draws the fov fo the player
@@ -79,15 +157,21 @@ void	draw_fov(t_game *game, int px_rela, int py_rela, double l)
 {
 	double start;
 	double	end;
+	int		i;
 
+	i = 0;
 	start = ANGLE_S;	//Angle start to the left
 	end = ANGLE_E;		//Angle end to the right
 
+	//draw_line_to_direction(game, px_rela, py_rela, l, (0 * M_PI / 180.0));
+	
 	while (start <= end)
 	{
-		draw_line_to_direction(game, px_rela, py_rela, l, (start * M_PI / 180.0));
+		draw_line_to_direction(game, px_rela, py_rela, l, (start * M_PI / 180.0), i);
 		start += ITER; //less number equals to more lines
+		i++;
 	}
+	//printf("tenemos %f %i\n", ((ANGLE_E - ANGLE_S) / (ITER)), i);
 }
 
 //Main function which prints the map into the window.
