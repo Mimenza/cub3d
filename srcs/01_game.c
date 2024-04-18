@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/16 23:16:09 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/18 10:20:02 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	ft_start_game(t_game game)
 	get_player(&game);
 	ft_print_map(&game);
 	//mlx_hook(mlx, 2, 0, *key_press_hook, &game);
-	//mlx_hook(game.window.win, 2, 0, key_press_hook, &game);
-	mlx_key_hook(game.window.win, *key_press_hook, &game);
+	mlx_hook(game.window.win, 2, 0, key_press_hook, &game);
+	//mlx_key_hook(game.window.win, *key_press_hook, &game);
 	mlx_loop(mlx);
 }
 
