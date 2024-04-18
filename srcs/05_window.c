@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_window.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:35:31 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/16 13:19:59 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:11:03 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_window	ft_new_window(void *mlx, int widht, int height, char *name)
 	window.size->w = widht;
 	window.size->h = height;
 	window.mlx = mlx;
-	
 	window.win = mlx_new_window(mlx, widht, height, name);
 	window.img = mlx_new_image(mlx, widht, height);
 	window.addrs = mlx_get_data_addr(window.img, &window.bpp, &window.line_len, &window.endian);
