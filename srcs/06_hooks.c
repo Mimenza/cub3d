@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/17 16:42:44 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:19:56 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int key_press_hook(int keycode, t_game *game)
 
 	player = game->p;
 
-	system("clear");
+	//system("clear");
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(game->window.img, game->window.win);
@@ -27,13 +27,13 @@ int key_press_hook(int keycode, t_game *game)
 	}
 	if (keycode == KEY_RIGHT) // Girar a la derecha
 	{
-		player->rad -= 0.05;
+		player->rad -= R_SPEED;
 		if (player->rad < 0)
 			player->rad += 2 * M_PI;
 	}
 	else if (keycode == KEY_LEFT) // Girar a la izquierda
 	{
-		player->rad += 0.05;
+		player->rad += R_SPEED;
 		if (player->rad >= 2 * M_PI)
 			player->rad -= 2 * M_PI;
 	}

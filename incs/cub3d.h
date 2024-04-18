@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/18 10:18:19 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:19:50 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@
 # include "../libs/Libft/libft.h"
 // ----------------------------------
 // MACROS
-# define PXW 50
-# define BPP 32
-# define ANGLE_S -45
-# define ANGLE_E 45
-# define ITER 10
+# define PXW 90			//variable for the window size
+# define BPP 32			//bites per pixel
+# define ANGLE_S -45	//fov start angle
+# define ANGLE_E 45		//fov end angle
+# define ITER 0.1		//number of iters of the rays (less = more)
+# define RES 3			//scalation of the minimap (pwx % res must return 0)
+# define R_SPEED 0.2	//rotation speed
+
 //# define M_PI 3.1415926535897932384
 //450 height
 //800 width

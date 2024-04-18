@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/18 10:22:45 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:20:05 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	int i;
 	for (i = 0; i <= steps; i++)
 	{
-		int map_x = (int)(c_x / (game->window.size->w / game->map.size->w));
-		int map_y = (int)(c_y / (game->window.size->h / game->map.size->h));
+		int map_x = (int)(c_x / ((game->window.size->w / RES )/ game->map.size->w));
+		int map_y = (int)(c_y / ((game->window.size->h / RES ) / game->map.size->h));
 		if (map_x >= 0 && map_x < game->map.size->w && map_y >= 0 && map_y < game->map.size->h &&
 			game->map.grid[map_y][map_x] == '1')
 		{
@@ -65,13 +65,13 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 		c_y += dy;
 	}
 
-	i = 0;
-	while (i <= dtw)
-	{
-		printf("0");
-		i +=5;
-	}
-	printf("\n");
+	// i = 0;
+	// while (i <= dtw)
+	// {
+	// 	printf("0");
+	// 	i +=5;
+	// }
+	// printf("\n");
 }
 
 //Draws the fov fo the player
@@ -103,35 +103,35 @@ void	ft_print_map(t_game *game)
 	int		c_y;		//current y
 	double	l;			//len of the line
 
-	l = 10000000;
+	l = INT32_MAX;
 	c_y = 0;
 	posx = 0;
 	posy = 0;
-	px_rela = ((game->p->pos.x * game->window.size->w) / (game->map.size->w));
-	py_rela = ((game->p->pos.y * game->window.size->h) / (game->map.size->h));
+	px_rela = ((game->p->pos.x * game->window.size->w / RES) / (game->map.size->w));
+	py_rela = ((game->p->pos.y * game->window.size->h / RES) / (game->map.size->h));
 	y = 0;
-	while ( y < (game->window.size->h))
+	while ( y < (game->window.size->h / RES))
 	{
 		x = 0;
-		while (x < (game->window.size->w))
+		while (x < (game->window.size->w / RES))
 		{
 			if ((((x - px_rela) * (x - px_rela)) + ((y - py_rela) * (y - py_rela))) <= 40)
 			{
 				//If para printear circulito
 				my_mlx_pixel_put(game, x, y, 0xfa2e0a);
 			}
-			else if ((posx != ((x * game->map.size->w) / (game->window.size->w))) || (c_y != posy))
+			else if ((posx != ((x * game->map.size->w) / (game->window.size->w / RES))) || (c_y != posy))
 			{
 				//If para printear lineas grid
 				my_mlx_pixel_put(game, x, y, 0x000000);
-				posx = ((x * game->map.size->w) / (game->window.size->w));
-				posy = ((y * game->map.size->h) / (game->window.size->h));
+				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
+				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
 			}
 			else
 			{
 				//Else para printear todo lo demas
-				posx = ((x * game->map.size->w) / (game->window.size->w));
-				posy = ((y * game->map.size->h) / (game->window.size->h));
+				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
+				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
 				
 				if (game->map.grid[posy][posx] == '0')
 					my_mlx_pixel_put(game, x, y, 0xFFFFFF);
@@ -145,7 +145,7 @@ void	ft_print_map(t_game *game)
 			x++;
 		}
 		//Actualizamos que estamos en nueva fila
-		c_y = ((y * game->map.size->h) / (game->window.size->h));
+		c_y = ((y * game->map.size->h) / (game->window.size->h / RES));
 		y++;
 	}
 	draw_fov(game, px_rela, py_rela, l);
