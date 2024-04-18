@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/17 07:36:03 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/04/18 10:18:19 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 // MACROS
 # define PXW 50
 # define BPP 32
+# define ANGLE_S -45
+# define ANGLE_E 45
+# define ITER 10
 //# define M_PI 3.1415926535897932384
 //450 height
 //800 width
@@ -35,8 +38,8 @@
 # define KEY_D		2
 # define KEY_UP		126
 # define KEY_DOWN	125
-# define KEY_LEFT	123
-# define KEY_RIGHT	124
+# define KEY_LEFT	124
+# define KEY_RIGHT	123
 
 // Key Codes for Linux
 // # define KEY_ESC	65307
