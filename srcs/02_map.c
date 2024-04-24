@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   02_map.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:41:11 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/16 23:23:05 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/17 12:02:53 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ static char	**ft_create_and_validate_grid(char *strmap)
 
 	if (ft_create_grid(strmap, &grid) == 0)
 	{
-		grid = NULL;
+		// grid = NULL;
 		return (grid);
 	}
 	if (ft_map_coll(grid) == 0)
 	{
-		grid = NULL;
+		// grid = NULL;
 		return (grid);
 	}
 	if (ft_reachable(grid, strmap) == 0)
 	{
-		grid = NULL;
+		// grid = NULL;
 		return (grid);
 	}
 
