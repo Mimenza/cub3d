@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/24 11:19:43 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:24:31 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ void draw_v_line(t_game *game, double desv, int size, int c_i, int color)
 		y = 0;
 		while (y < column_h)
 		{
-			if (y < draw_start)
+			if (y < game->window.size->h / 2)
 				my_mlx_pixel_put(game, x, y, 0x8d9ed6); // Color superior
-			else if (y < draw_end)
-				my_mlx_pixel_put(game, x, y, color); // Color de la pared
-			else
+			else if (y > game->window.size->h / 2)
 				my_mlx_pixel_put(game, x, y, 0x96867a); // Color inferior
 
+			if ( y > draw_start && y < draw_end)
+				my_mlx_pixel_put(game, x, y, color); // Color de la pared
 			y++;
 		}
 		x++;
@@ -115,7 +115,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	double		dy;      // Change in y-coordinate per step
 	double		c_x;     // Current x-coordinate during line traversal
 	double		c_y;     // Current y-coordinate during line traversal
-	double		dtw;     // Distance to wall (distance to the first wall encountered)
+	int			dtw;     // Distance to wall (distance to the first wall encountered)
 	int			color;
 	double		map_y;
 	double		map_x;
