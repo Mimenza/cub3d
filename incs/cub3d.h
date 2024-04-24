@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/24 10:12:29 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/24 10:14:13 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define ITER 1		//number of iters of the rays (less = more)
 # define RES 3			//scalation of the minimap (pwx % res must return 0)
 # define R_SPEED 0.2	//rotation speed
-
+# define MOVE_STEP 0.1
 //# define M_PI 3.1415926535897932384
 //450 height
 //800 width
