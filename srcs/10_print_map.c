@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/24 11:03:04 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/24 11:19:43 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,8 +189,6 @@ void	draw_fov(t_game *game, double px_rela, double py_rela)
 		start += angle_increment; //less number equals to more lines
 		i++;
 	}
-	printf("en ancho de la ventana tiene %i pixeles\n", game->window.size->w);
-	printf("tenemos %i rayitos\n", i - 1);
 }
 
 void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy)
