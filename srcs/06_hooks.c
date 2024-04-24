@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/18 15:22:09 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/24 10:12:44 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int key_press_hook(int keycode, t_game *game)
 
 	player = game->p;
 
+	system("clear");
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(game->window.img, game->window.win);

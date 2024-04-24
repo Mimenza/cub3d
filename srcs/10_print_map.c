@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/18 16:49:41 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/24 11:03:04 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,23 @@ void	my_mlx_pixel_put(t_game *game, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
+double	cal_distance(t_player *player, double c_x, double c_y, int x, int y)
+{
+	double a;
+	double b;
+	double distance;
+
+	if (player->rad != 0)
+	{
+		a = (tan(player->rad + (M_PI / 2)));
+		b = (y - (x * a));
+	}
+	else
+		return (fabs(x - c_x));
+	distance = fabs((-(a * c_x) + c_y - b) / sqrt((a * a) + (1)));
+	return (distance);
+}
+
 void draw_v_line(t_game *game, double desv, int size, int c_i, int color)
 {
 	int column_w;
@@ -28,8 +45,8 @@ void draw_v_line(t_game *game, double desv, int size, int c_i, int color)
 	int y;
 	int wall_h;
 
-	wall_h = size * 20;
-	column_w = (game->window.size->w) / ((ANGLE_E - ANGLE_S) / (ITER));
+	wall_h = size;
+	column_w = 1;
 	column_h = game->window.size->h;
 
 	// Calcula el inicio y el final de la pared en la columna
@@ -38,7 +55,6 @@ void draw_v_line(t_game *game, double desv, int size, int c_i, int color)
 
 	// Desplaza la posición horizontalmente para la columna actual
 	int start_x = c_i * column_w;
-
 	int x = start_x;
 	while (x < start_x + column_w)
 	{
@@ -68,7 +84,7 @@ void draw_line(t_game *game, int x0, int y0, int x1, int y1, int color)
 
 	while (1)
 	{
-		my_mlx_pixel_put(game, x0, y0, color);
+		my_mlx_pixel_put(game, x0, y0 + 540, color);
 
 		if (x0 == x1 && y0 == y1)
 			break;
@@ -112,7 +128,6 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	dtw = -1;
 	end_x = x + (length * cos(game->p->rad + desv));
 	end_y = y + (length * sin(game->p->rad + desv));
-
 	if (abs(end_x - x) > abs(end_y - y))
 		steps = abs(end_x - x);
 	else
@@ -131,7 +146,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 		if ((int)map_x >= 0 && (int)map_x < game->map.size->w && (int)map_y >= 0 && (int)map_y < game->map.size->h &&
 			game->map.grid[(int)map_y][(int)map_x] == '1')
 		{
-			dtw = 3000 / sqrt((c_x - x) * (c_x - x) + (c_y - y) * (c_y - y));
+			dtw = 11000 / cal_distance(game->p, c_x, c_y, x, y);
 			break;
 		}
 
@@ -142,72 +157,64 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	if (fmod(map_y, 1) > 0.96 || fmod(map_y, 1) < 0.040)
 	{
 		draw_line(game, x, y, (int)c_x, (int)c_y, 0x8a1a96); //minimapa
-		//draw_v_line(game, desv, dtw, c_i, 0x8a1a96); //3d
+		draw_v_line(game, desv, dtw, c_i, 0x8a1a96); //3d
 	}
 	else
 	{
-		draw_line(game, x, y, (int)c_x, (int)c_y, 0x2c8f1d); //minimapa
-		//draw_v_line(game, desv, dtw, c_i, 0x2c8f1d);	//3d
+		//draw_line(game, x, y, (int)c_x, (int)c_y, 0x2c8f1d); //minimapa
+		draw_line(game, x, y, (int)c_x, (int)c_y, 0x8a1a96); //minimapa
+		draw_v_line(game, desv, dtw, c_i, 0x2c8f1d);	//3d
 	}
-		
 }
 
 //Draws the fov fo the player
-void	draw_fov(t_game *game, int px_rela, int py_rela, double l)
+void	draw_fov(t_game *game, double px_rela, double py_rela)
 {
 	double start;
 	double	end;
 	int		i;
-
-	i = 0;
-	start = ANGLE_S;	//Angle start to the left
-	end = ANGLE_E;		//Angle end to the right
-
-	//draw_line_to_direction(game, px_rela, py_rela, l, (0 * M_PI / 180.0));
-	
-	while (start <= end)
-	{
-		draw_line_to_direction(game, px_rela, py_rela, l, (start * M_PI / 180.0), i);
-		start += ITER; //less number equals to more lines
-		i++;
-	}
-	//printf("tenemos %f %i\n", ((ANGLE_E - ANGLE_S) / (ITER)), i);
-}
-
-//Main function which prints the map into the window.
-void	ft_print_map(t_game *game)
-{
-	int		x;
-	int		y;
-	char	**grid;
-	int		posx;		//saved x position
-	int		posy;		//saved y position
-	int		px_rela;	//player relative x position
-	int		py_rela;	//player relative y position
-	int		c_y;		//current y
 	double	l;			//len of the line
 
 	l = INT32_MAX;
+	i = 0;
+	start = ANGLE_S;	//Angle start to the left
+	end = ANGLE_E;		//Angle end to the right
+	
+	double num_lines = game->window.size->w / ITER / 10;
+	double angle_increment = (end - start) / num_lines; // Calcula el incremento del ángulo
+
+	while (start <= end)
+	{
+		draw_line_to_direction(game, px_rela, py_rela, l, (start * M_PI / 180.0), i);
+		start += angle_increment; //less number equals to more lines
+		i++;
+	}
+	printf("en ancho de la ventana tiene %i pixeles\n", game->window.size->w);
+	printf("tenemos %i rayitos\n", i - 1);
+}
+
+void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy)
+{
+	int		y;
+	int		x;
+	int		c_y;		//current y
+
 	c_y = 0;
-	posx = 0;
-	posy = 0;
-	px_rela = ((game->p->pos.x * game->window.size->w / RES) / (game->map.size->w));
-	py_rela = ((game->p->pos.y * game->window.size->h / RES) / (game->map.size->h));
 	y = 0;
 	while ( y < (game->window.size->h / RES))
 	{
 		x = 0;
 		while (x < (game->window.size->w / RES))
 		{
-			if ((((x - px_rela) * (x - px_rela)) + ((y - py_rela) * (y - py_rela))) <= 40)
+			if ((((x - px_rela) * (x - px_rela)) + ((y - py_rela) * (y - py_rela))) <= 20)
 			{
 				//If para printear circulito
-				my_mlx_pixel_put(game, x, y, 0xfa2e0a);
+				my_mlx_pixel_put(game, x, y + 540, 0xfa2e0a);
 			}
 			else if ((posx != ((x * game->map.size->w) / (game->window.size->w / RES))) || (c_y != posy))
 			{
 				//If para printear lineas grid
-				my_mlx_pixel_put(game, x, y, 0x000000);
+				my_mlx_pixel_put(game, x, y + 540, 0x000000);
 				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
 				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
 			}
@@ -216,15 +223,16 @@ void	ft_print_map(t_game *game)
 				//Else para printear todo lo demas
 				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
 				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
-				
 				if (game->map.grid[posy][posx] == '0')
-					my_mlx_pixel_put(game, x, y, 0xFFFFFF);
+					my_mlx_pixel_put(game, x, y + 540, 0xFFFFFF);
 				else if (game->map.grid[posy][posx] == '1')
-					my_mlx_pixel_put(game, x, y, 0x8a8787);
+				{
+					my_mlx_pixel_put(game, x, y + 540, 0x8a8787);
+				}
 				else if (game->map.grid[posy][posx] == ' ')
-					my_mlx_pixel_put(game, x, y, 0x000000);
+					my_mlx_pixel_put(game, x, y + 540, 0x000000);
 				else
-					my_mlx_pixel_put(game, x, y, 0xFFFFFF);
+					my_mlx_pixel_put(game, x, y + 540, 0xFFFFFF);
 			}
 			x++;
 		}
@@ -232,7 +240,22 @@ void	ft_print_map(t_game *game)
 		c_y = ((y * game->map.size->h) / (game->window.size->h / RES));
 		y++;
 	}
-	draw_fov(game, px_rela, py_rela, l);
+}
+
+// Main function which prints the map into the window.
+void	ft_print_map(t_game *game)
+{
+	int		posx;		//saved x position
+	int		posy;		//saved y position
+	int		px_rela;	//player relative x position
+	int		py_rela;	//player relative y position
+	posx = 0;
+	posy = 0;
+	px_rela = ((game->p->pos.x * game->window.size->w / RES) / (game->map.size->w));
+	py_rela = ((game->p->pos.y * game->window.size->h / RES) / (game->map.size->h));
+
+	draw_fov(game, px_rela, py_rela);
+	ft_print_minimap(game, px_rela, py_rela, posx, posy);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->window.img, 0, 0);
 }
 
