@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_print_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/24 11:19:43 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:38:04 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void draw_line(t_game *game, int x0, int y0, int x1, int y1, int color)
 	}
 }
 
-
 void draw_line_to_direction(t_game *game, int x, int y, double length, double desv, int c_i)
 {
 	int			end_x;      // End x-coordinate of the line
@@ -156,13 +155,13 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	}
 	if (fmod(map_y, 1) > 0.96 || fmod(map_y, 1) < 0.040)
 	{
-		draw_line(game, x, y, (int)c_x, (int)c_y, 0x8a1a96); //minimapa
+		// draw_line(game, x, y, (int)c_x, (int)c_y, 0x8a1a96); //minimapa
 		draw_v_line(game, desv, dtw, c_i, 0x8a1a96); //3d
 	}
 	else
 	{
 		//draw_line(game, x, y, (int)c_x, (int)c_y, 0x2c8f1d); //minimapa
-		draw_line(game, x, y, (int)c_x, (int)c_y, 0x8a1a96); //minimapa
+		// draw_line(game, x, y, (int)c_x, (int)c_y, 0x8a1a96); //minimapa
 		draw_v_line(game, desv, dtw, c_i, 0x2c8f1d);	//3d
 	}
 }
@@ -190,6 +189,55 @@ void	draw_fov(t_game *game, double px_rela, double py_rela)
 		i++;
 	}
 }
+
+// void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy)
+// {
+// 	int		y;
+// 	int		x;
+// 	int		c_y;		//current y
+
+// 	c_y = 0;
+// 	y = 0;
+// 	while ( y < (game->window.size->h / RES))
+// 	{
+// 		x = 0;
+// 		while (x < (game->window.size->w / RES))
+// 		{
+// 			if ((((x - px_rela) * (x - px_rela)) + ((y - py_rela) * (y - py_rela))) <= 20)
+// 			{
+// 				//If para printear circulito
+// 				my_mlx_pixel_put(game, x, y + 540, 0xfa2e0a);
+// 			}
+// 			else if ((posx != ((x * 5) / (game->window.size->w / RES))) || (c_y != posy))
+// 			{
+// 				//If para printear lineas grid
+// 				my_mlx_pixel_put(game, x, y + 540, 0x000000);
+// 				posx = ((x * 5) / (game->window.size->w / RES));
+// 				posy = ((y * 5) / (game->window.size->h / RES));
+// 			}
+// 			else
+// 			{
+// 				//Else para printear todo lo demas
+// 				posx = ((x * 5) / (game->window.size->w / RES));
+// 				posy = ((y * 5) / (game->window.size->h / RES));
+// 				if (game->map.grid[posy][posx] == '0')
+// 					my_mlx_pixel_put(game, x, y + 540, 0xFFFFFF);
+// 				else if (game->map.grid[posy][posx] == '1')
+// 				{
+// 					my_mlx_pixel_put(game, x, y + 540, 0x8a8787);
+// 				}
+// 				else if (game->map.grid[posy][posx] == ' ')
+// 					my_mlx_pixel_put(game, x, y + 540, 0x000000);
+// 				else
+// 					my_mlx_pixel_put(game, x, y + 540, 0xFFFFFF);
+// 			}
+// 			x++;
+// 		}
+// 		//Actualizamos que estamos en nueva fila
+// 		c_y = ((y * 5) / (game->window.size->h / RES));
+// 		y++;
+// 	}
+// }
 
 void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy)
 {
@@ -224,9 +272,7 @@ void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy
 				if (game->map.grid[posy][posx] == '0')
 					my_mlx_pixel_put(game, x, y + 540, 0xFFFFFF);
 				else if (game->map.grid[posy][posx] == '1')
-				{
 					my_mlx_pixel_put(game, x, y + 540, 0x8a8787);
-				}
 				else if (game->map.grid[posy][posx] == ' ')
 					my_mlx_pixel_put(game, x, y + 540, 0x000000);
 				else
@@ -249,8 +295,8 @@ void	ft_print_map(t_game *game)
 	int		py_rela;	//player relative y position
 	posx = 0;
 	posy = 0;
-	px_rela = ((game->p->pos.x * game->window.size->w / RES) / (game->map.size->w));
-	py_rela = ((game->p->pos.y * game->window.size->h / RES) / (game->map.size->h));
+	px_rela = ((game->p->pos.x * game->window.size->w / RES) / game->map.size->w);
+	py_rela = ((game->p->pos.y * game->window.size->h / RES) / game->map.size->h);
 
 	draw_fov(game, px_rela, py_rela);
 	ft_print_minimap(game, px_rela, py_rela, posx, posy);
