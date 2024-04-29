@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_game.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/18 11:23:58 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:30:51 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_start_game(t_game game)
 		ft_print_error(1);
 		exit(EXIT_FAILURE);
 	}
-	win = ft_new_window(mlx, game.map.size->w * PXW, game.map.size->h * PXW, "CUB3D");
+	win = ft_new_window(mlx, (game.map.size->w * PXW), (game.map.size->h * PXW), "CUB3D");
 	game.window = win;
 	get_player(&game);
 	ft_print_map(&game);

@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/24 15:24:31 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:07:31 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void draw_line(t_game *game, int x0, int y0, int x1, int y1, int color)
 
 	while (1)
 	{
-		my_mlx_pixel_put(game, x0, y0 + 540, color);
+		my_mlx_pixel_put(game, x0, y0, color);
 
 		if (x0 == x1 && y0 == y1)
 			break;
@@ -106,65 +106,77 @@ void draw_line(t_game *game, int x0, int y0, int x1, int y1, int color)
 }
 
 
+// void draw_line_to_direction(t_game *game, int x, int y, double length, double desv, int c_i)
+// {
+// 	int			end_x;      // End x-coordinate of the line
+// 	int			end_y;      // End y-coordinate of the line
+// 	double		steps;   // Number of steps to take along the line
+// 	double		dx;      // Change in x-coordinate per step
+// 	double		dy;      // Change in y-coordinate per step
+// 	double		c_x;     // Current x-coordinate during line traversal
+// 	double		c_y;     // Current y-coordinate during line traversal
+// 	int			dtw;     // Distance to wall (distance to the first wall encountered)
+// 	int			color;
+// 	double		map_y;
+// 	double		map_x;
+// 	int			i;
+
+// 	i = 0;
+// 	map_x = 0;
+// 	map_y = 0;
+// 	color = 0xfa2e0a;
+// 	dtw = -1;
+// 	end_x = x + (length * cos(game->p->rad + desv));
+// 	end_y = y + (length * sin(game->p->rad + desv));
+// 	if (abs(end_x - x) > abs(end_y - y))
+// 		steps = abs(end_x - x);
+// 	else
+// 		steps = abs(end_y - y);
+
+// 	dx = (end_x - x) / steps;
+// 	dy = (end_y - y) / steps;
+// 	c_x = x;
+// 	c_y = y;
+
+// 	while (i <= steps)
+// 	{
+// 		map_x = (c_x / ((game->window.size->w / RES) / game->map.size->w));
+// 		map_y = (c_y / ((game->window.size->h / RES) / game->map.size->h));
+
+// 		if ((int)map_x >= 0 && (int)map_x < game->map.size->w && (int)map_y >= 0 && (int)map_y < game->map.size->h &&
+// 			game->map.grid[(int)map_y][(int)map_x] == '1')
+// 		{
+// 			dtw = 11000 / cal_distance(game->p, c_x, c_y, x, y);
+// 			break;
+// 		}
+
+// 		c_x += dx;
+// 		c_y += dy;
+// 		i++;
+// 	}
+// 	if (fmod(map_y, 1) > 0.96 || fmod(map_y, 1) < 0.040)
+// 	{
+// 		draw_line(game, x, y, (int)c_x, (int)c_y, 0x8a1a96); //minimapa
+// 		//draw_v_line(game, desv, dtw, c_i, 0x8a1a96); //3d
+// 	}
+// 	else
+// 	{
+// 		draw_line(game, x, y, (int)c_x, (int)c_y, 0x2c8f1d); //minimapa
+// 		//draw_line(game, x, y, (int)c_x, (int)c_y, 0x8a1a96); //minimapa
+// 		//draw_v_line(game, desv, dtw, c_i, 0x2c8f1d);	//3d
+// 	}
+// }
+
+//Función para dibujar una línea hasta una pared según la dirección dada
 void draw_line_to_direction(t_game *game, int x, int y, double length, double desv, int c_i)
 {
-	int			end_x;      // End x-coordinate of the line
-	int			end_y;      // End y-coordinate of the line
-	double		steps;   // Number of steps to take along the line
-	double		dx;      // Change in x-coordinate per step
-	double		dy;      // Change in y-coordinate per step
-	double		c_x;     // Current x-coordinate during line traversal
-	double		c_y;     // Current y-coordinate during line traversal
-	int			dtw;     // Distance to wall (distance to the first wall encountered)
-	int			color;
-	double		map_y;
-	double		map_x;
-	int			i;
+	int grid_size = game->window.size->w / game->map.size->w; //how many px per grid square
 
-	i = 0;
-	map_x = 0;
-	map_y = 0;
-	color = 0xfa2e0a;
-	dtw = -1;
-	end_x = x + (length * cos(game->p->rad + desv));
-	end_y = y + (length * sin(game->p->rad + desv));
-	if (abs(end_x - x) > abs(end_y - y))
-		steps = abs(end_x - x);
-	else
-		steps = abs(end_y - y);
+	double	s_x = (double)x / grid_size; // position x of the player double
+	double	s_y = (double)y / grid_size; //position y of the player double
+	printf("x0: %f y0: %f\n", s_x , s_y);
 
-	dx = (end_x - x) / steps;
-	dy = (end_y - y) / steps;
-	c_x = x;
-	c_y = y;
-
-	while (i <= steps)
-	{
-		map_x = (c_x / ((game->window.size->w / RES) / game->map.size->w));
-		map_y = (c_y / ((game->window.size->h / RES) / game->map.size->h));
-
-		if ((int)map_x >= 0 && (int)map_x < game->map.size->w && (int)map_y >= 0 && (int)map_y < game->map.size->h &&
-			game->map.grid[(int)map_y][(int)map_x] == '1')
-		{
-			dtw = 11000 / cal_distance(game->p, c_x, c_y, x, y);
-			break;
-		}
-
-		c_x += dx;
-		c_y += dy;
-		i++;
-	}
-	if (fmod(map_y, 1) > 0.96 || fmod(map_y, 1) < 0.040)
-	{
-		draw_line(game, x, y, (int)c_x, (int)c_y, 0x8a1a96); //minimapa
-		draw_v_line(game, desv, dtw, c_i, 0x8a1a96); //3d
-	}
-	else
-	{
-		//draw_line(game, x, y, (int)c_x, (int)c_y, 0x2c8f1d); //minimapa
-		draw_line(game, x, y, (int)c_x, (int)c_y, 0x8a1a96); //minimapa
-		draw_v_line(game, desv, dtw, c_i, 0x2c8f1d);	//3d
-	}
+	
 }
 
 //Draws the fov fo the player
@@ -186,7 +198,8 @@ void	draw_fov(t_game *game, double px_rela, double py_rela)
 	while (start <= end)
 	{
 		draw_line_to_direction(game, px_rela, py_rela, l, (start * M_PI / 180.0), i);
-		start += angle_increment; //less number equals to more lines
+		//start += angle_increment; //less number equals to more lines
+		start += 10;
 		i++;
 	}
 }
@@ -198,47 +211,48 @@ void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy
 	int		c_y;		//current y
 
 	c_y = 0;
-	y = 0;
-	while ( y < (game->window.size->h / RES))
+	y = 1;
+	while ( y < (game->window.size->h))
 	{
-		x = 0;
-		while (x < (game->window.size->w / RES))
+		x = 1;
+		while (x < (game->window.size->w))
 		{
 			if ((((x - px_rela) * (x - px_rela)) + ((y - py_rela) * (y - py_rela))) <= 20)
 			{
 				//If para printear circulito
-				my_mlx_pixel_put(game, x, y + 540, 0xfa2e0a);
+				my_mlx_pixel_put(game, x, y , 0xfa2e0a);
 			}
-			else if ((posx != ((x * game->map.size->w) / (game->window.size->w / RES))) || (c_y != posy))
+			else if ((posx != ((x * game->map.size->w) / (game->window.size->w))) || (c_y != posy))
 			{
 				//If para printear lineas grid
-				my_mlx_pixel_put(game, x, y + 540, 0x000000);
-				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
-				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
+				my_mlx_pixel_put(game, x, y , 0x000000);
+				posx = ((x * game->map.size->w) / (game->window.size->w));
+				posy = ((y * game->map.size->h) / (game->window.size->h));
 			}
 			else
 			{
 				//Else para printear todo lo demas
-				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
-				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
+				posx = ((x * game->map.size->w) / (game->window.size->w));
+				posy = ((y * game->map.size->h) / (game->window.size->h));
 				if (game->map.grid[posy][posx] == '0')
-					my_mlx_pixel_put(game, x, y + 540, 0xFFFFFF);
+					my_mlx_pixel_put(game, x, y , 0xFFFFFF);
 				else if (game->map.grid[posy][posx] == '1')
 				{
-					my_mlx_pixel_put(game, x, y + 540, 0x8a8787);
+					my_mlx_pixel_put(game, x, y , 0x8a8787);
 				}
 				else if (game->map.grid[posy][posx] == ' ')
-					my_mlx_pixel_put(game, x, y + 540, 0x000000);
+					my_mlx_pixel_put(game, x, y , 0x000000);
 				else
-					my_mlx_pixel_put(game, x, y + 540, 0xFFFFFF);
+					my_mlx_pixel_put(game, x, y , 0xFFFFFF);
 			}
 			x++;
 		}
 		//Actualizamos que estamos en nueva fila
-		c_y = ((y * game->map.size->h) / (game->window.size->h / RES));
+		c_y = ((y * game->map.size->h) / (game->window.size->h));
 		y++;
 	}
 }
+
 
 // Main function which prints the map into the window.
 void	ft_print_map(t_game *game)
@@ -252,8 +266,9 @@ void	ft_print_map(t_game *game)
 	px_rela = ((game->p->pos.x * game->window.size->w / RES) / (game->map.size->w));
 	py_rela = ((game->p->pos.y * game->window.size->h / RES) / (game->map.size->h));
 
-	draw_fov(game, px_rela, py_rela);
+	
 	ft_print_minimap(game, px_rela, py_rela, posx, posy);
+	draw_fov(game, px_rela, py_rela);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->window.img, 0, 0);
 }
 
