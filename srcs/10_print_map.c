@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/29 17:07:31 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/29 22:50:53 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void draw_line(t_game *game, int x0, int y0, int x1, int y1, int color)
 	}
 }
 
+//OLD VERSION OF DRAW LINE TO DIRECTION
 
 // void draw_line_to_direction(t_game *game, int x, int y, double length, double desv, int c_i)
 // {
@@ -167,16 +168,145 @@ void draw_line(t_game *game, int x0, int y0, int x1, int y1, int color)
 // 	}
 // }
 
+//Returns whether the wall is h, v or a corner
+int check_point_in_grid(t_game *game, int x, int y, int grid_size)
+{
+	// Calcula las coordenadas del cuadrado actual
+	int square_x = x / grid_size;
+	int square_y = y / grid_size;
+
+	// Verifica si el punto está en una línea horizontal o vertical
+	if (x % grid_size == 0 && y % grid_size == 0)
+		return (1);
+	else if (x % grid_size == 0)
+		return (2);
+	else if (y % grid_size == 0)
+		return (3);
+	return (0);
+}
+
 //Función para dibujar una línea hasta una pared según la dirección dada
 void draw_line_to_direction(t_game *game, int x, int y, double length, double desv, int c_i)
 {
-	int grid_size = game->window.size->w / game->map.size->w; //how many px per grid square
+	int grid_size = game->window.size->w / game->map.size->w; // Tamaño de la cuadrícula
 
-	double	s_x = (double)x / grid_size; // position x of the player double
-	double	s_y = (double)y / grid_size; //position y of the player double
-	printf("x0: %f y0: %f\n", s_x , s_y);
+	double end_x = x; // Coordenada x actual/final inicializada con la posición inicial
+	double end_y = y; // Coordenada y actual/final inicializada con la posición inicial
 
+	int steps = 0;
+	int inter = 0; //interseccion, nos dice si es una pared H V o Esquina //3 H //2 V //1 ESQ
+
+	int grid_x; //posicion en el grid en la que estamos evaluando
+	int grid_y;	//posicion en el grid en la que estamos evaluando
 	
+	double old_x; //variable para guardarme la ultima vez que un punto ha cruzado una linea
+	double old_y; //variable para guardarme la ultima vez que un punto ha cruzado una linea
+	
+	while (steps < length)
+	{
+		end_x += cos(game->p->rad + desv);
+		end_y += sin(game->p->rad + desv);
+		if (steps == 0)
+		{
+			//inicializamos la ultima vez que hemos cruzado como la primera
+			old_x = end_x;
+			old_y = end_y;
+		}
+		steps++;
+		inter = check_point_in_grid(game, end_x, end_y, grid_size); //3 H //2 V
+		if (inter != 0)
+		{
+			double distance = sqrt(pow(end_x - old_x, 2) + pow(end_y - old_y, 2));//varibale de tolerancia por si cortamos la linea 2 veces muy cerca
+			if (distance > 1.5)
+			{
+				printf("HEMOS CRUZADO UNA LINEA\n");
+				grid_x = (int)(end_x / grid_size);
+				grid_y = (int)(end_y / grid_size);
+				
+				//VERTICALMENTE
+				if (inter ==3)
+				{
+					if (y > (int)end_y)
+					{
+						printf("y arriba\n");
+						grid_y -= 1;
+					}
+					else if (y < (int)end_y && inter == 3)
+					{
+						printf("y abajo\n");
+						grid_y += 1;
+					}
+				}
+				
+				//HORIZONTALMENTE
+				if (inter == 2)
+				{
+					if (x < (int)end_x)
+					{
+						printf("x derecha\n");
+						grid_x += 1;
+					}
+					else if (x > (int)end_x)
+					{
+						printf("x izquierda\n");
+						grid_x -= 1;
+					}
+				}
+				
+				//DIAGONALMENTE //AQUI NO SE MUY BIEN QUE HACER
+				if (inter == 1)
+				{
+					// if (y > (int)end_y)
+					// {
+					// 	printf("y arriba\n");
+					// 	grid_y -= 1;
+					// }
+					// else if (y < (int)end_y && inter == 3)
+					// {
+					// 	printf("y abajo\n");
+					// 	grid_y += 1;
+					// }
+
+					// if (x < (int)end_x)
+					// {
+					// 	printf("x derecha\n");
+					// 	grid_x += 1;
+					// }
+					// else if (x > (int)end_x)
+					// {
+					// 	printf("x izquierda\n");
+					// 	grid_x -= 1;
+					// }
+				}
+				
+				printf("cuadricula evaluando: x %i y %i\n", grid_x, grid_y);
+				printf("->%c<-\n", game->map.grid[grid_y][grid_x]);
+				printf ("inter es %i\n\n\n", inter);
+				
+				if (game->map.grid[grid_y][grid_x] == '1')
+					break;
+				
+			}
+			old_x = end_x;
+			old_y = end_y;
+		}
+	}
+
+	// Imprimir las coordenadas antes de dibujar la línea
+	printf("Coordenadas antes de dibujar la línea:\n");
+	printf("Inicio: (%d, %d)\n", x, y);
+	printf("Fin: (%d, %d)\n", (int)end_x, (int)end_y);
+
+	// Dibuja la línea en el minimapa
+	if (inter == 1)
+	{
+		//No dibujamos las diagonales
+		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
+	}
+	else if (inter == 2)
+		draw_line(game, x, y, (int)end_x, (int)end_y, 0x2a5cb8);
+	else if (inter == 3)
+		draw_line(game, x, y, (int)end_x, (int)end_y, 0xcc12a7);
 }
 
 //Draws the fov fo the player
@@ -187,7 +317,8 @@ void	draw_fov(t_game *game, double px_rela, double py_rela)
 	int		i;
 	double	l;			//len of the line
 
-	l = INT32_MAX;
+	//l = INT32_MAX;
+	l = 1000000000;
 	i = 0;
 	start = ANGLE_S;	//Angle start to the left
 	end = ANGLE_E;		//Angle end to the right
@@ -195,13 +326,15 @@ void	draw_fov(t_game *game, double px_rela, double py_rela)
 	double num_lines = game->window.size->w / ITER / 10;
 	double angle_increment = (end - start) / num_lines; // Calcula el incremento del ángulo
 
-	while (start <= end)
-	{
-		draw_line_to_direction(game, px_rela, py_rela, l, (start * M_PI / 180.0), i);
-		//start += angle_increment; //less number equals to more lines
-		start += 10;
-		i++;
-	}
+	draw_line_to_direction(game, px_rela, py_rela, l, (0 * M_PI / 180.0), i);
+
+	// while (start <= end)
+	// {
+	// 	draw_line_to_direction(game, px_rela, py_rela, l, (start * M_PI / 180.0), i);
+	// 	//start += angle_increment; //less number equals to more lines
+	// 	start += 10;
+	// 	i++;
+	// }
 }
 
 void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy)
@@ -266,7 +399,7 @@ void	ft_print_map(t_game *game)
 	px_rela = ((game->p->pos.x * game->window.size->w / RES) / (game->map.size->w));
 	py_rela = ((game->p->pos.y * game->window.size->h / RES) / (game->map.size->h));
 
-	
+	//ft_print_grid(game->map.grid);
 	ft_print_minimap(game, px_rela, py_rela, posx, posy);
 	draw_fov(game, px_rela, py_rela);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->window.img, 0, 0);
