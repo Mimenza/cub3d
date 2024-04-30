@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_print_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/30 11:50:00 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:24:16 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,12 +216,11 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 					grid_y += 0.9;
 				}
 			}
-			if (game->map.grid[(int)grid_y][(int)grid_x] == '1')
+			if (game->map.grid[(int)grid_y][(int)grid_x] == '1' || game->map.grid[(int)grid_y][(int)grid_x] == ' ')
 			{
 				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);
 				break;
 			}
-
 			old_x = end_x;
 			old_y = end_y;
 		}
@@ -281,64 +280,68 @@ void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy
 	int		c_y;		//current y
 
 	c_y = 0;
-	y = 1;
-	while ( y < (game->window.size->h))
+	y = 0;
+	while ( y < (game->window.size->h / RES))
 	{
-		x = 1;
-		while (x < (game->window.size->w))
+		x = 0;
+		while (x < (game->window.size->w / RES))
 		{
 			if ((((x - px_rela) * (x - px_rela)) + ((y - py_rela) * (y - py_rela))) <= 20)
 			{
 				//If para printear circulito
-				my_mlx_pixel_put(game, x, y , 0xfa2e0a);
+				my_mlx_pixel_put(game, x, y, 0xfa2e0a);
 			}
-			else if ((posx != ((x * game->map.size->w) / (game->window.size->w))) || (c_y != posy))
+			else if ((posx != ((x * game->map.size->w) / (game->window.size->w / RES))) || (c_y != posy))
 			{
 				//If para printear lineas grid
-				my_mlx_pixel_put(game, x, y , 0x000000);
-				posx = ((x * game->map.size->w) / (game->window.size->w));
-				posy = ((y * game->map.size->h) / (game->window.size->h));
+				my_mlx_pixel_put(game, x, y, 0x000000);
+				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
+				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
 			}
 			else
 			{
 				//Else para printear todo lo demas
-				posx = ((x * game->map.size->w) / (game->window.size->w));
-				posy = ((y * game->map.size->h) / (game->window.size->h));
+				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
+				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
 				if (game->map.grid[posy][posx] == '0')
-					my_mlx_pixel_put(game, x, y , 0xFFFFFF);
+					my_mlx_pixel_put(game, x, y, 0xFFFFFF);
 				else if (game->map.grid[posy][posx] == '1')
 				{
-					my_mlx_pixel_put(game, x, y , 0x8a8787);
+					my_mlx_pixel_put(game, x, y, 0x8a8787);
 				}
 				else if (game->map.grid[posy][posx] == ' ')
-					my_mlx_pixel_put(game, x, y , 0x000000);
+					my_mlx_pixel_put(game, x, y, 0x000000);
 				else
-					my_mlx_pixel_put(game, x, y , 0xFFFFFF);
+					my_mlx_pixel_put(game, x, y, 0xFFFFFF);
 			}
 			x++;
 		}
 		//Actualizamos que estamos en nueva fila
-		c_y = ((y * game->map.size->h) / (game->window.size->h));
+		c_y = ((y * game->map.size->h) / (game->window.size->h / RES));
 		y++;
 	}
 }
-
 
 // Main function which prints the map into the window.
 void	ft_print_map(t_game *game)
 {
 	int		posx;		//saved x position
 	int		posy;		//saved y position
-	int		px_rela;	//player relative x position
-	int		py_rela;	//player relative y position
+	int		px_rela1;	//player relative x position
+	int		py_rela1;	//player relative y position
+	int		px_rela2;	//player relative x position
+	int		py_rela2;	//player relative y position
+
 	posx = 0;
 	posy = 0;
-	px_rela = ((game->p->pos.x * game->window.size->w / RES) / game->map.size->w);
-	py_rela = ((game->p->pos.y * game->window.size->h / RES) / game->map.size->h);
+	px_rela1 = ((game->p->pos.x * game->window.size->w / RES_3D) / game->map.size->w);
+	py_rela1 = ((game->p->pos.y * game->window.size->h / RES_3D) / game->map.size->h);
+	px_rela2 = ((game->p->pos.x * game->window.size->w / RES) / game->map.size->w);
+	py_rela2 = ((game->p->pos.y * game->window.size->h / RES) / game->map.size->h);
 
 	//ft_print_grid(game->map.grid);
-	ft_print_minimap(game, px_rela, py_rela, posx, posy);
-	draw_fov(game, px_rela, py_rela);
+	draw_fov(game, px_rela1, py_rela1);
+	ft_print_minimap(game, px_rela2, py_rela2, posx, posy);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->window.img, 0, 0);
 }
 
