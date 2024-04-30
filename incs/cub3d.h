@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/30 12:23:43 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:10:46 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "../libs/Libft/libft.h"
 // ----------------------------------
 // MACROS
-# define PXW 90         //variable for the window size
+# define PXW 100         //variable for the window size
 # define BPP 32         //bites per pixel
 # define ANGLE_S -45    //fov start angle
 # define ANGLE_E 45     //fov end angle

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_window.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:35:31 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/29 15:31:39 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:05:41 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ static int	ft_close(void)
 t_window	ft_new_window(void *mlx, int widht, int height, char *name)
 {
 	t_window	window;
-
 	window.size = malloc(sizeof(t_size));
 	window.size->w = widht;
 	window.size->h = height;
+	printf("h %i\n", height);
+	printf("w %i\n", widht);
 	window.mlx = mlx;
 	window.win = mlx_new_window(mlx, widht, height, name);
 	window.img = mlx_new_image(mlx, widht, height);
