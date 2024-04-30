@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   06_hooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/30 10:08:34 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:37:50 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
+
+int mouse_movement(int x, int y, t_game *game)
+{
+	t_player *player = game->p;
+	static int prev_mouse_x = 0;
+	int curr_mouse_x = x;
+
+	int delta_x = curr_mouse_x - prev_mouse_x;
+
+	double sensitivity = 0.01;
+
+	player->rad += delta_x * sensitivity;
+
+	ft_print_map(game);
+
+	prev_mouse_x = curr_mouse_x;
+
+	return 0;
+}
 
 int key_press_hook(int keycode, t_game *game)
 {
