@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/30 16:00:41 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:40:02 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,7 +333,7 @@ void ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy
 				else
 				{
 					// Si la posición está fuera de los límites del mapa, pintar como transparente
-					my_mlx_pixel_put(game, x, y, 0x000000);
+					//my_mlx_pixel_put(game, x, y, 0x000000);
 				}
 			}
 			x++;

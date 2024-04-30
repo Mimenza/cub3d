@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/30 15:37:50 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:39:52 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int key_press_hook(int keycode, t_game *game)
 	system("clear");
 	if (keycode == KEY_ESC)
 	{
-		mlx_destroy_window(game->window.img, game->window.win);
 		exit(0);
 	}
 	if (keycode == KEY_RIGHT) // Girar a la derecha
