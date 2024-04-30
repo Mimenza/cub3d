@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   04_map_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:43 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/16 13:24:47 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/04/29 20:56:55 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_replace_p(char ***p_grid)
 		while (grid[y][x])
 		{
 			if (grid[y][x] == 'N' || grid[y][x] == 'S' || grid[y][x] == 'E' || grid[y][x] == 'W')
-				grid[y][x] = 'P'; 
+				grid[y][x] = '0';
 			x++;
 		}
 		y++;
