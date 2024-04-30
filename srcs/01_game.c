@@ -6,11 +6,55 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/30 15:19:04 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:30:27 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
+
+//This functions loads the imgs.
+static void	ft_load(t_game *game, char *path, int i)
+{
+	int		h;
+	int		w;
+
+	game->window.imgs[i] = mlx_xpm_file_to_image(game->window.mlx, path, &w, &h);
+	if (game->window.imgs[i] == NULL)
+	{
+		printf("ERROR LOADING IMGS%i\n", i);
+		return ;
+	}
+}
+
+static void	ft_cpy_imgs(char files[IMG_COUNT][42], t_game *game)
+{
+	int	i;
+
+	i = IMG_COUNT - 1;
+	while (i >= 0)
+	{
+		ft_load(game, files[i], i);
+		i--;
+	}
+}
+
+//This function loads the imgs path into the array.
+static void	ft_load_imgs(t_game *game)
+{
+	char	files[IMG_COUNT][42];
+
+	ft_strlcpy(files[0], BLUESTONE, 41);
+	ft_strlcpy(files[1], COLORSTONE, 41);
+	ft_strlcpy(files[2], EAGLE, 41);
+	ft_strlcpy(files[3], GREENLIGHT, 41);
+	ft_strlcpy(files[4], GREYSTONE, 41);
+	ft_strlcpy(files[5], MOSSY, 41);
+	ft_strlcpy(files[6], PILLAR, 41);
+	ft_strlcpy(files[7], PURPLESTONE, 41);
+	ft_strlcpy(files[8], REDBRICK, 41);
+	ft_strlcpy(files[9], WOOD, 41);
+	ft_cpy_imgs(files, game);
+}
 
 //Main function which starts the game.
 static void	ft_start_game(t_game game)
@@ -26,6 +70,7 @@ static void	ft_start_game(t_game game)
 	}
 	win = ft_new_window(mlx, (16 * PXW), (9 * PXW), "CUB3D");
 	game.window = win;
+	ft_load_imgs(&game);
 	get_player(&game);
 	ft_replace_p(&(game.map.grid));
 	ft_print_map(&game);

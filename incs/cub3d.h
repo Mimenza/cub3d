@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/30 15:22:52 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:31:31 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,19 @@
 // # define KEY_RIGHT	65361
 // # define KEY_LEFT	65363
 
+# define BLUESTONE		"./textures/bluestone.xpm"
+# define COLORSTONE		"./textures/colorstone.xpm"
+# define EAGLE			"./textures/eagle.xpm"
+# define GREENLIGHT		"./textures/greenlight.xpm"
+# define GREYSTONE		"./textures/greystone.xpm"
+# define MOSSY			"./textures/mossy.xpm"
+# define PILLAR			"./textures/pillar.xpm"
+# define PURPLESTONE	"./textures/purplestone.xpm"
+# define REDBRICK		"./textures/redbrick.xpm"
+# define WOOD			"./textures/wood.xpm"
+
 // Assets location
-# define IMG_COUNT	20
+# define IMG_COUNT	10
 
 // ----------------------------------
 
@@ -89,14 +100,14 @@ typedef struct s_position
 typedef struct s_window
 {
 	void	*mlx;
-	void	*win;
 	void	*img;
+	void	*win;
 	char	*addrs;
 	int		line_len;
 	int		endian;
 	int		bpp;
 	t_size	*size;
-	// void	*img[IMG_COUNT];
+	void	*imgs[IMG_COUNT];
 }			t_window;
 
 // store all information about the map

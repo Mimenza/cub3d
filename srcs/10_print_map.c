@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/30 13:26:31 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:00:41 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 
 	double dtw = 0;
 
+	int	dir = 0;
 	while (steps < length)
 	{
 		end_x += cos(game->p->rad + desv);
@@ -167,11 +168,13 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 				if (y > (int)end_y)
 				{
 					// printf("y arriba\n");
+					dir = 1;
 					grid_y -= 1;
 				}
 				else if (y < (int)end_y && inter == 3)
 				{
 					// printf("y abajo\n");
+					dir = 2;
 					grid_y += 0.9;
 				}
 			}
@@ -182,11 +185,13 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 				if (x < (int)end_x)
 				{
 					// printf("x derecha\n");
+					dir = 3;
 					grid_x += 0.9;
 				}
 				else if (x > (int)end_x)
 				{
 					// printf("x izquierda\n");
+					dir = 4;
 					grid_x -= 1;
 				}
 			}
@@ -236,12 +241,18 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	else if (inter == 2)
 	{
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0x2a5cb8);
-		draw_v_line(game, desv, dtw, c_i, 0x2a5cb8); //3d
+		if (dir == 3)
+			draw_v_line(game, desv, dtw, c_i, 0x5ab802); //3d verde
+		else
+			draw_v_line(game, desv, dtw, c_i, 0xf77102); //3d naranja
 	}
 	else if (inter == 3)
 	{
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xcc12a7);
-		draw_v_line(game, desv, dtw, c_i, 0xcc12a7); //3d
+		if (dir == 1)
+			draw_v_line(game, desv, dtw, c_i, 0x0e8ae3); //3d azul
+		else
+			draw_v_line(game, desv, dtw, c_i, 0xa30ee3); //3d moradito
 	}
 		
 }
@@ -273,7 +284,6 @@ void	draw_fov(t_game *game, double px_rela, double py_rela)
 		i++;
 	}
 }
-
 
 void ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy)
 {
