@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/30 16:40:24 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/01 15:42:43 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,15 @@ typedef struct s_position
 	double		y;
 }			t_position;
 
+typedef struct s_imgs
+{
+	void	*img;
+	char	*addrs;
+	int		line_len;
+	int		endian;
+	int		bpp;
+}			t_imgs;
+
 // store all information about the window
 typedef struct s_window
 {
@@ -107,7 +116,12 @@ typedef struct s_window
 	int		endian;
 	int		bpp;
 	t_size	*size;
-	void	*imgs[IMG_COUNT];
+	// void	*imgs[IMG_COUNT];
+	t_imgs	*imgs[IMG_COUNT];
+	// int		*n_addr;
+	// int		*s_addr;
+	// int		*e_addr;
+	// int		*w_addr;
 }			t_window;
 
 // store all information about the map

@@ -3,27 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   01_game.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/30 16:39:46 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/02 08:55:44 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
 //This functions loads the imgs.
-static void	ft_load(t_game *game, char *path, int i)
+static t_imgs	*ft_load(t_game *game, char *path, int i)
 {
 	int		h;
 	int		w;
+	t_imgs	*img;
 
-	game->window.imgs[i] = mlx_xpm_file_to_image(game->window.mlx, path, &w, &h);
-	if (game->window.imgs[i] == NULL)
+	img = (t_imgs *)malloc(sizeof(t_imgs));
+	if (!img)
+		return (NULL);
+	// printf("en la vuelta %d hemos maloqueado un %p\n", i, img);
+	img->img = mlx_xpm_file_to_image(game->window.mlx, path, &w, &h);
+	img->addrs = mlx_get_data_addr(img->img, &img->bpp, &img->line_len, &img->endian);
+	if (img->img == NULL)
 	{
 		printf("ERROR LOADING IMGS%i\n", i);
-		return ;
+		return (NULL);
 	}
+	return(img);
 }
 
 static void	ft_cpy_imgs(char files[IMG_COUNT][42], t_game *game)
@@ -33,7 +40,7 @@ static void	ft_cpy_imgs(char files[IMG_COUNT][42], t_game *game)
 	i = IMG_COUNT - 1;
 	while (i >= 0)
 	{
-		ft_load(game, files[i], i);
+		game->window.imgs[i] = ft_load(game, files[i], i);
 		i--;
 	}
 }

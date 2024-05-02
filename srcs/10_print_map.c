@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_print_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/30 16:40:02 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/02 12:57:15 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void draw_line(t_game *game, int x0, int y0, int x1, int y1, int color)
 			break;
 
 		int e2 = 2 * err;
-		
+
 		if (e2 > -dy)
 		{
 			err -= dy;
@@ -135,7 +135,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 
 	double grid_x; //posicion en el grid en la que estamos evaluando
 	double grid_y;	//posicion en el grid en la que estamos evaluando
-	
+
 	double old_x; //variable para guardarme la ultima vez que un punto ha cruzado una linea
 	double old_y; //variable para guardarme la ultima vez que un punto ha cruzado una linea
 
@@ -161,7 +161,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 			//LO QUE TENIAS
 			grid_x = (int)(end_x / grid_size);
 			grid_y = (int)(end_y / grid_size);
-			
+
 			//VERTICALMENTE
 			if (inter ==3)
 			{
@@ -178,7 +178,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 					grid_y += 0.9;
 				}
 			}
-			
+
 			//HORIZONTALMENTE
 			if (inter == 2)
 			{
@@ -223,7 +223,16 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 			}
 			if (game->map.grid[(int)grid_y][(int)grid_x] == '1' || game->map.grid[(int)grid_y][(int)grid_x] == ' ')
 			{
+				// printf("el rayo ha chocado en las coordenadas x: %f e y:%f\nlas coordenadas del jugador son x", grid_x, grid_y);
 				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);
+				double realx = end_x * game->map.size->w / game->window.size->w;
+				double realy = end_y * game->map.size->h / game->window.size->h;
+				int i = ft_strlen(game->window.imgs[4]->addrs);
+				printf("%d\n", i);
+				printf("las verdaderas coordenadas del impacto son x:%f e y:%f\n", realx, realy);
+				printf("la distancia es %f\n", dtw);
+				printf("un color random seria %d\n", game->window.imgs[0]->addrs[4096]);
+				printf("l longitud es de %zu\n", ft_strlen(game->window.imgs[0]->addrs));
 				//dtw = 50000 / sqrt((end_x - x) * (end_x - x) + (end_y - y) * (end_y - y));
 				break;
 			}
@@ -254,13 +263,12 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 		else
 			draw_v_line(game, desv, dtw, c_i, 0xa30ee3); //3d moradito
 	}
-		
 }
 
 //Draws the fov fo the player
 void	draw_fov(t_game *game, double px_rela, double py_rela)
 {
-	double start;
+	double	start;
 	double	end;
 	int		i;
 	double	l;			//len of the line
@@ -273,13 +281,13 @@ void	draw_fov(t_game *game, double px_rela, double py_rela)
 	
 	double num_lines = game->window.size->w / ITER / 10;
 	double angle_increment = (end - start) / num_lines; // Calcula el incremento del ángulo
-
 	// draw_line_to_direction(game, px_rela, py_rela, l, (0 * M_PI / 180.0), i);
-
+	start = 0;
 	while (start <= end)
 	{
 		draw_line_to_direction(game, px_rela, py_rela, l, (start * M_PI / 180.0), i);
 		start += angle_increment; //less number equals to more lines
+		break ;
 		//start += 1;
 		i++;
 	}
@@ -343,57 +351,6 @@ void ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy
 		y++;
 	}
 }
-
-// void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy)
-// {
-// 	int		y;
-// 	int		x;
-// 	int		c_y;		//current y
-
-// 	c_y = 0;
-// 	y = 0;
-// 	while ( y < (game->window.size->h / RES))
-// 	{
-// 		x = 0;
-// 		while (x < (game->window.size->w / RES))
-// 		{
-// 			if ((((x - px_rela) * (x - px_rela)) + ((y - py_rela) * (y - py_rela))) <= 20)
-// 			{
-// 				//If para printear circulito
-// 				my_mlx_pixel_put(game, x, y, 0xfa2e0a);
-// 			}
-// 			else if ((posx != ((x * game->map.size->w) / (game->window.size->w / RES))) || (c_y != posy))
-// 			{
-// 				// //If para printear lineas grid
-// 				// my_mlx_pixel_put(game, x, y, 0x000000);
-// 				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
-// 				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
-// 			}
-// 			else
-// 			{
-// 				//Else para printear todo lo demas
-// 				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
-// 				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
-// 				if (game->map.grid[posy][posx] == '0')
-// 					my_mlx_pixel_put(game, x, y, 0xFFFFFF);
-// 				else if (game->map.grid[posy][posx] == '1')
-// 				{
-// 					my_mlx_pixel_put(game, x, y, 0x8a8787);
-// 				}
-// 				else if (game->map.grid[posy][posx] == ' ')
-// 				{
-// 					//my_mlx_pixel_put(game, x, y, 0x000000);
-// 				}
-// 				else
-// 					my_mlx_pixel_put(game, x, y, 0xFFFFFF);
-// 			}
-// 			x++;
-// 		}
-// 		//Actualizamos que estamos en nueva fila
-// 		c_y = ((y * game->map.size->h) / (game->window.size->h / RES));
-// 		y++;
-// 	}
-// }
 
 // Main function which prints the map into the window.
 void	ft_print_map(t_game *game)
