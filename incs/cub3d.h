@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/01 15:42:43 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:24:52 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,26 @@
 //800 width
 
 // Key Codes for MacOS
-# define KEY_ESC	53
-# define KEY_W		13
-# define KEY_A		0
-# define KEY_S		1
-# define KEY_D		2
-# define KEY_UP		126
-# define KEY_DOWN	125
-# define KEY_LEFT	124
-# define KEY_RIGHT	123
+// # define KEY_ESC	53
+// # define KEY_W		13
+// # define KEY_A		0
+// # define KEY_S		1
+// # define KEY_D		2
+// # define KEY_UP		126
+// # define KEY_DOWN	125
+// # define KEY_LEFT	124
+// # define KEY_RIGHT	123
 
 // Key Codes for Linux
-// # define KEY_ESC	65307
-// # define KEY_W		119
-// # define KEY_A		97
-// # define KEY_S		115
-// # define KEY_D		100
-// # define KEY_UP		65362
-// # define KEY_DOWN	65364
-// # define KEY_RIGHT	65361
-// # define KEY_LEFT	65363
+# define KEY_ESC	65307
+# define KEY_W		119
+# define KEY_A		97
+# define KEY_S		115
+# define KEY_D		100
+# define KEY_UP		65362
+# define KEY_DOWN	65364
+# define KEY_RIGHT	65361
+# define KEY_LEFT	65363
 
 # define BLUESTONE		"./textures/bluestone.xpm"
 # define COLORSTONE		"./textures/colorstone.xpm"
@@ -130,6 +130,13 @@ typedef struct s_map
 	char	**grid;
 	t_size	*size;
 	int		created;
+
+	int		f_color;
+	int		g_color;
+	char	*no_texture;
+	char	*so_texture;
+	char	*we_texture;
+	char	*ea_texture;
 }			t_map;
 
 //store all the information about the player
@@ -165,7 +172,7 @@ int				ft_count_item(char c, int *player);
 int				ft_check_item(char c, int *player);
 
 //04_MAP_UTILS2
-int				ft_create_grid(char *strmap, char ***grid);
+int				ft_create_grid(t_map *map, char *strmap, char ***grid);
 int				ft_map_coll(char **grid);
 void			ft_replace_p(char ***p_grid);
 void			fill_w_sp(char	***grid);

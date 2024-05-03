@@ -6,11 +6,46 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:33:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/16 23:23:19 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:29:11 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
+
+//This function creates a double ptr.
+char	**ft_create_doubleptr(char **grid)
+{
+	char	**ptr;
+	int		size;
+
+	
+	size = 0;
+	while (grid[size])
+		size++;
+	ptr = (char **)malloc((size + 1) * sizeof(char *));
+	if (ptr == NULL)
+		return (ptr);
+	return (ptr);
+}
+
+//This function copies a double ptr.
+void	ft_copy_doubleptr(char **grid, char **p_grid)
+{
+	int	i;
+	int	size;
+
+	size = 0;
+	while (grid[size])
+		size++;
+	
+	i = 0;
+	while (i <= (size - 1))
+	{
+		p_grid[i] = ft_strdup(grid[i]);
+		i++;
+	}
+	p_grid[i] = NULL;
+}
 
 //Checks if the above position is expandable, and expand to it.
 static int	ft_check_position(int x, int y, char **grid, int *w_flag)
@@ -66,12 +101,16 @@ int	ft_reachable(char **grid, char *strmap)
 	int			expandable;
 	char		**p_grid;
 	int			w_flag;
+	int			size;
 
 	expandable = 1;
 	w_flag = 0;
+	size = 
 	printf("CHECKING IF THE MAP IS DO-ABLE...");
-	ft_create_grid(strmap, &p_grid);
+	p_grid = ft_create_doubleptr(grid);
+	ft_copy_doubleptr(grid, p_grid);
 	ft_replace_p(&p_grid);
+	ft_print_grid(p_grid);
 	while (expandable == 1 && w_flag == 0)
 		expandable = ft_expandable(p_grid, &w_flag);
 	if (w_flag == 0)

@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:46:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/15 13:41:12 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:56:55 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 {
 	t_game		game;
 
-	printf("CHECKING FILE NAME....");
+	printf("CHECKING FILE ....");
 	if (argc == 2 && ft_check_ext(*(argv + 1), ".cub"))
 	{
 		printf("\033[0;32m [OK] \033[0m \n\n");

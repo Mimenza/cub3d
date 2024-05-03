@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_print_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/02 12:57:15 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:29:23 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,11 +228,11 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 				double realx = end_x * game->map.size->w / game->window.size->w;
 				double realy = end_y * game->map.size->h / game->window.size->h;
 				int i = ft_strlen(game->window.imgs[4]->addrs);
-				printf("%d\n", i);
-				printf("las verdaderas coordenadas del impacto son x:%f e y:%f\n", realx, realy);
-				printf("la distancia es %f\n", dtw);
-				printf("un color random seria %d\n", game->window.imgs[0]->addrs[4096]);
-				printf("l longitud es de %zu\n", ft_strlen(game->window.imgs[0]->addrs));
+				// printf("%d\n", i);
+				// printf("las verdaderas coordenadas del impacto son x:%f e y:%f\n", realx, realy);
+				// printf("la distancia es %f\n", dtw);
+				// printf("un color random seria %d\n", game->window.imgs[0]->addrs[4096]);
+				// printf("l longitud es de %zu\n", ft_strlen(game->window.imgs[0]->addrs));
 				//dtw = 50000 / sqrt((end_x - x) * (end_x - x) + (end_y - y) * (end_y - y));
 				break;
 			}
@@ -282,12 +282,12 @@ void	draw_fov(t_game *game, double px_rela, double py_rela)
 	double num_lines = game->window.size->w / ITER / 10;
 	double angle_increment = (end - start) / num_lines; // Calcula el incremento del ángulo
 	// draw_line_to_direction(game, px_rela, py_rela, l, (0 * M_PI / 180.0), i);
-	start = 0;
+	//start = 0;
 	while (start <= end)
 	{
 		draw_line_to_direction(game, px_rela, py_rela, l, (start * M_PI / 180.0), i);
 		start += angle_increment; //less number equals to more lines
-		break ;
+		//break ;
 		//start += 1;
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_game.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/02 08:55:44 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:36:39 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ static void	ft_start_game(t_game game)
 	ft_replace_p(&(game.map.grid));
 	ft_print_map(&game);
 	//mlx_hook(mlx, 2, 0, *key_press_hook, &game);
-	mlx_hook(game.window.win, 2, 0, key_press_hook, &game); //WINDOW HOLD
-	mlx_hook(game.window.win, 6, 0, mouse_movement, &game);
-	//mlx_key_hook(game.window.win, *key_press_hook, &game); //LINUX  TAP
+	//mlx_hook(game.window.win, 2, 0, key_press_hook, &game); //WINDOW HOLD
+	//mlx_hook(game.window.win, 6, 0, mouse_movement, &game);
+	mlx_key_hook(game.window.win, *key_press_hook, &game); //LINUX  TAP
 	mlx_loop(mlx);
 }
 

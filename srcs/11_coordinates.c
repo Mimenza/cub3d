@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   11_coordinates.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:20:29 by anurtiag          #+#    #+#             */
-/*   Updated: 2024/04/17 07:56:37 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:57:31 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ void	get_player(t_game *game)
 		return ;
 	game->p = player;
 	ft_get_player_pos(&player, game->map.grid);
-	printf("la posicion del jugador es de x: %f, y: %f con una direccion en rad de : %f\n", player->pos.x, player->pos.y, player->rad);
+	//printf("la posicion del jugador es de x: %f, y: %f con una direccion en rad de : %f\n", player->pos.x, player->pos.y, player->rad);
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   02_map.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:41:11 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/17 12:02:53 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:31:06 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,25 @@ void	calculate_size(t_map *map)
 }
 
 // Function to create and validate the grid
-static char	**ft_create_and_validate_grid(char *strmap)
+static char	**ft_create_and_validate_grid(t_map *map, char *strmap)
 {
 	char	**grid;
 
-	if (ft_create_grid(strmap, &grid) == 0)
+	if (ft_create_grid(map, strmap, &grid) == 0)
 	{
-		// grid = NULL;
+		grid = NULL;
 		return (grid);
 	}
 	if (ft_map_coll(grid) == 0)
 	{
-		// grid = NULL;
+		grid = NULL;
 		return (grid);
 	}
 	if (ft_reachable(grid, strmap) == 0)
 	{
-		// grid = NULL;
+		grid = NULL;
 		return (grid);
 	}
-
 	fill_w_sp(&grid);
 	return (grid);
 }
@@ -65,7 +64,11 @@ t_map	ft_create_map(char *strmap)
 	char	**grid;
 
 	map.created = 0;
-	grid = ft_create_and_validate_grid(strmap);
+	map.no_texture = NULL;
+	map.so_texture = NULL;
+	map.we_texture = NULL;
+	map.ea_texture = NULL;
+	grid = ft_create_and_validate_grid(&map, strmap);
 	if (grid == NULL)
 		return (map);
 	map.grid = grid;
