@@ -6,11 +6,41 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 20:38:06 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/05 21:31:03 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
+
+char	*parse_textures(char *line)
+{
+	while (*line != ' ' && *line != '\t' && *line != '\0')
+		line++;
+
+	while (*line == ' ' || *line == '\t')
+		line++;
+	return (line);
+}
+
+int		parse_colors(char *line)
+{
+	char *parsed_line;
+	int	r;
+	int	g;
+	int	b;
+
+	parsed_line = parse_textures(line);
+	r = atoi(parsed_line);
+	g = atoi(parsed_line + 4);
+	b = atoi(parsed_line + 8);
+
+	//printf("%i %i %i\n", r, g, b);	
+	//printf("%i \n", (r << 16) | (g << 8) | b);
+	//printf("#%06X \n", (r << 16) | (g << 8) | b);
+	return((r << 16) | (g << 8) | b);
+}
+
+
 
 //CHECKS THE LINES
 int	check_flags(int *flag, int empty_flag)
@@ -42,6 +72,7 @@ int is_empty(char *str)
 	}
 	return (1);
 }
+
 //0 ERROR 1 GRID 2 TEXTURE 3 COLOR
 int	treat_data(t_map *map, char *line, int empty_flag, int *c_flag, int *g_flag, int *t_flag)
 {
@@ -57,42 +88,42 @@ int	treat_data(t_map *map, char *line, int empty_flag, int *c_flag, int *g_flag,
 		if (map->no_texture || check_flags(t_flag, empty_flag) == 0)
 			error_flag = 1;
 		data_type = 2;
-		map->no_texture = line;
+		map->no_texture = parse_textures(line);
 	}
 	else if (ft_strncmp(line, "SO ", 3) == 0)
 	{
 		if (map->so_texture || check_flags(t_flag, empty_flag) == 0)
 			error_flag = 1;
 		data_type = 2;
-		map->so_texture = line;
+		map->so_texture = parse_textures(line);
 	}
 	else if (ft_strncmp(line, "WE ", 3) == 0)
 	{
 		if (map->we_texture || check_flags(t_flag, empty_flag) == 0)
 			error_flag = 1;
 		data_type = 2;
-		map->we_texture = line;
+		map->we_texture = parse_textures(line);
 	}
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 	{
 		if (map->ea_texture || check_flags(t_flag, empty_flag) == 0)
 			error_flag = 1;
 		data_type = 2;
-		map->ea_texture = line;
+		map->ea_texture = parse_textures(line);
 	}
 	else if (ft_strncmp(line, "F ", 2) == 0)
 	{
 		if (map->f_color || check_flags(c_flag, empty_flag) == 0)
 			error_flag = 1;
 		data_type = 3;
-		map->f_color = atoi(line);
+		map->f_color = parse_colors(line);
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
 	{
 		if (map->c_color || check_flags(c_flag, empty_flag) == 0)
 			error_flag = 1;
 		data_type = 3;
-		map->c_color = atoi(line);
+		map->c_color = parse_colors(line);
 	}
 	
 	if (error_flag == 1)
@@ -106,6 +137,7 @@ int	treat_data(t_map *map, char *line, int empty_flag, int *c_flag, int *g_flag,
 	
 	if (check_flags(g_flag, empty_flag) == 0 || *c_flag == 1 || *t_flag == 1)
 		return ((void)printf("Error in the map syntax, line-->%s\n", line), 0);//ERROR
+
 	return (1); //GRID
 }
 
@@ -176,5 +208,10 @@ int ft_read_file(t_map *map, char *strmap)
 	if (ft_reachable(grid, strmap) == 0)
 		return (0);
 	fill_w_sp(&grid);
+
+	printf("NO %s\n", map->no_texture);
+	printf("SO %s\n", map->so_texture);
+	printf("WE %s\n", map->we_texture);
+	printf("EA %s\n", map->ea_texture);
 	return (1);
 }
