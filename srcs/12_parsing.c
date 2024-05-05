@@ -6,12 +6,13 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 20:25:35 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:38:06 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
+//CHECKS THE LINES
 int	check_flags(int *flag, int empty_flag)
 {
 	//error si empezamos nuevo grupo (flag == 1) y la anterio linea no esta vacia (empty_flag != 0)
@@ -20,26 +21,26 @@ int	check_flags(int *flag, int empty_flag)
 	{
 		if (*flag == 1)
 			*flag = 0;
-		return (0); //si la anterior linea es NO es espacio y hemos empezado nuevo grupo
+		return (0);
 	}
-	
 	if (*flag == 1)
 		*flag = 0;
 	
 	return (1);
 }
 
+//CHECKS IF THE LINE IS EMPTY
 int is_empty(char *str)
 {
 	while (*str != '\0')
 	{
 		if (*str != ' ' && *str != '\t' && *str != '\n')
 		{
-			return 0; // No solo contiene espacios, tabulaciones o saltos de línea
+			return (0);
 		}
 		str++;
 	}
-	return 1; // Contiene solo espacios, tabulaciones o saltos de línea
+	return (1);
 }
 //0 ERROR 1 GRID 2 TEXTURE 3 COLOR
 int	treat_data(t_map *map, char *line, int empty_flag, int *c_flag, int *g_flag, int *t_flag)
@@ -51,7 +52,6 @@ int	treat_data(t_map *map, char *line, int empty_flag, int *c_flag, int *g_flag,
 	data_type = 0; //default
 	error_flag = 0;
 
-	// printf(" treating the line: %s prev line empty?: %i\n c_f: %i\n t _f: %i\n", line, empty_flag, *c_flag, *t_flag);
 	if (ft_strncmp(line, "NO ", 3) == 0)
 	{
 		if (map->no_texture || check_flags(t_flag, empty_flag) == 0)
@@ -123,8 +123,8 @@ int ft_read_file(t_map *map, char *strmap)
 	char	**grid;
 	int		tread_flag;
 
-	tread_flag = 10;
-	empty_flag = 10;
+	tread_flag = 10;	//init in random nbr
+	empty_flag = 10;	//init in random nbr
 	c_flag = 1;
 	g_flag = 1;
 	t_flag = 1;
@@ -148,9 +148,7 @@ int ft_read_file(t_map *map, char *strmap)
 		if (line != NULL)
 		{
 			if (is_empty(line) == 1)
-			{
 				empty_flag = 1;
-			}
 			else
 			{
 				tmp = ft_strdup(grid_line);
@@ -159,15 +157,9 @@ int ft_read_file(t_map *map, char *strmap)
 				if (tread_flag == 0)
 					break;
 				else if ( tread_flag == 1)
-				{
-					// lo queremos para el grid
-					grid_line = ft_strjoin(tmp, line);
-				}
+					grid_line = ft_strjoin(tmp, line);// lo queremos para el grid
 				else
-				{
-					//no lo queremos para el grid
-					grid_line = ft_strdup(tmp);
-				}
+					grid_line = ft_strdup(tmp); //no lo queremos para el grid
 				free(line);
 				free(tmp);
 				empty_flag = 0;
@@ -179,4 +171,10 @@ int ft_read_file(t_map *map, char *strmap)
 	close(fdmap);
 	grid = ft_split(grid_line, '\n');
 	map->grid = grid;
+	if (ft_map_coll(grid) == 0)
+		return (0);
+	if (ft_reachable(grid, strmap) == 0)
+		return (0);
+	fill_w_sp(&grid);
+	return (1);
 }
