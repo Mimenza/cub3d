@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 13:02:29 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:18:09 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,168 +308,6 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	old_inter = inter;
 }
 
-// void draw_line_to_direction(t_game *game, int x, int y, double length, double desv, int c_i)
-// {
-// 	int grid_size = game->window.size->w / game->map.size->w; // Tamaño de la cuadrícula
-
-// 	double end_x = x; // Coordenada x actual/final inicializada con la posición inicial
-// 	double end_y = y; // Coordenada y actual/final inicializada con la posición inicial
-
-// 	int steps = 0;
-// 	int inter = 0; //interseccion, nos dice si es una pared H V o Esquina //3 H //2 V //1 ESQ
-
-// 	double grid_x; //posicion en el grid en la que estamos evaluando
-// 	double grid_y;	//posicion en el grid en la que estamos evaluando
-
-// 	double old_x; //variable para guardarme la ultima vez que un punto ha cruzado una linea
-// 	double old_y; //variable para guardarme la ultima vez que un punto ha cruzado una linea
-
-// 	double dtw = 0;
-
-// 	int	dir = 0;
-// 	while (steps < length)
-// 	{
-// 		end_x += cos(game->p->rad + desv);
-// 		end_y += sin(game->p->rad + desv);
-// 		if (steps == 0)
-// 		{
-// 			//inicializamos la ultima vez que hemos cruzado como la primera
-// 			old_x = end_x;
-// 			old_y = end_y;
-// 		}
-// 		steps++;
-// 		inter = check_point_in_grid(game, end_x, end_y, grid_size); //3 H //2 V
-// 		if (inter != 0)
-// 		{
-// 			double distance = sqrt(pow(end_x - old_x, 2) + pow(end_y - old_y, 2)); //varibale de tolerancia por si cortamos la linea 2 veces muy cerca
-
-// 			//LO QUE TENIAS
-// 			grid_x = (int)(end_x / grid_size);
-// 			grid_y = (int)(end_y / grid_size);
-
-// 			//VERTICALMENTE
-// 			if (inter ==3)
-// 			{
-// 				if (y > (int)end_y)
-// 				{
-// 					// printf("y arriba\n");
-// 					dir = 1;
-// 					grid_y -= 1;
-// 				}
-// 				else if (y < (int)end_y && inter == 3)
-// 				{
-// 					// printf("y abajo\n");
-// 					dir = 2;
-// 					grid_y += 0.9;
-// 				}
-// 			}
-
-// 			//HORIZONTALMENTE
-// 			if (inter == 2)
-// 			{
-// 				if (x < (int)end_x)
-// 				{
-// 					// printf("x derecha\n");
-// 					dir = 3;
-// 					grid_x += 0.9;
-// 				}
-// 				else if (x > (int)end_x)
-// 				{
-// 					// printf("x izquierda\n");
-// 					dir = 4;
-// 					grid_x -= 1;
-// 				}
-// 			}
-			
-// 			//DIAGONALMENTE //AQUI NO SE MUY BIEN QUE HACER
-// 			if (inter == 1)
-// 			{
-// 				if (x < (int)end_x)
-// 				{
-// 					// printf("x derecha\n");
-// 					grid_x += 0.9;
-// 				}
-// 				else if (x > (int)end_x)
-// 				{
-// 					// printf("x izquierda\n");
-// 					grid_x -= 1;
-// 				}
-
-// 				if (y > (int)end_y)
-// 				{
-// 					// printf("y arriba\n");
-// 					grid_y -= 1;
-// 				}
-// 				else if (y < (int)end_y && inter == 3)
-// 				{
-// 					// printf("y abajo\n");
-// 					grid_y += 0.9;
-// 				}
-// 			}
-// 			if (game->map.grid[(int)grid_y][(int)grid_x] == '1' || game->map.grid[(int)grid_y][(int)grid_x] == ' ')
-// 			{
-// 				// printf("el rayo ha chocado en las coordenadas x: %f e y:%f\nlas coordenadas del jugador son x", grid_x, grid_y);
-// 				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);
-// 				double realx = end_x * game->map.size->w / game->window.size->w;
-// 				double realy = end_y * game->map.size->h / game->window.size->h;
-// 				// int i = ft_strlen(game->window.imgs[4]->addrs);
-// 				int i = 0;
-// 				int j = 0;
-// 				int color = 0;
-// 				// while(j < 64)
-// 				// {
-// 				// 	i = 0;
-// 				// 	while(i < 64)
-// 				// 	{
-// 				// 		// printf("llegamos a entrar aqui\n")
-// 				// 		// if (((j - 450) * (j - 450)) + ((i - 800) * (i - 800)) <= 40000)
-// 				// 		// {
-// 				// 		// c = (int)game->window.imgs[8]->addrs[color];
-// 				// 		my_mlx_pixel_put(game, i, j, (int)game->window.imgs[8]->addrs[color]);
-// 				// 		color++;
-// 				// 		// }
-// 				// 		i++;
-// 				// 	}
-// 				// 	j++;
-// 				// }
-// 				// while(game->window.imgs[0]->addrs[i] != '\0')
-// 				// {
-// 				// 	printf("%d\n", (int )game->window.imgs[0]->addrs[i]);
-// 				// 	i++;
-// 				// }
-// 				printf("la colision se da en el punto x: %f e y: %f\ninter es %d\n", realx - (int)realx, realy - (int)realy, inter);
-// 				break;
-// 			}
-// 			old_x = end_x;
-// 			old_y = end_y;
-// 		}
-// 	}
-// 	// Dibuja la línea en el minimapa
-// 	if (inter == 1)
-// 	{
-// 		//No dibujamos las diagonales
-// 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
-// 		draw_v_line(game, desv, dtw, c_i, 0xeb4034); //3d
-// 	}
-// 	else if (inter == 2)
-// 	{
-// 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0x2a5cb8);
-// 		if (dir == 3)
-// 			draw_v_line(game, desv, dtw, c_i, 0x5ab802); //3d verde
-// 		else
-// 			draw_v_line(game, desv, dtw, c_i, 0xf77102); //3d naranja
-// 	}
-// 	else if (inter == 3)
-// 	{
-// 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xcc12a7);
-// 		if (dir == 1)
-// 			draw_v_line(game, desv, dtw, c_i, 0x0e8ae3); //3d azul
-// 		else
-// 			draw_v_line(game, desv, dtw, c_i, 0xa30ee3); //3d moradito
-// 	}
-// }
-
-
 //Draws the fov fo the player
 void	draw_fov(t_game *game, double px_rela, double py_rela)
 {
@@ -575,7 +413,7 @@ void	ft_print_map(t_game *game)
 
 	//ft_print_grid(game->map.grid);
 	draw_fov(game, px_rela1, py_rela1);
-	ft_print_minimap(game, px_rela2, py_rela2, posx, posy);
+	// ft_print_minimap(game, px_rela2, py_rela2, posx, posy);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->window.img, 0, 0);
 }
 

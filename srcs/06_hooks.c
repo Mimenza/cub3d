@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   06_hooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/04/30 16:39:52 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/05 14:52:34 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int mouse_movement(int x, int y, t_game *game)
 	return 0;
 }
 
-int key_press_hook(int keycode, t_game *game)
+int  key_press_hook(int keycode, t_game *game)
 {
 	t_player	*player;
 
