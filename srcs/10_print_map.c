@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 18:11:59 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/05 18:26:36 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,55 @@ double	cal_distance(t_player *player, double c_x, double c_y, double x, double y
 	return (distance);
 }
 
-void draw_v_line(t_game *game, double desv, double size, int c_i, int color)
+// void draw_v_line(t_game *game, double desv, double size, int c_i, int color)
+// {
+// 	int column_w;
+// 	int column_h;
+// 	int y;
+// 	int wall_h;
+
+// 	wall_h = size;
+// 	column_w = 1;
+// 	column_h = game->window.size->h;
+
+// 	// Calcula el inicio y el final de la pared en la columna
+// 	int draw_start = (column_h - wall_h) / 2;
+// 	int draw_end = draw_start + wall_h;
+
+// 	// Desplaza la posición horizontalmente para la columna actual
+// 	int start_x = c_i * column_w;
+// 	int x = start_x;
+// 	while (x < start_x + column_w)
+// 	{
+// 		y = 0;
+// 		while (y < column_h)
+// 		{
+// 			if (y < game->window.size->h / 2)
+// 				my_mlx_pixel_put(game, x, y, 0x8d9ed6); // Color superior
+// 			else if (y > game->window.size->h / 2)
+// 				my_mlx_pixel_put(game, x, y, 0x96867a); // Color inferior
+
+// 			if ( y > draw_start && y < draw_end)
+// 				my_mlx_pixel_put(game, x, y, color); // Color de la pared
+// 			y++;
+// 		}
+// 		x++;
+// 	}
+// }
+
+void draw_v_line(t_game *game, double desv, double size, int c_i, int *texture, double column)
 {
 	int column_w;
 	int column_h;
 	int y;
 	int wall_h;
+	int textel_x;
+	int textel_y;
 
 	wall_h = size;
 	column_w = 1;
 	column_h = game->window.size->h;
-
+	textel_x = round(column * 64);
 	// Calcula el inicio y el final de la pared en la columna
 	int draw_start = (column_h - wall_h) / 2;
 	int draw_end = draw_start + wall_h;
@@ -57,6 +95,8 @@ void draw_v_line(t_game *game, double desv, double size, int c_i, int color)
 	// Desplaza la posición horizontalmente para la columna actual
 	int start_x = c_i * column_w;
 	int x = start_x;
+	int height = abs(draw_start - draw_end);
+	int color = 0;
 	while (x < start_x + column_w)
 	{
 		y = 0;
@@ -68,7 +108,11 @@ void draw_v_line(t_game *game, double desv, double size, int c_i, int color)
 				my_mlx_pixel_put(game, x, y, 0x96867a); // Color inferior
 
 			if ( y > draw_start && y < draw_end)
+			{
+				textel_y = round((y - draw_start) * 64 / height);
+				color = (int) texture[(textel_y * 64) + textel_x];
 				my_mlx_pixel_put(game, x, y, color); // Color de la pared
+			}
 			y++;
 		}
 		x++;
@@ -132,12 +176,16 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 
 	int steps = 0;
 	int inter = 0; //interseccion, nos dice si es una pared H V o Esquina //3 H //2 V //1 ESQ
+	static int old_inter = 0;
 
 	double grid_x; //posicion en el grid en la que estamos evaluando
 	double grid_y;	//posicion en el grid en la que estamos evaluando
 
 	double old_x; //variable para guardarme la ultima vez que un punto ha cruzado una linea
 	double old_y; //variable para guardarme la ultima vez que un punto ha cruzado una linea
+
+	double realx;
+	double realy;
 
 	double dtw = 0;
 
@@ -225,15 +273,8 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 			{
 				// printf("el rayo ha chocado en las coordenadas x: %f e y:%f\nlas coordenadas del jugador son x", grid_x, grid_y);
 				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);
-				double realx = end_x * game->map.size->w / game->window.size->w;
-				double realy = end_y * game->map.size->h / game->window.size->h;
-				int i = ft_strlen(game->window.imgs[4]->addrs);
-				// printf("%d\n", i);
-				// printf("las verdaderas coordenadas del impacto son x:%f e y:%f\n", realx, realy);
-				// printf("la distancia es %f\n", dtw);
-				// printf("un color random seria %d\n", game->window.imgs[0]->addrs[4096]);
-				// printf("l longitud es de %zu\n", ft_strlen(game->window.imgs[0]->addrs));
-				//dtw = 50000 / sqrt((end_x - x) * (end_x - x) + (end_y - y) * (end_y - y));
+				realx = end_x * game->map.size->w / game->window.size->w;
+				realy = end_y * game->map.size->h / game->window.size->h;
 				break;
 			}
 			old_x = end_x;
@@ -243,26 +284,28 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	// Dibuja la línea en el minimapa
 	if (inter == 1)
 	{
+		inter = old_inter;
 		//No dibujamos las diagonales
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
-		draw_v_line(game, desv, dtw, c_i, 0xeb4034); //3d
+		// draw_v_line(game, desv, dtw, c_i, game->window.imgs[8]->addrs, realy - (int)realy); //3d
 	}
-	else if (inter == 2)
+	if (inter == 2)
 	{
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0x2a5cb8);
 		if (dir == 3)
-			draw_v_line(game, desv, dtw, c_i, 0x5ab802); //3d verde
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[0]->addrs, realy - (int)realy); //3d verde
 		else
-			draw_v_line(game, desv, dtw, c_i, 0xf77102); //3d naranja
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[1]->addrs, realy - (int)realy); //3d naranja
 	}
 	else if (inter == 3)
 	{
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xcc12a7);
 		if (dir == 1)
-			draw_v_line(game, desv, dtw, c_i, 0x0e8ae3); //3d azul
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[2]->addrs, realx - (int)realx); //3d azul
 		else
-			draw_v_line(game, desv, dtw, c_i, 0xa30ee3); //3d moradito
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[4]->addrs, realx - (int)realx); //3d moradito
 	}
+	old_inter = inter;
 }
 
 //Draws the fov fo the player
@@ -279,15 +322,14 @@ void	draw_fov(t_game *game, double px_rela, double py_rela)
 	start = ANGLE_S;	//Angle start to the left
 	end = ANGLE_E;		//Angle end to the right
 	
-	double num_lines = game->window.size->w / ITER / 10;
+	double num_lines = game->window.size->w / ITER / 10; // un poco meme esta division
 	double angle_increment = (end - start) / num_lines; // Calcula el incremento del ángulo
 	// draw_line_to_direction(game, px_rela, py_rela, l, (0 * M_PI / 180.0), i);
-	//start = 0;
+	// start = 0;
 	while (start <= end)
 	{
 		draw_line_to_direction(game, px_rela, py_rela, l, (start * M_PI / 180.0), i);
 		start += angle_increment; //less number equals to more lines
-		//break ;
 		//start += 1;
 		i++;
 	}
@@ -372,7 +414,7 @@ void	ft_print_map(t_game *game)
 	mlx_clear_window(game->window.mlx, game->window.win);
 	//ft_print_grid(game->map.grid);
 	draw_fov(game, px_rela1, py_rela1);
-	ft_print_minimap(game, px_rela2, py_rela2, posx, posy);
+	// ft_print_minimap(game, px_rela2, py_rela2, posx, posy);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->window.img, 0, 0);
 }
 

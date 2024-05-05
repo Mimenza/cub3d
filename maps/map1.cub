@@ -1,3 +1,11 @@
+F 220,100,0
+C 225,30,0
+
+NO ./path/file
+SO ./path/file
+WE ./path/file
+EA ./path/file
+
  111111111111111
 1100000000000001
 100000111100N001

@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 18:15:20 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/05 18:26:01 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	key_press_hook_aux(t_game *game, double move_x, double move_y, int mode)
 	}
 }
 
-int key_press_hook(int keycode, t_game *game)
+int  key_press_hook(int keycode, t_game *game)
 {
 	t_player	*player;
 

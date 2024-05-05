@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/03 15:24:52 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:15:15 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_position
 typedef struct s_imgs
 {
 	void	*img;
-	char	*addrs;
+	int		*addrs;
 	int		line_len;
 	int		endian;
 	int		bpp;
@@ -116,12 +116,7 @@ typedef struct s_window
 	int		endian;
 	int		bpp;
 	t_size	*size;
-	// void	*imgs[IMG_COUNT];
 	t_imgs	*imgs[IMG_COUNT];
-	// int		*n_addr;
-	// int		*s_addr;
-	// int		*e_addr;
-	// int		*w_addr;
 }			t_window;
 
 // store all information about the map
@@ -132,7 +127,7 @@ typedef struct s_map
 	int		created;
 
 	int		f_color;
-	int		g_color;
+	int		c_color;
 	char	*no_texture;
 	char	*so_texture;
 	char	*we_texture;
@@ -198,3 +193,6 @@ void		ft_print_grid(char **grid);
 void			get_player(t_game *game);
 void			ft_print_grid(char **grid);
 void			ft_print_map(t_game *game);
+
+//12 PARSING
+int				ft_read_file(t_map *map, char *strmap);
