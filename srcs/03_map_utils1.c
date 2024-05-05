@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:33:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/03 15:29:11 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:02:22 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ int	ft_reachable(char **grid, char *strmap)
 	p_grid = ft_create_doubleptr(grid);
 	ft_copy_doubleptr(grid, p_grid);
 	ft_replace_p(&p_grid);
-	ft_print_grid(p_grid);
 	while (expandable == 1 && w_flag == 0)
 		expandable = ft_expandable(p_grid, &w_flag);
 	if (w_flag == 0)

@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:43 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/03 15:18:52 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:05:09 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ static char	*ft_read_file(t_map *map, char *strmap, char *t_line)
 			tmp = ft_strdup(t_line);
 			free(t_line);
 			if (treat_line(map, line) == 1)
-			{
 				t_line = ft_strjoin(tmp, line);
-			}
 			else
 				t_line = ft_strdup(tmp);
 			free(line);
