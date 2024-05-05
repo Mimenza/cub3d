@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/02 08:55:44 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/05 12:20:26 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_imgs	*ft_load(t_game *game, char *path, int i)
 		return (NULL);
 	// printf("en la vuelta %d hemos maloqueado un %p\n", i, img);
 	img->img = mlx_xpm_file_to_image(game->window.mlx, path, &w, &h);
-	img->addrs = mlx_get_data_addr(img->img, &img->bpp, &img->line_len, &img->endian);
+	img->addrs = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->line_len, &img->endian);
 	if (img->img == NULL)
 	{
 		printf("ERROR LOADING IMGS%i\n", i);

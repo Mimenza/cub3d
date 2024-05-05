@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/01 15:42:43 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/05 12:20:09 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_position
 typedef struct s_imgs
 {
 	void	*img;
-	char	*addrs;
+	int		*addrs;
 	int		line_len;
 	int		endian;
 	int		bpp;
@@ -116,12 +116,7 @@ typedef struct s_window
 	int		endian;
 	int		bpp;
 	t_size	*size;
-	// void	*imgs[IMG_COUNT];
 	t_imgs	*imgs[IMG_COUNT];
-	// int		*n_addr;
-	// int		*s_addr;
-	// int		*e_addr;
-	// int		*w_addr;
 }			t_window;
 
 // store all information about the map

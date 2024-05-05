@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/02 12:57:15 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/05 12:40:45 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,55 @@ double	cal_distance(t_player *player, double c_x, double c_y, double x, double y
 	return (distance);
 }
 
-void draw_v_line(t_game *game, double desv, double size, int c_i, int color)
+// void draw_v_line(t_game *game, double desv, double size, int c_i, int color)
+// {
+// 	int column_w;
+// 	int column_h;
+// 	int y;
+// 	int wall_h;
+
+// 	wall_h = size;
+// 	column_w = 1;
+// 	column_h = game->window.size->h;
+
+// 	// Calcula el inicio y el final de la pared en la columna
+// 	int draw_start = (column_h - wall_h) / 2;
+// 	int draw_end = draw_start + wall_h;
+
+// 	// Desplaza la posición horizontalmente para la columna actual
+// 	int start_x = c_i * column_w;
+// 	int x = start_x;
+// 	while (x < start_x + column_w)
+// 	{
+// 		y = 0;
+// 		while (y < column_h)
+// 		{
+// 			if (y < game->window.size->h / 2)
+// 				my_mlx_pixel_put(game, x, y, 0x8d9ed6); // Color superior
+// 			else if (y > game->window.size->h / 2)
+// 				my_mlx_pixel_put(game, x, y, 0x96867a); // Color inferior
+
+// 			if ( y > draw_start && y < draw_end)
+// 				my_mlx_pixel_put(game, x, y, color); // Color de la pared
+// 			y++;
+// 		}
+// 		x++;
+// 	}
+// }
+
+void draw_v_line(t_game *game, double desv, double size, int c_i, int *texture, double column)
 {
 	int column_w;
 	int column_h;
 	int y;
 	int wall_h;
+	int textel_x;
+	int textel_y;
 
 	wall_h = size;
 	column_w = 1;
 	column_h = game->window.size->h;
-
+	textel_x = round(column * 64);
 	// Calcula el inicio y el final de la pared en la columna
 	int draw_start = (column_h - wall_h) / 2;
 	int draw_end = draw_start + wall_h;
@@ -57,6 +95,8 @@ void draw_v_line(t_game *game, double desv, double size, int c_i, int color)
 	// Desplaza la posición horizontalmente para la columna actual
 	int start_x = c_i * column_w;
 	int x = start_x;
+	int height = abs(draw_start - draw_end);
+	int color = 0;
 	while (x < start_x + column_w)
 	{
 		y = 0;
@@ -68,7 +108,11 @@ void draw_v_line(t_game *game, double desv, double size, int c_i, int color)
 				my_mlx_pixel_put(game, x, y, 0x96867a); // Color inferior
 
 			if ( y > draw_start && y < draw_end)
+			{
+				textel_y = round((y - draw_start) * 64 / height);
+				color = (int) texture[(textel_y * 64) + textel_x];
 				my_mlx_pixel_put(game, x, y, color); // Color de la pared
+			}
 			y++;
 		}
 		x++;
@@ -138,6 +182,9 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 
 	double old_x; //variable para guardarme la ultima vez que un punto ha cruzado una linea
 	double old_y; //variable para guardarme la ultima vez que un punto ha cruzado una linea
+
+	double realx;
+	double realy;
 
 	double dtw = 0;
 
@@ -225,15 +272,34 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 			{
 				// printf("el rayo ha chocado en las coordenadas x: %f e y:%f\nlas coordenadas del jugador son x", grid_x, grid_y);
 				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);
-				double realx = end_x * game->map.size->w / game->window.size->w;
-				double realy = end_y * game->map.size->h / game->window.size->h;
-				int i = ft_strlen(game->window.imgs[4]->addrs);
-				printf("%d\n", i);
-				printf("las verdaderas coordenadas del impacto son x:%f e y:%f\n", realx, realy);
-				printf("la distancia es %f\n", dtw);
-				printf("un color random seria %d\n", game->window.imgs[0]->addrs[4096]);
-				printf("l longitud es de %zu\n", ft_strlen(game->window.imgs[0]->addrs));
-				//dtw = 50000 / sqrt((end_x - x) * (end_x - x) + (end_y - y) * (end_y - y));
+				realx = end_x * game->map.size->w / game->window.size->w;
+				realy = end_y * game->map.size->h / game->window.size->h;
+				// int i = ft_strlen(game->window.imgs[4]->addrs);
+				int i = 0;
+				int j = 0;
+				int color = 0;
+				// while(j < 64)
+				// {
+				// 	i = 0;
+				// 	while(i < 64)
+				// 	{
+				// 		// printf("llegamos a entrar aqui\n")
+				// 		// if (((j - 450) * (j - 450)) + ((i - 800) * (i - 800)) <= 40000)
+				// 		// {
+				// 		// c = (int)game->window.imgs[8]->addrs[color];
+				// 		my_mlx_pixel_put(game, i, j, (int)game->window.imgs[8]->addrs[color]);
+				// 		color++;
+				// 		// }
+				// 		i++;
+				// 	}
+				// 	j++;
+				// }
+				// while(game->window.imgs[0]->addrs[i] != '\0')
+				// {
+				// 	printf("%d\n", (int )game->window.imgs[0]->addrs[i]);
+				// 	i++;
+				// }
+				// printf("la colision se da en el punto x: %f e y: %f\ninter es %d\n", realx - (int)realx, realy - (int)realy, inter);
 				break;
 			}
 			old_x = end_x;
@@ -245,25 +311,187 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	{
 		//No dibujamos las diagonales
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
-		draw_v_line(game, desv, dtw, c_i, 0xeb4034); //3d
+		draw_v_line(game, desv, dtw, c_i, game->window.imgs[8]->addrs, realy - (int)realy); //3d
 	}
 	else if (inter == 2)
 	{
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0x2a5cb8);
 		if (dir == 3)
-			draw_v_line(game, desv, dtw, c_i, 0x5ab802); //3d verde
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[0]->addrs, realy - (int)realy); //3d verde
 		else
-			draw_v_line(game, desv, dtw, c_i, 0xf77102); //3d naranja
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[1]->addrs, realy - (int)realy); //3d naranja
 	}
 	else if (inter == 3)
 	{
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xcc12a7);
 		if (dir == 1)
-			draw_v_line(game, desv, dtw, c_i, 0x0e8ae3); //3d azul
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[2]->addrs, realx - (int)realx); //3d azul
 		else
-			draw_v_line(game, desv, dtw, c_i, 0xa30ee3); //3d moradito
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[4]->addrs, realx - (int)realx); //3d moradito
 	}
 }
+
+// void draw_line_to_direction(t_game *game, int x, int y, double length, double desv, int c_i)
+// {
+// 	int grid_size = game->window.size->w / game->map.size->w; // Tamaño de la cuadrícula
+
+// 	double end_x = x; // Coordenada x actual/final inicializada con la posición inicial
+// 	double end_y = y; // Coordenada y actual/final inicializada con la posición inicial
+
+// 	int steps = 0;
+// 	int inter = 0; //interseccion, nos dice si es una pared H V o Esquina //3 H //2 V //1 ESQ
+
+// 	double grid_x; //posicion en el grid en la que estamos evaluando
+// 	double grid_y;	//posicion en el grid en la que estamos evaluando
+
+// 	double old_x; //variable para guardarme la ultima vez que un punto ha cruzado una linea
+// 	double old_y; //variable para guardarme la ultima vez que un punto ha cruzado una linea
+
+// 	double dtw = 0;
+
+// 	int	dir = 0;
+// 	while (steps < length)
+// 	{
+// 		end_x += cos(game->p->rad + desv);
+// 		end_y += sin(game->p->rad + desv);
+// 		if (steps == 0)
+// 		{
+// 			//inicializamos la ultima vez que hemos cruzado como la primera
+// 			old_x = end_x;
+// 			old_y = end_y;
+// 		}
+// 		steps++;
+// 		inter = check_point_in_grid(game, end_x, end_y, grid_size); //3 H //2 V
+// 		if (inter != 0)
+// 		{
+// 			double distance = sqrt(pow(end_x - old_x, 2) + pow(end_y - old_y, 2)); //varibale de tolerancia por si cortamos la linea 2 veces muy cerca
+
+// 			//LO QUE TENIAS
+// 			grid_x = (int)(end_x / grid_size);
+// 			grid_y = (int)(end_y / grid_size);
+
+// 			//VERTICALMENTE
+// 			if (inter ==3)
+// 			{
+// 				if (y > (int)end_y)
+// 				{
+// 					// printf("y arriba\n");
+// 					dir = 1;
+// 					grid_y -= 1;
+// 				}
+// 				else if (y < (int)end_y && inter == 3)
+// 				{
+// 					// printf("y abajo\n");
+// 					dir = 2;
+// 					grid_y += 0.9;
+// 				}
+// 			}
+
+// 			//HORIZONTALMENTE
+// 			if (inter == 2)
+// 			{
+// 				if (x < (int)end_x)
+// 				{
+// 					// printf("x derecha\n");
+// 					dir = 3;
+// 					grid_x += 0.9;
+// 				}
+// 				else if (x > (int)end_x)
+// 				{
+// 					// printf("x izquierda\n");
+// 					dir = 4;
+// 					grid_x -= 1;
+// 				}
+// 			}
+			
+// 			//DIAGONALMENTE //AQUI NO SE MUY BIEN QUE HACER
+// 			if (inter == 1)
+// 			{
+// 				if (x < (int)end_x)
+// 				{
+// 					// printf("x derecha\n");
+// 					grid_x += 0.9;
+// 				}
+// 				else if (x > (int)end_x)
+// 				{
+// 					// printf("x izquierda\n");
+// 					grid_x -= 1;
+// 				}
+
+// 				if (y > (int)end_y)
+// 				{
+// 					// printf("y arriba\n");
+// 					grid_y -= 1;
+// 				}
+// 				else if (y < (int)end_y && inter == 3)
+// 				{
+// 					// printf("y abajo\n");
+// 					grid_y += 0.9;
+// 				}
+// 			}
+// 			if (game->map.grid[(int)grid_y][(int)grid_x] == '1' || game->map.grid[(int)grid_y][(int)grid_x] == ' ')
+// 			{
+// 				// printf("el rayo ha chocado en las coordenadas x: %f e y:%f\nlas coordenadas del jugador son x", grid_x, grid_y);
+// 				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);
+// 				double realx = end_x * game->map.size->w / game->window.size->w;
+// 				double realy = end_y * game->map.size->h / game->window.size->h;
+// 				// int i = ft_strlen(game->window.imgs[4]->addrs);
+// 				int i = 0;
+// 				int j = 0;
+// 				int color = 0;
+// 				// while(j < 64)
+// 				// {
+// 				// 	i = 0;
+// 				// 	while(i < 64)
+// 				// 	{
+// 				// 		// printf("llegamos a entrar aqui\n")
+// 				// 		// if (((j - 450) * (j - 450)) + ((i - 800) * (i - 800)) <= 40000)
+// 				// 		// {
+// 				// 		// c = (int)game->window.imgs[8]->addrs[color];
+// 				// 		my_mlx_pixel_put(game, i, j, (int)game->window.imgs[8]->addrs[color]);
+// 				// 		color++;
+// 				// 		// }
+// 				// 		i++;
+// 				// 	}
+// 				// 	j++;
+// 				// }
+// 				// while(game->window.imgs[0]->addrs[i] != '\0')
+// 				// {
+// 				// 	printf("%d\n", (int )game->window.imgs[0]->addrs[i]);
+// 				// 	i++;
+// 				// }
+// 				printf("la colision se da en el punto x: %f e y: %f\ninter es %d\n", realx - (int)realx, realy - (int)realy, inter);
+// 				break;
+// 			}
+// 			old_x = end_x;
+// 			old_y = end_y;
+// 		}
+// 	}
+// 	// Dibuja la línea en el minimapa
+// 	if (inter == 1)
+// 	{
+// 		//No dibujamos las diagonales
+// 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
+// 		draw_v_line(game, desv, dtw, c_i, 0xeb4034); //3d
+// 	}
+// 	else if (inter == 2)
+// 	{
+// 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0x2a5cb8);
+// 		if (dir == 3)
+// 			draw_v_line(game, desv, dtw, c_i, 0x5ab802); //3d verde
+// 		else
+// 			draw_v_line(game, desv, dtw, c_i, 0xf77102); //3d naranja
+// 	}
+// 	else if (inter == 3)
+// 	{
+// 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xcc12a7);
+// 		if (dir == 1)
+// 			draw_v_line(game, desv, dtw, c_i, 0x0e8ae3); //3d azul
+// 		else
+// 			draw_v_line(game, desv, dtw, c_i, 0xa30ee3); //3d moradito
+// 	}
+// }
+
 
 //Draws the fov fo the player
 void	draw_fov(t_game *game, double px_rela, double py_rela)
@@ -279,15 +507,14 @@ void	draw_fov(t_game *game, double px_rela, double py_rela)
 	start = ANGLE_S;	//Angle start to the left
 	end = ANGLE_E;		//Angle end to the right
 	
-	double num_lines = game->window.size->w / ITER / 10;
+	double num_lines = game->window.size->w / ITER / 10; // un poco meme esta division
 	double angle_increment = (end - start) / num_lines; // Calcula el incremento del ángulo
 	// draw_line_to_direction(game, px_rela, py_rela, l, (0 * M_PI / 180.0), i);
-	start = 0;
+	// start = 0;
 	while (start <= end)
 	{
 		draw_line_to_direction(game, px_rela, py_rela, l, (start * M_PI / 180.0), i);
 		start += angle_increment; //less number equals to more lines
-		break ;
 		//start += 1;
 		i++;
 	}
