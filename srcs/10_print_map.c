@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 12:40:45 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:02:29 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 
 	int steps = 0;
 	int inter = 0; //interseccion, nos dice si es una pared H V o Esquina //3 H //2 V //1 ESQ
+	static int old_inter = 0;
 
 	double grid_x; //posicion en el grid en la que estamos evaluando
 	double grid_y;	//posicion en el grid en la que estamos evaluando
@@ -274,32 +275,6 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);
 				realx = end_x * game->map.size->w / game->window.size->w;
 				realy = end_y * game->map.size->h / game->window.size->h;
-				// int i = ft_strlen(game->window.imgs[4]->addrs);
-				int i = 0;
-				int j = 0;
-				int color = 0;
-				// while(j < 64)
-				// {
-				// 	i = 0;
-				// 	while(i < 64)
-				// 	{
-				// 		// printf("llegamos a entrar aqui\n")
-				// 		// if (((j - 450) * (j - 450)) + ((i - 800) * (i - 800)) <= 40000)
-				// 		// {
-				// 		// c = (int)game->window.imgs[8]->addrs[color];
-				// 		my_mlx_pixel_put(game, i, j, (int)game->window.imgs[8]->addrs[color]);
-				// 		color++;
-				// 		// }
-				// 		i++;
-				// 	}
-				// 	j++;
-				// }
-				// while(game->window.imgs[0]->addrs[i] != '\0')
-				// {
-				// 	printf("%d\n", (int )game->window.imgs[0]->addrs[i]);
-				// 	i++;
-				// }
-				// printf("la colision se da en el punto x: %f e y: %f\ninter es %d\n", realx - (int)realx, realy - (int)realy, inter);
 				break;
 			}
 			old_x = end_x;
@@ -309,11 +284,12 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	// Dibuja la línea en el minimapa
 	if (inter == 1)
 	{
+		inter = old_inter;
 		//No dibujamos las diagonales
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
-		draw_v_line(game, desv, dtw, c_i, game->window.imgs[8]->addrs, realy - (int)realy); //3d
+		// draw_v_line(game, desv, dtw, c_i, game->window.imgs[8]->addrs, realy - (int)realy); //3d
 	}
-	else if (inter == 2)
+	if (inter == 2)
 	{
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0x2a5cb8);
 		if (dir == 3)
@@ -329,6 +305,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 		else
 			draw_v_line(game, desv, dtw, c_i, game->window.imgs[4]->addrs, realx - (int)realx); //3d moradito
 	}
+	old_inter = inter;
 }
 
 // void draw_line_to_direction(t_game *game, int x, int y, double length, double desv, int c_i)
