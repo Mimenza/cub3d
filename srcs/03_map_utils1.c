@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:33:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/03 16:02:22 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:09:29 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,8 @@ void	ft_copy_doubleptr(char **grid, char **p_grid)
 //Checks if the above position is expandable, and expand to it.
 static int	ft_check_position(int x, int y, char **grid, int *w_flag)
 {
-	if (grid[y][x] == ' ')
-	{
-		ft_print_error(5);
+	if (!grid[y][x] || grid[y][x] == ' ')
 		*w_flag = 1;
-		return (0);
-	}
 	if (grid[y][x] && (grid[y][x] == '0'))
 	{
 		grid[y][x] = 'P';

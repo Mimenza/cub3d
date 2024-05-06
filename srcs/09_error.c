@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:11:21 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/06 17:26:38 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:08:00 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_print_error(int type)
 	else if (type == 4)
 		printf("\033[1;31m [KO] \033[0m\ndata missing in the .cub file\n"); //X
 	else if (type == 6)
-		printf("\033[1;31m [KO] \033[0m\nTHE MAP MUST BE WITHIN WALLS\n");//X
+		printf("\033[1;31m [KO] \033[0m\nTHE PLAYER FELL INTO THE VOID :(\n");//X
 	else if (type == 7)
 		printf("\033[1;31m [KO] \033[0m\nFOUND A NON VALID CHAR\n"); //X
 	else if (type == 8)

@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:43 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 18:44:35 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:06:29 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_replace_p(char ***p_grid)
 		while (grid[y][x])
 		{
 			if (grid[y][x] == 'N' || grid[y][x] == 'S' || grid[y][x] == 'E' || grid[y][x] == 'W')
-				grid[y][x] = '0';
+				grid[y][x] = 'P';
 			x++;
 		}
 		y++;

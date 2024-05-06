@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/06 17:47:57 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:59:28 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	check_flags(int *flag, int empty_flag)
 {
 	//error si empezamos nuevo grupo (flag == 1) y la anterio linea no esta vacia (empty_flag != 0)
 	//error si no empezamos nuevo grupo (flag == 0) y la anterior linea esta vacia (empty_flag == 1)
+	
 	if ((empty_flag == 0 && *flag == 1) || (empty_flag == 1 && *flag == 0))
 	{
 		if (*flag == 1)
@@ -78,69 +79,63 @@ int is_empty(char *str)
 }
 
 //0 ERROR 1 GRID 2 TEXTURE 3 COLOR
-int	treat_data(t_map *map, char *line, int empty_flag, int *c_flag, int *g_flag, int *t_flag)
+int	treat_data(t_map *map, char *line, int empty_flag, int *g_flag)
 {
 	int	error_flag;
-	int	data_type;
-	int	color_flag;
+	int	flag;
 
-	data_type = 0; //default
+	flag = 0;
 	error_flag = 0;
 
 	if (ft_strncmp(line, "NO ", 3) == 0)
 	{
-		if (map->no_texture || check_flags(t_flag, empty_flag) == 0)
+		if (map->no_texture)
 			error_flag = 1;
-		data_type = 2;
 		map->no_texture = parse_textures(line);
+		flag = 1;
 	}
 	else if (ft_strncmp(line, "SO ", 3) == 0)
 	{
-		if (map->so_texture || check_flags(t_flag, empty_flag) == 0)
+		if (map->so_texture)
 			error_flag = 1;
-		data_type = 2;
 		map->so_texture = parse_textures(line);
+		flag = 1;
 	}
 	else if (ft_strncmp(line, "WE ", 3) == 0)
 	{
-		if (map->we_texture || check_flags(t_flag, empty_flag) == 0)
+		if (map->we_texture)
 			error_flag = 1;
-		data_type = 2;
 		map->we_texture = parse_textures(line);
+		flag = 1;
 	}
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 	{
-		if (map->ea_texture || check_flags(t_flag, empty_flag) == 0)
+		if (map->ea_texture)
 			error_flag = 1;
-		data_type = 2;
 		map->ea_texture = parse_textures(line);
+		flag = 1;
 	}
 	else if (ft_strncmp(line, "F ", 2) == 0)
 	{
-		if (map->f_color || check_flags(c_flag, empty_flag) == 0)
+		if (map->f_color)
 			error_flag = 1;
-		data_type = 3;
 		map->f_color = parse_colors(line);
+		flag = 1;
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
 	{
-		if (map->c_color || check_flags(c_flag, empty_flag) == 0)
+		if (map->c_color)
 			error_flag = 1;
-		data_type = 3;
 		map->c_color = parse_colors(line);
+		flag = 1;
 	}
+
+	if (flag == 1)
+		return (2);
 		
-	if (error_flag == 1)
-		return ((void)printf("\033[1;31m [KO] \033[0m\nline-->%s\n", line), 0);//ERROR
+	if (error_flag == 1 || check_flags(g_flag, empty_flag) == 0 || map->c_color == 0 || map->f_color == 0 || map->ea_texture == NULL || map->no_texture == NULL || map->so_texture == NULL || map->we_texture == NULL)
+		return ((void)printf("\033[1;31m [KO] \033[0m\nline-->%s\n", line), 0); //ERROR
 
-	if (data_type == 2)
-		return (2); // TEXTURE
-
-	if (data_type == 3)
-		return (3); //COLOR
-	
-	if (check_flags(g_flag, empty_flag) == 0 || *c_flag == 1 || *t_flag == 1)
-		return ((void)printf("\033[1;31m [KO] \033[0m\nline-->%s\n", line), 0);//ERROR
 
 	return (1); //GRID
 }
@@ -153,17 +148,15 @@ int ft_read_file(t_map *map, char *strmap)
 	char	*tmp;
 	char	*grid_line;
 	int		empty_flag; // line is empty
-	int		c_flag; 	//color flag;
+	
 	int		g_flag;		//grid flag;
-	int		t_flag;		//texture flag;
+
 	char	**grid;
 	int		tread_flag;
 
 	tread_flag = 10;	//init in random nbr
 	empty_flag = 10;	//init in random nbr
-	c_flag = 1;
 	g_flag = 1;
-	t_flag = 1;
 
 	map->no_texture = NULL;
 	map->so_texture = NULL;
@@ -190,7 +183,7 @@ int ft_read_file(t_map *map, char *strmap)
 			{
 				tmp = ft_strdup(grid_line);
 				free(grid_line);
-				tread_flag = treat_data(map, line, empty_flag, &c_flag, &g_flag, &t_flag);
+				tread_flag = treat_data(map, line, empty_flag, &g_flag);
 				if (tread_flag == 0)
 					break;
 				else if ( tread_flag == 1)
