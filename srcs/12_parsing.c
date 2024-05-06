@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/06 17:05:46 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:47:57 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*parse_textures(char *line)
 
 int		parse_colors(char *line)
 {
-	char *parsed_line;
 	int	r;
 	int	g;
 	int	b;
@@ -39,14 +38,11 @@ int		parse_colors(char *line)
 
 	while (*line == ' ' || *line == '\t')
 		line++;
-		
-	parsed_line = line;
-	r = atoi(parsed_line);
-	g = atoi(parsed_line + 4);
-	b = atoi(parsed_line + 8);
-
-	//printf("%i \n", (r << 16) | (g << 8) | b);
-	//sprintf(color, "#%06X", (r << 16) | (g << 8) | b);
+			
+	r = atoi(line);
+	g = atoi(ft_strchr(line, ',') + 1); //Ref to the first ,
+	b = atoi(ft_strchr(ft_strchr(line, ',') + 1, ',') + 1); // Ref to the second ,
+	
 	return((r << 16) | (g << 8) | b);
 }
 
