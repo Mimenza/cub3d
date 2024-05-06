@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 18:26:01 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:30:05 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	key_press_hook_aux(t_game *game, double move_x, double move_y, int mode)
 
 	while (i < 10)
 	{
-		printf("%i\n", i);
+		//printf("%i\n", i);
 		if (mode == 1)
 		{
 			player->pos.x -= move_x * (MOVE_STEP / 10);
@@ -52,8 +52,8 @@ void	key_press_hook_aux(t_game *game, double move_x, double move_y, int mode)
 			player->pos.x += move_x * (MOVE_STEP / 10);
 			player->pos.y += move_y * (MOVE_STEP / 10);
 		}
-		printf(" %f %f\n", game->p->pos.x, game->p->pos.y);
-		usleep(300);
+		//printf(" %f %f\n", game->p->pos.x, game->p->pos.y);
+		//usleep(300);
 		ft_print_map(game);
 		i++;
 	}

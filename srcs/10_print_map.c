@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 18:26:36 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:28:30 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,42 +39,6 @@ double	cal_distance(t_player *player, double c_x, double c_y, double x, double y
 	return (distance);
 }
 
-// void draw_v_line(t_game *game, double desv, double size, int c_i, int color)
-// {
-// 	int column_w;
-// 	int column_h;
-// 	int y;
-// 	int wall_h;
-
-// 	wall_h = size;
-// 	column_w = 1;
-// 	column_h = game->window.size->h;
-
-// 	// Calcula el inicio y el final de la pared en la columna
-// 	int draw_start = (column_h - wall_h) / 2;
-// 	int draw_end = draw_start + wall_h;
-
-// 	// Desplaza la posición horizontalmente para la columna actual
-// 	int start_x = c_i * column_w;
-// 	int x = start_x;
-// 	while (x < start_x + column_w)
-// 	{
-// 		y = 0;
-// 		while (y < column_h)
-// 		{
-// 			if (y < game->window.size->h / 2)
-// 				my_mlx_pixel_put(game, x, y, 0x8d9ed6); // Color superior
-// 			else if (y > game->window.size->h / 2)
-// 				my_mlx_pixel_put(game, x, y, 0x96867a); // Color inferior
-
-// 			if ( y > draw_start && y < draw_end)
-// 				my_mlx_pixel_put(game, x, y, color); // Color de la pared
-// 			y++;
-// 		}
-// 		x++;
-// 	}
-// }
-
 void draw_v_line(t_game *game, double desv, double size, int c_i, int *texture, double column)
 {
 	int column_w;
@@ -103,9 +67,9 @@ void draw_v_line(t_game *game, double desv, double size, int c_i, int *texture, 
 		while (y < column_h)
 		{
 			if (y < game->window.size->h / 2)
-				my_mlx_pixel_put(game, x, y, 0x8d9ed6); // Color superior
+				my_mlx_pixel_put(game, x, y, game->map.c_color); // Color superior 0x8d9ed6
 			else if (y > game->window.size->h / 2)
-				my_mlx_pixel_put(game, x, y, 0x96867a); // Color inferior
+				my_mlx_pixel_put(game, x, y, game->map.f_color); // Color inferior 0x96867a
 
 			if ( y > draw_start && y < draw_end)
 			{
@@ -293,17 +257,17 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	{
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0x2a5cb8);
 		if (dir == 3)
-			draw_v_line(game, desv, dtw, c_i, game->window.imgs[0]->addrs, realy - (int)realy); //3d verde
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[2]->addrs, realy - (int)realy); //3d verde
 		else
-			draw_v_line(game, desv, dtw, c_i, game->window.imgs[1]->addrs, realy - (int)realy); //3d naranja
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[3]->addrs, realy - (int)realy); //3d naranja
 	}
 	else if (inter == 3)
 	{
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xcc12a7);
 		if (dir == 1)
-			draw_v_line(game, desv, dtw, c_i, game->window.imgs[2]->addrs, realx - (int)realx); //3d azul
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[0]->addrs, realx - (int)realx); //3d azul
 		else
-			draw_v_line(game, desv, dtw, c_i, game->window.imgs[4]->addrs, realx - (int)realx); //3d moradito
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[1]->addrs, realx - (int)realx); //3d moradito
 	}
 	old_inter = inter;
 }

@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 19:15:15 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:49:11 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@
 # define WOOD			"./textures/wood.xpm"
 
 // Assets location
-# define IMG_COUNT	10
+# define IMG_COUNT	4
 
 // ----------------------------------
 
@@ -185,6 +185,7 @@ void			ft_free_doubleptr(char **grid);
 
 //09_ERROR
 void			ft_print_error(int type);
+void			ft_print_ok(void);
 
 //10_PRINT_MAP
 void		ft_print_grid(char **grid);

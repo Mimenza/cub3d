@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 20:31:05 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:50:02 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,13 @@ static t_imgs	*ft_load(t_game *game, char *path, int i)
 	t_imgs	*img;
 
 	img = (t_imgs *)malloc(sizeof(t_imgs));
-	if (!img)
+	if (!img || path == NULL)
+	{
+		printf("ERROR\n");
 		return (NULL);
+	}
+
+	printf("path %s\n", path);
 	// printf("en la vuelta %d hemos maloqueado un %p\n", i, img);
 	img->img = mlx_xpm_file_to_image(game->window.mlx, path, &w, &h);
 	img->addrs = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->line_len, &img->endian);
@@ -50,16 +55,16 @@ static void	ft_load_imgs(t_game *game)
 {
 	char	files[IMG_COUNT][42];
 
-	ft_strlcpy(files[0], BLUESTONE, 41);
-	ft_strlcpy(files[1], COLORSTONE, 41);
-	ft_strlcpy(files[2], EAGLE, 41);
-	ft_strlcpy(files[3], GREENLIGHT, 41);
-	ft_strlcpy(files[4], GREYSTONE, 41);
-	ft_strlcpy(files[5], MOSSY, 41);
-	ft_strlcpy(files[6], PILLAR, 41);
-	ft_strlcpy(files[7], PURPLESTONE, 41);
-	ft_strlcpy(files[8], REDBRICK, 41);
-	ft_strlcpy(files[9], WOOD, 41);
+	ft_strlcpy(files[0], game->map.no_texture, 41);
+	ft_strlcpy(files[1], game->map.so_texture, 41);
+	ft_strlcpy(files[2], game->map.ea_texture, 41);
+	ft_strlcpy(files[3], game->map.we_texture, 41);
+	// ft_strlcpy(files[4], GREYSTONE, 41);
+	// ft_strlcpy(files[5], MOSSY, 41);
+	// ft_strlcpy(files[6], PILLAR, 41);
+	// ft_strlcpy(files[7], PURPLESTONE, 41);
+	// ft_strlcpy(files[8], REDBRICK, 41);
+	// ft_strlcpy(files[9], WOOD, 41);
 	ft_cpy_imgs(files, game);
 }
 

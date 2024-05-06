@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 21:31:03 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:05:46 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 char	*parse_textures(char *line)
 {
+	char * r_line;
+	
 	while (*line != ' ' && *line != '\t' && *line != '\0')
 		line++;
 
 	while (*line == ' ' || *line == '\t')
 		line++;
-	return (line);
+
+	r_line = ft_substr(line, 0, ft_strchr(line, '\n') - line);//REMOVES THE LAST JUMP LINE
+	//free(line);
+	return (r_line);
 }
 
 int		parse_colors(char *line)
@@ -29,18 +34,21 @@ int		parse_colors(char *line)
 	int	g;
 	int	b;
 
-	parsed_line = parse_textures(line);
+	while (*line != ' ' && *line != '\t' && *line != '\0')
+		line++;
+
+	while (*line == ' ' || *line == '\t')
+		line++;
+		
+	parsed_line = line;
 	r = atoi(parsed_line);
 	g = atoi(parsed_line + 4);
 	b = atoi(parsed_line + 8);
 
-	//printf("%i %i %i\n", r, g, b);	
 	//printf("%i \n", (r << 16) | (g << 8) | b);
-	//printf("#%06X \n", (r << 16) | (g << 8) | b);
+	//sprintf(color, "#%06X", (r << 16) | (g << 8) | b);
 	return((r << 16) | (g << 8) | b);
 }
-
-
 
 //CHECKS THE LINES
 int	check_flags(int *flag, int empty_flag)
@@ -125,9 +133,9 @@ int	treat_data(t_map *map, char *line, int empty_flag, int *c_flag, int *g_flag,
 		data_type = 3;
 		map->c_color = parse_colors(line);
 	}
-	
+		
 	if (error_flag == 1)
-		return ((void)printf("Error in the map syntax, line-->%s\n", line), 0);//ERROR
+		return ((void)printf("\033[1;31m [KO] \033[0m\nline-->%s\n", line), 0);//ERROR
 
 	if (data_type == 2)
 		return (2); // TEXTURE
@@ -136,7 +144,7 @@ int	treat_data(t_map *map, char *line, int empty_flag, int *c_flag, int *g_flag,
 		return (3); //COLOR
 	
 	if (check_flags(g_flag, empty_flag) == 0 || *c_flag == 1 || *t_flag == 1)
-		return ((void)printf("Error in the map syntax, line-->%s\n", line), 0);//ERROR
+		return ((void)printf("\033[1;31m [KO] \033[0m\nline-->%s\n", line), 0);//ERROR
 
 	return (1); //GRID
 }
@@ -167,13 +175,14 @@ int ft_read_file(t_map *map, char *strmap)
 	map->ea_texture = NULL;
 	map->c_color = 0;
 	map->f_color = 0;
-
+	
+	printf("CHECKING FILE SYNTAX...");
 	grid_line = ft_strdup("");
 	path = ft_strjoin("./maps/", strmap);
 	fdmap = open(path, O_RDONLY);
 	free(path);
 	if (fdmap == -1)
-		return (1);
+		return (ft_print_error(2), 1);
 	while (1)
 	{
 		line = get_next_line(fdmap);
@@ -201,17 +210,25 @@ int ft_read_file(t_map *map, char *strmap)
 			break;
 	}
 	close(fdmap);
+
+	if (tread_flag == 0)
+		return(0);
+	if (!map->c_color || !map->f_color || !map->ea_texture || !map->no_texture || !map->so_texture || !map->we_texture)
+		return(ft_print_error(4), 0);
+	
+	ft_print_ok();
 	grid = ft_split(grid_line, '\n');
+	if (grid == NULL)
+		return (ft_print_error(3), 0);
+
 	map->grid = grid;
 	if (ft_map_coll(grid) == 0)
 		return (0);
-	if (ft_reachable(grid, strmap) == 0)
-		return (0);
-	fill_w_sp(&grid);
 
-	printf("NO %s\n", map->no_texture);
-	printf("SO %s\n", map->so_texture);
-	printf("WE %s\n", map->we_texture);
-	printf("EA %s\n", map->ea_texture);
+	if (ft_reachable(grid, strmap) == 0)
+		return (ft_print_error(6) ,0);
+
+	fill_w_sp(&grid);
+	
 	return (1);
 }
