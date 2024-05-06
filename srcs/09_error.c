@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:11:21 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/06 17:07:39 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:26:38 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	ft_print_ok(void)
 void	ft_print_error(int type)
 {
 	if (type == 0)
-		printf("\033[1;31m [KO] \033[0m \n  WRONG FILE NAME  \n"); //X
+		printf("\033[1;31m [KO] \033[0m \nWRONG FILE NAME  \n"); //X
 	else if (type == 1)
-		printf("\033[1;31m [KO] \033[0m\n mlx_init() failed\n");
+		printf("\033[1;31m [KO] \033[0m\nMlx_init() failed\n");
 	else if (type == 2)
 		printf("\033[1;31m [KO] \033[0m\nERROR READING THE FILE\n"); //X
 	else if (type == 3)
