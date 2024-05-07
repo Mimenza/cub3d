@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:11:21 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/06 19:08:00 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:39:50 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_print_error(int type)
 		printf("\033[1;31m [KO] \033[0m\nERROR CREATING THE GRID\n"); //X
 	else if (type == 4)
 		printf("\033[1;31m [KO] \033[0m\ndata missing in the .cub file\n"); //X
+	else if (type == 5)
+		printf("\033[1;31m [KO] \033[0m\nFound a duplicated data\n"); //X
 	else if (type == 6)
 		printf("\033[1;31m [KO] \033[0m\nTHE PLAYER FELL INTO THE VOID :(\n");//X
 	else if (type == 7)

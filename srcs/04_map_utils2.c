@@ -6,69 +6,11 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:43 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/06 19:06:29 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:44:50 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
-
-//Read the file and return the line with all the content
-// static char	*ft_read_file(t_map *map, char *strmap, char *t_line)
-// {
-// 	char	*path;
-// 	int		fdmap;
-// 	char	*line;
-// 	char	*tmp;
-
-// 	path = ft_strjoin("./maps/", strmap);
-// 	fdmap = open(path, O_RDONLY);
-// 	free(path);
-// 	if (fdmap == -1)
-// 		return (NULL);
-// 	while (1)
-// 	{
-// 		line = get_next_line(fdmap);
-// 		if (line != NULL)
-// 		{
-// 			tmp = ft_strdup(t_line);
-// 			free(t_line);
-// 			if (treat_line(map, line) == 1)
-// 				t_line = ft_strjoin(tmp, line);
-// 			else
-// 				t_line = ft_strdup(tmp);
-// 			free(line);
-// 			free(tmp);
-// 		}
-// 		else
-// 			break;
-// 	}
-// 	close(fdmap);
-// 	return (t_line);
-// }
-
-// //Create the map grid 
-// int	ft_create_grid(t_map *map, char *strmap, char ***grid)
-// {
-// 	char	*file_content;
-
-// 	file_content = ft_strdup("");
-// 	file_content = ft_read_file(map, strmap, file_content);
-// 	if (file_content == NULL)
-// 	{
-// 		ft_print_error(2);
-// 		return (0);
-// 	}
-// 	*grid = ft_split(file_content, '\n');
-// 	//ft_print_grid(*grid);
-// 	free(file_content);
-// 	if (*grid == NULL)
-// 	{
-// 		ft_print_error(3);
-// 		return (0);
-// 	}
-	
-// 	return (1);
-// }
 
 //Check the map collectables and player/exit
 int	ft_map_coll(char **grid)

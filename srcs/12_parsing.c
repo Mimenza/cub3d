@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/07 13:26:58 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:43:10 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ int assign_data_c(char *line, int *ref, int (*parse_function)(char *))
 	return (1); // Datos asignados correctamente
 }
 
-//0 ERROR 1 GRID 2 TEXTURE 3 COLOR
+//2 non grid but saved, 0 error, 1 grid
 int	treat_data(t_map *map, char *line, int empty_flag, int *g_flag)
 {
 	int	flag;
 
 	flag = 10; //default
-
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		flag = assign_data_t(line, &(map->no_texture), &parse_textures);
 	else if (ft_strncmp(line, "SO ", 3) == 0)
@@ -47,15 +46,15 @@ int	treat_data(t_map *map, char *line, int empty_flag, int *g_flag)
 		flag = assign_data_c(line, &(map->f_color), &parse_colors);
 	else if (ft_strncmp(line, "C ", 2) == 0)
 		flag = assign_data_c(line, &(map->c_color), &parse_colors);
-
 	if (flag == 1)
-		return (2); //error found in the parsing
+		return (2);
 	if (flag == 0)
-		return (0); //no error found in the parsing
-	//check if the grid is at the end of the file
-	if (check_flags(g_flag, empty_flag) == 0 || map->c_color == 0 || map->f_color == 0 || map->ea_texture == NULL || map->no_texture == NULL || map->so_texture == NULL || map->we_texture == NULL)
-		return ((void)printf("\033[1;31m [KO] \033[0m\nline-->%s\n", line), 0); //ERROR IN THE GRID
-		
+		return (ft_print_error(5),0);
+	if (check_flags(g_flag, empty_flag) == 0 || map->c_color == 0 || \
+	map->f_color == 0 || map->ea_texture == NULL || \
+	map->no_texture == NULL || map->so_texture == NULL || \
+	map->we_texture == NULL)
+		return ((void)printf("\033[1;31m [KO] \033\n"), 0); //ERROR IN THE GRID
 	return (1); //GRID
 }
 
@@ -66,7 +65,7 @@ int ft_read_file(t_map *map, char *strmap)
 	char	*line;
 	char	*tmp;
 	char	*grid_line;
-	int		empty_flag; // line is empty	
+	int		empty_flag; // line is empty
 	int		g_flag;		//grid flag;
 	char	**grid;
 	int		tread_flag;
