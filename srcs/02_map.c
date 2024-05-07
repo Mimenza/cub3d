@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:41:11 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/06 16:50:21 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:41:54 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_map	ft_create_map(char *strmap)
 	t_map	map;
 
 	map.created = 0;
-	// grid = ft_create_and_validate_grid(&map, strmap);
 	if (ft_read_file(&map, strmap) == 0)
 		return (map);
 	calculate_size(&map);

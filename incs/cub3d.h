@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/07 12:36:30 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:44:38 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,3 +197,9 @@ void			ft_render_map(t_game *game);
 
 //12 PARSING
 int				ft_read_file(t_map *map, char *strmap);
+
+//13 PARSING UTILS
+char	*parse_textures(char *line);
+int		parse_colors(char *line);
+int		check_flags(int *flag, int empty_flag);
+int		is_empty(char *str);
