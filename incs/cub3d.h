@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/06 16:49:11 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:36:30 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define RES_3D 1
 # define RES 3			//scalation of the minimap (pwx % res must return 0)
 # define R_SPEED 0.05    //rotation speed
-# define MOVE_STEP 0.1
+# define MOVE_STEP 0.5
 # define VERTICAL_WALL_COLOR 0xFF0000 // Color rojo
 # define HORIZONTAL_WALL_COLOR 0x00FF00 // Color verde
 # define GRID_SIZE 100
@@ -193,7 +193,7 @@ void		ft_print_grid(char **grid);
 //11_COORDINATES
 void			get_player(t_game *game);
 void			ft_print_grid(char **grid);
-void			ft_print_map(t_game *game);
+void			ft_render_map(t_game *game);
 
 //12 PARSING
 int				ft_read_file(t_map *map, char *strmap);

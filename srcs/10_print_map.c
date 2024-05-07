@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/06 16:28:30 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:36:30 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,7 +359,7 @@ void ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy
 }
 
 // Main function which prints the map into the window.
-void	ft_print_map(t_game *game)
+void	ft_render_map(t_game *game)
 {
 	int		posx;		//saved x position
 	int		posy;		//saved y position
@@ -376,9 +376,8 @@ void	ft_print_map(t_game *game)
 	py_rela2 = ((game->p->pos.y * game->window.size->h / RES) / game->map.size->h);
 
 	mlx_clear_window(game->window.mlx, game->window.win);
-	//ft_print_grid(game->map.grid);
 	draw_fov(game, px_rela1, py_rela1);
-	// ft_print_minimap(game, px_rela2, py_rela2, posx, posy);
+	//ft_print_minimap(game, px_rela2, py_rela2, posx, posy);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->window.img, 0, 0);
 }
 
