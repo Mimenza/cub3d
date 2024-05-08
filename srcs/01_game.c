@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/07 12:58:24 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:47:33 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ static void	ft_start_game(t_game game)
 		exit(EXIT_FAILURE);
 	}
 	win = ft_new_window(mlx, (16 * PXW), (9 * PXW), "CUB3D");
+	//win = ft_new_window(mlx, (game.map.size->w * PXW), (game.map.size->h * PXW), "prueba");
 	game.window = win;
-	
+
 	if (ft_load_imgs(&game) == 0)
 		return;
 	get_player(&game);

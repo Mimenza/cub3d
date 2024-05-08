@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/07 12:36:30 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:39:43 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int check_point_in_grid(t_game *game, int x, int y, int grid_size)
 
 void draw_line_to_direction(t_game *game, int x, int y, double length, double desv, int c_i)
 {
-	int grid_size = game->window.size->w / game->map.size->w; // Tamaño de la cuadrícula
+	int grid_size = 100; // Tamaño de la cuadrícula
 
 	double end_x = x; // Coordenada x actual/final inicializada con la posición inicial
 	double end_y = y; // Coordenada y actual/final inicializada con la posición inicial
@@ -237,8 +237,8 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 			{
 				// printf("el rayo ha chocado en las coordenadas x: %f e y:%f\nlas coordenadas del jugador son x", grid_x, grid_y);
 				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);
-				realx = end_x * game->map.size->w / game->window.size->w;
-				realy = end_y * game->map.size->h / game->window.size->h;
+				realx = end_x * 100;
+				realy = end_y * 100;
 				break;
 			}
 			old_x = end_x;
@@ -257,17 +257,29 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	{
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0x2a5cb8);
 		if (dir == 3)
+		{
 			draw_v_line(game, desv, dtw, c_i, game->window.imgs[2]->addrs, realy - (int)realy); //3d verde
+			//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
+		}
 		else
+		{
 			draw_v_line(game, desv, dtw, c_i, game->window.imgs[3]->addrs, realy - (int)realy); //3d naranja
+			//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
+		}
 	}
 	else if (inter == 3)
 	{
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xcc12a7);
 		if (dir == 1)
+		{
 			draw_v_line(game, desv, dtw, c_i, game->window.imgs[0]->addrs, realx - (int)realx); //3d azul
+			//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
+		}
 		else
+		{
 			draw_v_line(game, desv, dtw, c_i, game->window.imgs[1]->addrs, realx - (int)realx); //3d moradito
+			//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
+		}
 	}
 	old_inter = inter;
 }
@@ -299,64 +311,55 @@ void	draw_fov(t_game *game, double px_rela, double py_rela)
 	}
 }
 
-void ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy)
+void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy)
 {
-	int y;
-	int x;
-	int c_y; //current y
-	int res = RES; // Obtener el valor de la macro RES
-	int	pxps = game->window.size->w / game->map.size->w;
-	t_position p_pos = game->p->pos; //(contiene un x y un y);
+	int		y;
+	int		x;
+	int		c_y;		//current y
 
 	c_y = 0;
 	y = 0;
-	while (y < (pxps * 7) / res)
+	while ((y < (game->window.size->h / RES)) && (y < ((game->map.size->h * 100) / RES)))
 	{
 		x = 0;
-		while (x < (pxps * 7) / res)
+		while ((x < (game->window.size->w / RES)) && (x < ((game->map.size->w * 100) / RES)))
 		{
-				int offset_x = x - ((pxps * 7) / res) / 2; // Calculamos el offset en x respecto al centro
-				int offset_y = y - ((pxps * 7) / res) / 2; // Calculamos el offset en y respecto al centro
-				posx = p_pos.x + offset_x;
-				posy = p_pos.y + offset_y;
-
-			if (((offset_x * offset_x) + (offset_y * offset_y)) <= 2)
+			if ((((x - px_rela) * (x - px_rela)) + ((y - py_rela) * (y - py_rela))) <= 20)
 			{
-				// Si la posición está dentro del círculo, pintar el circulito
+				//If para printear circulito
 				my_mlx_pixel_put(game, x, y, 0xfa2e0a);
+			}
+			else if ((posx != ((x * game->map.size->w) / (game->window.size->w / RES))) || (c_y != posy))
+			{
+				//If para printear lineas grid
+				my_mlx_pixel_put(game, x, y, 0x000000);
+				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
+				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
 			}
 			else
 			{
-				// Si la posición está fuera del círculo, pintar el contenido del mapa completo
-				if (posx >= 0 && posx < game->map.size->w && posy >= 0 && posy < game->map.size->h)
+				//Else para printear todo lo demas
+				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
+				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
+				if (game->map.grid[posy][posx] == '0')
+					my_mlx_pixel_put(game, x, y, 0xFFFFFF);
+				else if (game->map.grid[posy][posx] == '1')
 				{
-					if (game->map.grid[posy][posx] == '0')
-					{
-						my_mlx_pixel_put(game, x, y, 0xFFFFFF);
-					}
-					else if (game->map.grid[posy][posx] == '1')
-					{
-						my_mlx_pixel_put(game, x, y, 0x8a8787);
-					}
-					else
-					{
-						// Si no hay nada, pintar como transparent
-						//my_mlx_pixel_put(game, x, y, 0x000000);
-					}
+					my_mlx_pixel_put(game, x, y, 0x8a8787);
 				}
+				else if (game->map.grid[posy][posx] == ' ')
+					my_mlx_pixel_put(game, x, y, 0x000000);
 				else
-				{
-					// Si la posición está fuera de los límites del mapa, pintar como transparente
-					//my_mlx_pixel_put(game, x, y, 0x000000);
-				}
+					my_mlx_pixel_put(game, x, y, 0xFFFFFF);
 			}
 			x++;
 		}
-		// Actualizamos que estamos en una nueva fila
-		c_y = ((y * game->map.size->h) / (game->window.size->h / res));
+		//Actualizamos que estamos en nueva fila
+		c_y = ((y * game->map.size->h) / (game->window.size->h / RES));
 		y++;
 	}
 }
+
 
 // Main function which prints the map into the window.
 void	ft_render_map(t_game *game)
@@ -370,14 +373,22 @@ void	ft_render_map(t_game *game)
 
 	posx = 0;
 	posy = 0;
-	px_rela1 = ((game->p->pos.x * game->window.size->w / RES_3D) / game->map.size->w);
-	py_rela1 = ((game->p->pos.y * game->window.size->h / RES_3D) / game->map.size->h);
-	px_rela2 = ((game->p->pos.x * game->window.size->w / RES) / game->map.size->w);
-	py_rela2 = ((game->p->pos.y * game->window.size->h / RES) / game->map.size->h);
+	//px_rela1 = ((game->p->pos.x * game->window.size->w / RES_3D) / game->map.size->w);
+	//py_rela1 = ((game->p->pos.y * game->window.size->h / RES_3D) / game->map.size->h);
+	
+	px_rela1 = game->p->pos.x * 100;
+	py_rela1 = game->p->pos.y * 100;
+	
+	// px_rela2 = ((game->p->pos.x * game->window.size->w / RES) / game->map.size->w);
+	// py_rela2 = ((game->p->pos.y * game->window.size->h / RES) / game->map.size->h);
 
+	px_rela2 = game->p->pos.x * 100;
+	py_rela2 = game->p->pos.y * 100;
+
+	//ft_print_minimap(game, px_rela2, py_rela2, posx, posy);
 	mlx_clear_window(game->window.mlx, game->window.win);
 	draw_fov(game, px_rela1, py_rela1);
-	//ft_print_minimap(game, px_rela2, py_rela2, posx, posy);
+	
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->window.img, 0, 0);
 }
 

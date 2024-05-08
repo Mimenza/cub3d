@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/07 12:44:38 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:24:11 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define ANGLE_E 45     //fov end angle
 # define ITER 0.1       //number of iters of the rays (less = more)
 # define RES_3D 1
-# define RES 3			//scalation of the minimap (pwx % res must return 0)
+# define RES 1			//scalation of the minimap (pwx % res must return 0)
 # define R_SPEED 0.05    //rotation speed
 # define MOVE_STEP 0.5
 # define VERTICAL_WALL_COLOR 0xFF0000 // Color rojo
