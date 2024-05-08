@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/08 21:24:52 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/08 22:48:49 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,10 +319,10 @@ void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy
 
 	c_y = 0;
 	y = 0;
-	while ((y < (game->window.size->h / RES)) && (y < ((game->map.size->h * 100) / RES)))
+	while ((y < ((game->map.size->h * 100)  / RES)))
 	{
 		x = 0;
-		while ((x < (game->window.size->w / RES)) && (x < ((game->map.size->w * 100) / RES)))
+		while ((x < ((game->map.size->w * 100) / RES)))
 		{
 			if ((((x - px_rela) * (x - px_rela)) + ((y - py_rela) * (y - py_rela))) <= 20)
 			{
@@ -332,7 +332,7 @@ void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy
 			else if ((posx != ((x * game->map.size->w) / (game->window.size->w / RES))) || (c_y != posy))
 			{
 				//If para printear lineas grid
-				my_mlx_pixel_put(game, x, y, 0x000000);
+				//my_mlx_pixel_put(game, x , y, 0x000000);
 				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
 				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
 			}
@@ -341,16 +341,21 @@ void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy
 				//Else para printear todo lo demas
 				posx = ((x * game->map.size->w) / (game->window.size->w / RES));
 				posy = ((y * game->map.size->h) / (game->window.size->h / RES));
-				if (game->map.grid[posy][posx] == '0')
+				if (game->map.grid[posy][posx] == '0' || game->map.grid[posy][posx] == 'P')
 					my_mlx_pixel_put(game, x, y, 0xFFFFFF);
 				else if (game->map.grid[posy][posx] == '1')
 				{
 					my_mlx_pixel_put(game, x, y, 0x8a8787);
 				}
 				else if (game->map.grid[posy][posx] == ' ')
-					my_mlx_pixel_put(game, x, y, 0x000000);
+				{
+					//my_mlx_pixel_put(game, x, y, 0x000000);
+				}
 				else
-					my_mlx_pixel_put(game, x, y, 0xFFFFFF);
+				{
+					//my_mlx_pixel_put(game, x, y, 0xFFFFFF);
+				}
+
 			}
 			x++;
 		}
@@ -385,10 +390,9 @@ void	ft_render_map(t_game *game)
 	px_rela2 = game->p->pos.x * GRID_SIZE;
 	py_rela2 = game->p->pos.y * GRID_SIZE;
 
-	//ft_print_minimap(game, px_rela2, py_rela2, posx, posy);
 	mlx_clear_window(game->window.mlx, game->window.win);
 	draw_fov(game, px_rela1, py_rela1);
-	
+	//ft_print_minimap(game, px_rela2, py_rela2, posx, posy);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->window.img, 0, 0);
 }
 

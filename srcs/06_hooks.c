@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/07 12:39:24 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/08 22:35:10 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int mouse_movement(int x, int y, t_game *game)
 	int			delta_x;
 	
 	player = game->p;
-	prev_mouse_x = 0;
 	curr_mouse_x = x;
+
 	delta_x = curr_mouse_x - prev_mouse_x;
-	player->rad += delta_x * 0.1;
+		player->rad += delta_x * 0.03;
 	ft_render_map(game);
 	prev_mouse_x = curr_mouse_x;
 	return (0);
