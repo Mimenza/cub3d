@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/08 16:24:11 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/08 21:16:16 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define MOVE_STEP 0.5
 # define VERTICAL_WALL_COLOR 0xFF0000 // Color rojo
 # define HORIZONTAL_WALL_COLOR 0x00FF00 // Color verde
-# define GRID_SIZE 100
+# define GRID_SIZE 50
 
 //# define M_PI 3.1415926535897932384
 //450 height

@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/08 16:39:43 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/08 21:24:52 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ double	cal_distance(t_player *player, double c_x, double c_y, double x, double y
 
 void draw_v_line(t_game *game, double desv, double size, int c_i, int *texture, double column)
 {
-	int column_w;
-	int column_h;
+	int column_w; // WIDTH OF THE COLUMN // DEF 1 PIXEL
+	int column_h; // HEIGHT OF THE COLUMN
 	int y;
-	int wall_h;
+	int wall_h;	 // HEIGHT OF THE WALL ABOUT TO PRINT
 	int textel_x;
 	int textel_y;
 
@@ -133,7 +133,7 @@ int check_point_in_grid(t_game *game, int x, int y, int grid_size)
 
 void draw_line_to_direction(t_game *game, int x, int y, double length, double desv, int c_i)
 {
-	int grid_size = 100; // Tamaño de la cuadrícula
+	int grid_size = GRID_SIZE; // Tamaño de la cuadrícula
 
 	double end_x = x; // Coordenada x actual/final inicializada con la posición inicial
 	double end_y = y; // Coordenada y actual/final inicializada con la posición inicial
@@ -237,8 +237,8 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 			{
 				// printf("el rayo ha chocado en las coordenadas x: %f e y:%f\nlas coordenadas del jugador son x", grid_x, grid_y);
 				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);
-				realx = end_x * 100;
-				realy = end_y * 100;
+				realx = end_x * GRID_SIZE;
+				realy = end_y * GRID_SIZE;
 				break;
 			}
 			old_x = end_x;
@@ -376,14 +376,14 @@ void	ft_render_map(t_game *game)
 	//px_rela1 = ((game->p->pos.x * game->window.size->w / RES_3D) / game->map.size->w);
 	//py_rela1 = ((game->p->pos.y * game->window.size->h / RES_3D) / game->map.size->h);
 	
-	px_rela1 = game->p->pos.x * 100;
-	py_rela1 = game->p->pos.y * 100;
+	px_rela1 = game->p->pos.x * GRID_SIZE;
+	py_rela1 = game->p->pos.y * GRID_SIZE;
 	
 	// px_rela2 = ((game->p->pos.x * game->window.size->w / RES) / game->map.size->w);
 	// py_rela2 = ((game->p->pos.y * game->window.size->h / RES) / game->map.size->h);
 
-	px_rela2 = game->p->pos.x * 100;
-	py_rela2 = game->p->pos.y * 100;
+	px_rela2 = game->p->pos.x * GRID_SIZE;
+	py_rela2 = game->p->pos.y * GRID_SIZE;
 
 	//ft_print_minimap(game, px_rela2, py_rela2, posx, posy);
 	mlx_clear_window(game->window.mlx, game->window.win);
