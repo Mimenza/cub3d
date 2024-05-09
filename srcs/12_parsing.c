@@ -86,7 +86,7 @@ int ft_read_file(t_map *map, char *strmap)
 	fdmap = open(path, O_RDONLY);
 	free(path);
 	if (fdmap == -1)
-		return (ft_print_error(2), 1);
+		return (ft_print_error(2), 0);
 	while (1)
 	{
 		line = get_next_line(fdmap);

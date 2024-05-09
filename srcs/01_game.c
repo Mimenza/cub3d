@@ -13,16 +13,15 @@
 #include "../incs/cub3d.h"
 
 //This functions loads the imgs.
-static t_imgs	*ft_load(t_game *game, char *path, int i)
+t_imgs	*ft_load(t_game *game, char *path, int i)
 {
 	int		h;
 	int		w;
 	t_imgs	*img;
 
 	img = (t_imgs *)malloc(sizeof(t_imgs));
-	if (!img || path == NULL)
+	if (img == NULL || path == NULL)
 		return (NULL);
-
 	img->img = mlx_xpm_file_to_image(game->window.mlx, path, &w, &h);
 	if (img->img == NULL)
 	{
@@ -36,14 +35,16 @@ static t_imgs	*ft_load(t_game *game, char *path, int i)
 
 static int	ft_cpy_imgs(char files[IMG_COUNT][42], t_game *game)
 {
-	int	i;
+	int		i;
+	t_imgs *img;
 
 	i = IMG_COUNT - 1;
 	while (i >= 0)
 	{
-		game->window.imgs[i] = ft_load(game, files[i], i);
-		// if (game->window.imgs[i] == NULL); // este if no furrula bien
-		// 	return (0);
+		img = ft_load(game, files[i], i);
+		if (img == NULL)
+			return (0);
+		game->window.imgs[i] = img;
 		i--;
 	}
 	return (1);
@@ -77,7 +78,6 @@ static void	ft_start_game(t_game game)
 		exit(EXIT_FAILURE);
 	}
 	win = ft_new_window(mlx, (16 * PXW), (9 * PXW), "CUB3D");
-	//win = ft_new_window(mlx, (game.map.size->w * PXW), (game.map.size->h * PXW), "prueba");
 	game.window = win;
 
 	if (ft_load_imgs(&game) == 0)
