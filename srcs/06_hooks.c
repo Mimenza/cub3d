@@ -33,17 +33,31 @@ int mouse_movement(int x, int y, t_game *game)
 void	key_press_hook_aux(t_game *game, double move_x, double move_y, int mode)
 {
 	t_player	*player;
+	double		tmp_x;
+	double		tmp_y;
 
+	tmp_x = 0;
+	tmp_y = 0;
 	player = game->p;
 	if (mode == 1)
 	{
-		player->pos.x -= move_x * (MOVE_STEP / 10);
-		player->pos.y -= move_y * (MOVE_STEP / 10);
+		tmp_x = player->pos.x - (move_x * (MOVE_STEP / 10));
+		tmp_y = player->pos.y - (move_y * (MOVE_STEP / 10));
 	}
 	else
 	{
-		player->pos.x += move_x * (MOVE_STEP / 10);
-		player->pos.y += move_y * (MOVE_STEP / 10);
+		tmp_x = player->pos.x + (move_x * (MOVE_STEP / 10));
+		tmp_y = player->pos.y + (move_y * (MOVE_STEP / 10));
+	}
+
+	printf("player curr x: %f e y: %f\n", player->pos.x, player->pos.y);
+	printf("player next pos x: %f e y: %f\n", tmp_x , tmp_y);
+	printf("%c\n", game->map.grid[(int)tmp_y][(int)tmp_x]);
+
+	if (game->map.grid[(int)tmp_y][(int)tmp_x] != '1' && game->map.grid[(int)tmp_y][(int)tmp_x] != ' ')
+	{
+		player->pos.x = tmp_x;
+		player->pos.y = tmp_y;
 	}
 }
 

@@ -154,7 +154,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	double dtw = 0;
 
 	int	dir = 0;
-	\
+	
 	while (steps < length)
 	{
 		end_x += cos(game->p->rad + desv);
@@ -234,7 +234,8 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 					grid_y =ceil(grid_y) + 0.9;
 				}
 			}
-			if (game->map.grid[(int)grid_y][(int)grid_x] == '1' || game->map.grid[(int)grid_y][(int)grid_x] == ' ')
+			// printf("%d y %d\n", (int)grid_y)
+			if (game->map.grid[(int)grid_y][(int)grid_x] && (game->map.grid[(int)grid_y][(int)grid_x] == '1' || game->map.grid[(int)grid_y][(int)grid_x] == ' '))
 			{
 				// printf("el rayo ha chocado en las coordenadas x: %f e y:%f\nlas coordenadas del jugador son x", grid_x, grid_y);
 				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);

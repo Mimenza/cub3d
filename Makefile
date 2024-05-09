@@ -19,9 +19,9 @@ NC = \033[0m # No color (reiniciar)
 #Comandos
 DEL			=	rm -f
 CC			=	gcc
-CCFLAGS		=	-Wall -Wextra -Werror
+CCFLAGS		=	-O0 -g3 -Wall -Wextra -Werror
 # MLX			=	-framework OpenGL -framework AppKit
-MLX			=	-lXext -lX11 -lm -lbsd
+MLX			=	-lXext -lX11 -lm
 # -g3 -fsanitize=address
 
 #Nombre ejecutable
