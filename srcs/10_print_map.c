@@ -141,7 +141,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	int steps = 0;
 	int inter = 0; //interseccion, nos dice si es una pared H V o Esquina //3 H //2 V //1 ESQ
 	static int old_inter = 0;
-
+	static int old_dir = 0;
 	double grid_x; //posicion en el grid en la que estamos evaluando
 	double grid_y;	//posicion en el grid en la que estamos evaluando
 
@@ -154,6 +154,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	double dtw = 0;
 
 	int	dir = 0;
+	\
 	while (steps < length)
 	{
 		end_x += cos(game->p->rad + desv);
@@ -187,7 +188,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 				{
 					// printf("y abajo\n");
 					dir = 2;
-					grid_y += 0.9;
+					grid_y =ceil(grid_y) + 0.9;
 				}
 			}
 
@@ -198,7 +199,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 				{
 					// printf("x derecha\n");
 					dir = 3;
-					grid_x += 0.9;
+					grid_x =ceil(grid_x) + 0.9;
 				}
 				else if (x > (int)end_x)
 				{
@@ -214,7 +215,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 				if (x < (int)end_x)
 				{
 					// printf("x derecha\n");
-					grid_x += 0.9;
+					grid_x =ceil(grid_x) + 0.9;
 				}
 				else if (x > (int)end_x)
 				{
@@ -230,15 +231,15 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 				else if (y < (int)end_y && inter == 3)
 				{
 					// printf("y abajo\n");
-					grid_y += 0.9;
+					grid_y =ceil(grid_y) + 0.9;
 				}
 			}
 			if (game->map.grid[(int)grid_y][(int)grid_x] == '1' || game->map.grid[(int)grid_y][(int)grid_x] == ' ')
 			{
 				// printf("el rayo ha chocado en las coordenadas x: %f e y:%f\nlas coordenadas del jugador son x", grid_x, grid_y);
 				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);
-				realx = end_x * GRID_SIZE;
-				realy = end_y * GRID_SIZE;
+				realx = end_x / GRID_SIZE;
+				realy = end_y / GRID_SIZE;
 				break;
 			}
 			old_x = end_x;
@@ -249,9 +250,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	if (inter == 1)
 	{
 		inter = old_inter;
-		//No dibujamos las diagonales
-		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
-		// draw_v_line(game, desv, dtw, c_i, game->window.imgs[8]->addrs, realy - (int)realy); //3d
+		dir = old_dir;
 	}
 	if (inter == 2)
 	{
@@ -282,6 +281,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 		}
 	}
 	old_inter = inter;
+	old_dir = dir;
 }
 
 //Draws the fov fo the player

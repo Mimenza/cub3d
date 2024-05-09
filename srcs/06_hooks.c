@@ -25,6 +25,7 @@ int mouse_movement(int x, int y, t_game *game)
 	delta_x = curr_mouse_x - prev_mouse_x;
 		player->rad += delta_x * 0.03;
 	ft_render_map(game);
+	usleep(200);
 	prev_mouse_x = curr_mouse_x;
 	return (0);
 }
