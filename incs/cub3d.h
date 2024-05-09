@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
-# include "../libs/minilibx/mlx.h"
+# include "../libs/minilibx-linux/mlx.h"
 # include "../libs/gnl/get_next_line.h"
 # include "../libs/Libft/libft.h"
 // ----------------------------------

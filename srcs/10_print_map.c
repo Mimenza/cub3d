@@ -154,6 +154,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	double dtw = 0;
 
 	int	dir = 0;
+	static int old_dir = 0;
 	while (steps < length)
 	{
 		end_x += cos(game->p->rad + desv);
@@ -214,7 +215,8 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 				if (x < (int)end_x)
 				{
 					// printf("x derecha\n");
-					grid_x += 0.9;
+					// grid_x += 0.9;
+					grid_x =ceil(grid_x) + 0.9;
 				}
 				else if (x > (int)end_x)
 				{
@@ -230,15 +232,14 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 				else if (y < (int)end_y && inter == 3)
 				{
 					// printf("y abajo\n");
-					grid_y += 0.9;
+					// grid_y += 0.9;
+					grid_y =ceil(grid_y) + 0.9;
 				}
 			}
 			if (game->map.grid[(int)grid_y][(int)grid_x] == '1' || game->map.grid[(int)grid_y][(int)grid_x] == ' ')
 			{
 				// printf("el rayo ha chocado en las coordenadas x: %f e y:%f\nlas coordenadas del jugador son x", grid_x, grid_y);
 				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);
-				realx = end_x * GRID_SIZE;
-				realy = end_y * GRID_SIZE;
 				break;
 			}
 			old_x = end_x;
@@ -249,26 +250,27 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	if (inter == 1)
 	{
 		inter = old_inter;
-		//No dibujamos las diagonales
-		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
-		// draw_v_line(game, desv, dtw, c_i, game->window.imgs[8]->addrs, realy - (int)realy); //3d
+		dir = old_dir;
+
 	}
 	if (inter == 2)
 	{
+		realy = end_y / GRID_SIZE;
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0x2a5cb8);
 		if (dir == 3)
 		{
-			draw_v_line(game, desv, dtw, c_i, game->window.imgs[2]->addrs, realy - (int)realy); //3d verde
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[2]->addrs, (realy - (int)realy)); //3d verde
 			//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
 		}
 		else
 		{
-			draw_v_line(game, desv, dtw, c_i, game->window.imgs[3]->addrs, realy - (int)realy); //3d naranja
+			draw_v_line(game, desv, dtw, c_i, game->window.imgs[3]->addrs, (realy - (int)realy)); //3d naranja
 			//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
 		}
 	}
 	else if (inter == 3)
 	{
+		realx = end_x / GRID_SIZE;
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xcc12a7);
 		if (dir == 1)
 		{
@@ -282,6 +284,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 		}
 	}
 	old_inter = inter;
+	old_dir = dir;
 }
 
 //Draws the fov fo the player
@@ -307,6 +310,7 @@ void	draw_fov(t_game *game, double px_rela, double py_rela)
 		draw_line_to_direction(game, px_rela, py_rela, l, (start * M_PI / 180.0), i);
 		start += angle_increment; //less number equals to more lines
 		//start += 1;
+		// break ;
 		i++;
 	}
 }

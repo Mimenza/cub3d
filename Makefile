@@ -78,7 +78,7 @@ gnl:
 
 # Eliminar tmp mlx
 fclean_mlx:
-	@make fclean -C ./$(MINILIBX)
+	@make clean -C ./$(MINILIBX)
 	@echo "$(RED)MINILIBX FULL CLEANED!$(NC)"
 
 # Eliminar tmp gnl
@@ -98,7 +98,7 @@ clean:
 
 
 # Eliminar temporales y ejecutable fclean_mlx
-fclean: clean  fclean_gnl fclean_libft
+fclean: clean  fclean_gnl fclean_libft fclean_mlx
 	@$(RM) $(NAME)
 	@echo "$(RED)EXECUTABLE CLEANED!$(NC)"
 
