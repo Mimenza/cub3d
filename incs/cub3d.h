@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/08 22:37:51 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/11 17:55:17 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@
 # define PURPLESTONE	"./textures/purplestone.xpm"
 # define REDBRICK		"./textures/redbrick.xpm"
 # define WOOD			"./textures/wood.xpm"
+
+# define TREAD_FLAG 0
+# define EMPTY_FLAG 1
+# define G_FLAG 2
+# define FD_MAP 3
 
 // Assets location
 # define IMG_COUNT	4
@@ -199,7 +204,8 @@ void			ft_render_map(t_game *game);
 int				ft_read_file(t_map *map, char *strmap);
 
 //13 PARSING UTILS
-char	*parse_textures(char *line);
-int		parse_colors(char *line);
+int		assign_data_t(char *line, char **ref);
+int		assign_data_c(char *line, int *ref);
 int		check_flags(int *flag, int empty_flag);
 int		is_empty(char *str);
+void	init_data(int (*flags)[4], t_map *map, char **grid_line, char *path);
