@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:43 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/07 13:44:50 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:43:30 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_map_coll(char **grid)
 		}
 		y++;
 	}
-	if (ft_check_item(0, &player) == 0)
+	if (ft_check_item(&player) == 0)
 		return (0);
 	printf("\033[0;32m [OK] \033[0m\n\n");
 	return (1);
@@ -84,7 +84,7 @@ void	fill_w_sp(char	***grid)
 	size_t	len;
 	size_t	max;
 	int		x;
-	int		y;
+	size_t	y;
 	char	*tmp;
 
 	max = max_line(*grid) - 1;

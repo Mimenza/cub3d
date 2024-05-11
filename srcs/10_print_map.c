@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/08 22:48:49 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:49:13 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ double	cal_distance(t_player *player, double c_x, double c_y, double x, double y
 	return (distance);
 }
 
-void draw_v_line(t_game *game, double desv, double size, int c_i, int *texture, double column)
+void draw_v_line(t_game *game, double size, int c_i, int *texture, double column)
 {
 	int column_w; // WIDTH OF THE COLUMN // DEF 1 PIXEL
 	int column_h; // HEIGHT OF THE COLUMN
@@ -115,12 +115,8 @@ void draw_line(t_game *game, int x0, int y0, int x1, int y1, int color)
 }
 
 //Returns whether the wall is h, v or a corner
-int check_point_in_grid(t_game *game, int x, int y, int grid_size)
+int check_point_in_grid(int x, int y, int grid_size)
 {
-	// Calcula las coordenadas del cuadrado actual
-	int square_x = x / grid_size;
-	int square_y = y / grid_size;
-
 	// Verifica si el punto está en una línea horizontal o vertical
 	if (x % grid_size == 0 && y % grid_size == 0)
 		return (1);
@@ -145,8 +141,8 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	double grid_x; //posicion en el grid en la que estamos evaluando
 	double grid_y;	//posicion en el grid en la que estamos evaluando
 
-	double old_x; //variable para guardarme la ultima vez que un punto ha cruzado una linea
-	double old_y; //variable para guardarme la ultima vez que un punto ha cruzado una linea
+	//double old_x; //variable para guardarme la ultima vez que un punto ha cruzado una linea
+	//double old_y; //variable para guardarme la ultima vez que un punto ha cruzado una linea
 
 	double realx;
 	double realy;
@@ -162,15 +158,13 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 		if (steps == 0)
 		{
 			//inicializamos la ultima vez que hemos cruzado como la primera
-			old_x = end_x;
-			old_y = end_y;
+			//old_x = end_x;
+			//old_y = end_y;
 		}
 		steps++;
-		inter = check_point_in_grid(game, end_x, end_y, grid_size); //3 H //2 V
+		inter = check_point_in_grid(end_x, end_y, grid_size); //3 H //2 V
 		if (inter != 0)
 		{
-			double distance = sqrt(pow(end_x - old_x, 2) + pow(end_y - old_y, 2)); //varibale de tolerancia por si cortamos la linea 2 veces muy cerca
-
 			//LO QUE TENIAS
 			grid_x = (int)(end_x / grid_size);
 			grid_y = (int)(end_y / grid_size);
@@ -243,8 +237,8 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 				realy = end_y / GRID_SIZE;
 				break;
 			}
-			old_x = end_x;
-			old_y = end_y;
+			//old_x = end_x;
+			//old_y = end_y;
 		}
 	}
 	// Dibuja la línea en el minimapa
@@ -258,12 +252,12 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0x2a5cb8);
 		if (dir == 3)
 		{
-			draw_v_line(game, desv, dtw, c_i, game->window.imgs[2]->addrs, realy - (int)realy); //3d verde
+			draw_v_line(game, dtw, c_i, game->window.imgs[2]->addrs, realy - (int)realy); //3d verde
 			//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
 		}
 		else
 		{
-			draw_v_line(game, desv, dtw, c_i, game->window.imgs[3]->addrs, realy - (int)realy); //3d naranja
+			draw_v_line(game, dtw, c_i, game->window.imgs[3]->addrs, realy - (int)realy); //3d naranja
 			//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
 		}
 	}
@@ -272,12 +266,12 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 		//draw_line(game, x, y, (int)end_x, (int)end_y, 0xcc12a7);
 		if (dir == 1)
 		{
-			draw_v_line(game, desv, dtw, c_i, game->window.imgs[0]->addrs, realx - (int)realx); //3d azul
+			draw_v_line(game, dtw, c_i, game->window.imgs[0]->addrs, realx - (int)realx); //3d azul
 			//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
 		}
 		else
 		{
-			draw_v_line(game, desv, dtw, c_i, game->window.imgs[1]->addrs, realx - (int)realx); //3d moradito
+			draw_v_line(game, dtw, c_i, game->window.imgs[1]->addrs, realx - (int)realx); //3d moradito
 			//draw_line(game, x, y, (int)end_x, (int)end_y, 0xeb4034);
 		}
 	}
@@ -366,19 +360,18 @@ void	ft_print_minimap(t_game *game, int px_rela, int py_rela, int posx, int posy
 	}
 }
 
-
 // Main function which prints the map into the window.
 void	ft_render_map(t_game *game)
 {
-	int		posx;		//saved x position
-	int		posy;		//saved y position
+	//int		posx;		//saved x position
+	//int		posy;		//saved y position
 	int		px_rela1;	//player relative x position
 	int		py_rela1;	//player relative y position
-	int		px_rela2;	//player relative x position
-	int		py_rela2;	//player relative y position
+	//int		px_rela2;	//player relative x position
+	//int		py_rela2;	//player relative y position
 
-	posx = 0;
-	posy = 0;
+	//posx = 0;
+	//posy = 0;
 	//px_rela1 = ((game->p->pos.x * game->window.size->w / RES_3D) / game->map.size->w);
 	//py_rela1 = ((game->p->pos.y * game->window.size->h / RES_3D) / game->map.size->h);
 	
@@ -388,8 +381,8 @@ void	ft_render_map(t_game *game)
 	// px_rela2 = ((game->p->pos.x * game->window.size->w / RES) / game->map.size->w);
 	// py_rela2 = ((game->p->pos.y * game->window.size->h / RES) / game->map.size->h);
 
-	px_rela2 = game->p->pos.x * GRID_SIZE;
-	py_rela2 = game->p->pos.y * GRID_SIZE;
+	//px_rela2 = game->p->pos.x * GRID_SIZE;
+	//py_rela2 = game->p->pos.y * GRID_SIZE;
 
 	mlx_clear_window(game->window.mlx, game->window.win);
 	draw_fov(game, px_rela1, py_rela1);

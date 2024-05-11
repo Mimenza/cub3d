@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/11 17:55:17 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:42:36 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,9 +167,9 @@ t_game			ft_create_game(char *strmap, t_game *game);
 t_map			ft_create_map(char *strmap);
 
 //03_MAP_UTILS1
-int				ft_reachable(char **grid, char *strmap);
+int				ft_reachable(char **grid);
 int				ft_count_item(char c, int *player);
-int				ft_check_item(char c, int *player);
+int				ft_check_item(int *player);
 
 //04_MAP_UTILS2
 int				ft_create_grid(t_map *map, char *strmap, char ***grid);

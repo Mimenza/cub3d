@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/08 22:35:10 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:44:50 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int mouse_movement(int x, int y, t_game *game)
 	int			curr_mouse_x;
 	int			delta_x;
 	
+	(void)y;
 	player = game->p;
 	curr_mouse_x = x;
 
@@ -89,4 +90,5 @@ int  key_press_hook(int keycode, t_game *game)
 	else if (keycode == KEY_W)
 		key_press_hook_aux(game, cos(p->rad), sin(p->rad), 2);
 	ft_render_map(game);
+	return (0);
 }

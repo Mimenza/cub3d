@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/11 18:26:03 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:49:31 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	ft_read_each_line(int (*flags)[4], t_map *map, char **grid_line)
 int	ft_read_file(t_map *map, char *strmap)
 {
 	char	*grid_line;
-	int		fdmap;
 	int		flags[4];
 
 	init_data(&flags, map, &grid_line, ft_strjoin("./maps/", strmap));
@@ -99,7 +98,7 @@ int	ft_read_file(t_map *map, char *strmap)
 		return (ft_print_error(3), 0);
 	if (ft_map_coll(map->grid) == 0)
 		return (0);
-	if (ft_reachable(map->grid, strmap) == 0)
+	if (ft_reachable(map->grid) == 0)
 		return (ft_print_error(6), 0);
 	fill_w_sp(&map->grid);
 	return (1);
