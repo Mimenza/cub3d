@@ -6,11 +6,28 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 12:42:48 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/11 17:25:27 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/11 17:56:26 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
+
+void	init_data(int (*flags)[4], t_map *map, char **grid_line, char *path)
+{
+	(*flags)[TREAD_FLAG] = 10;
+	(*flags)[EMPTY_FLAG] = 10;
+	(*flags)[G_FLAG] = 1;
+	(*flags)[FD_MAP] = open(path, O_RDONLY);
+	map->no_texture = NULL;
+	map->so_texture = NULL;
+	map->we_texture = NULL;
+	map->ea_texture = NULL;
+	map->c_color = 0;
+	map->f_color = 0;
+	(*grid_line) = ft_strdup("");
+	free(path);
+	printf("CHECKING FILE SYNTAX...");
+}
 
 int	assign_data_t(char *line, char **ref)
 {
