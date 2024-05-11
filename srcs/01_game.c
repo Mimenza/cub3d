@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/08 22:37:09 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:34:46 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,20 @@ t_imgs	*ft_load(t_game *game, char *path, int i)
 	img->img = mlx_xpm_file_to_image(game->window.mlx, path, &w, &h);
 	if (img->img == NULL)
 	{
-		printf("\033[1;31m [KO] \033[0m \nError loading the img with the path: %s\n", path);
+		printf("\033[1;31m [KO] \033[0m \n\
+		Error loading the img with the path: %s\n", path);
 		free(img);
 		return (NULL);
 	}
-	img->addrs = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->line_len, &img->endian);
-	return(img);
+	img->addrs = (int *)mlx_get_data_addr(img->img, &img->bpp, \
+	&img->line_len, &img->endian);
+	return (img);
 }
 
 static int	ft_cpy_imgs(char files[IMG_COUNT][42], t_game *game)
 {
 	int		i;
-	t_imgs *img;
+	t_imgs	*img;
 
 	i = IMG_COUNT - 1;
 	while (i >= 0)
@@ -79,16 +81,13 @@ static void	ft_start_game(t_game game)
 	}
 	win = ft_new_window(mlx, (16 * PXW), (9 * PXW), "CUB3D");
 	game.window = win;
-
 	if (ft_load_imgs(&game) == 0)
-		return;
+		return ;
 	get_player(&game);
 	ft_replace_p(&(game.map.grid));
 	ft_render_map(&game);
-	mlx_hook(game.window.win, 2, (1L<<0), key_press_hook, &game); //HOLD
+	mlx_hook(game.window.win, 2, (1L << 0), key_press_hook, &game);
 	//mlx_hook(game.window.win, 6, (1L<<6), mouse_movement, &game);
-	
-	//mlx_key_hook(game.window.win, *key_press_hook, &game); TAP
 	mlx_loop(mlx);
 }
 
