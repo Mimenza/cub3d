@@ -6,12 +6,19 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/12 18:41:48 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:53:29 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
+void free_map(t_map *map)
+{
+	free(map->ea_texture);
+	free(map->no_texture);
+	free(map->so_texture);
+	free(map->we_texture);
+}
 //2 non grid but saved, 0 error, 1 grid
 int	treat_data(t_map *map, char *line, int empty_flag, int *g_flag)
 {
@@ -84,13 +91,13 @@ int	ft_read_file(t_map *map, char *strmap)
 
 	init_data(&flags, map, &grid_line, ft_strjoin("./maps/", strmap));
 	if (flags[FD_MAP] == -1)
-		return (ft_print_error(2), 0);
+		return (ft_print_error(2), free(grid_line), 0);
 	ft_read_each_line(&flags, map, &grid_line);
 	if (flags[TREAD_FLAG] == 0)
-		return (0);
+		return (free_map(map), 0);
 	if (!map->c_color || !map->f_color || !map->ea_texture || \
 	!map->no_texture || !map->so_texture || !map->we_texture)
-		return (ft_print_error(4), 0);
+		return (ft_print_error(4),free(grid_line), free_map(map), 0);
 	ft_print_ok();
 	map->grid = ft_split(grid_line, '\n');
 	free(grid_line);
