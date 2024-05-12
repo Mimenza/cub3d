@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/11 18:42:36 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:41:48 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int				ft_check_item(int *player);
 
 //04_MAP_UTILS2
 int				ft_create_grid(t_map *map, char *strmap, char ***grid);
-int				ft_map_coll(char **grid);
+int				ft_check_p(char **grid);
 void			ft_replace_p(char ***p_grid);
 void			fill_w_sp(char	***grid);
 

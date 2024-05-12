@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/12 18:35:15 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:41:48 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	ft_read_file(t_map *map, char *strmap)
 	free(grid_line);
 	if (map->grid == NULL)
 		return (ft_print_error(3), 0);
-	if (ft_map_coll(map->grid) == 0)
+	if (ft_check_p(map->grid) == 0)
 		return (0);
 	if (ft_reachable(map->grid) == 0)
 		return (ft_print_error(6), 0);

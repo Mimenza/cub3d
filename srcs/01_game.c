@@ -6,14 +6,14 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/11 18:40:23 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:40:59 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
 //This functions loads the imgs.
-t_imgs	*ft_load(t_game *game, char *path)
+t_imgs	*ft_load_img(t_game *game, char *path)
 {
 	int		h;
 	int		w;
@@ -43,7 +43,7 @@ static int	ft_cpy_imgs(char files[IMG_COUNT][42], t_game *game)
 	i = IMG_COUNT - 1;
 	while (i >= 0)
 	{
-		img = ft_load(game, files[i]);
+		img = ft_load_img(game, files[i]);
 		if (img == NULL)
 			return (0);
 		game->window.imgs[i] = img;
