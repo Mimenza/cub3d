@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/11 18:49:31 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:35:15 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_read_each_line(int (*flags)[4], t_map *map, char **grid_line)
 				free(*grid_line);
 				(*flags)[TREAD_FLAG] = treat_data(map, line, (*flags)[EMPTY_FLAG], &(*flags)[G_FLAG]);
 				if ((*flags)[TREAD_FLAG] == 0)
-					return(free(tmp), free(line), 0);
+					return (free(tmp), free(line), 0);
 				else if ((*flags)[TREAD_FLAG] == 1)
 					*grid_line = ft_strjoin(tmp, line);
 				else

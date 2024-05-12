@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:20:29 by anurtiag          #+#    #+#             */
-/*   Updated: 2024/05/03 14:57:31 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:34:37 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ size_t	ft_mtxlen(const char **s)
 		i++;
 	return (i);
 }
+
 void	ft_get_player_dir(t_player **player, char **map, size_t i, size_t j)
 {
 	if (map[i][j] == 'N')
@@ -48,12 +49,13 @@ void	ft_get_player_pos(t_player **player, char **map)
 
 	i = -1;
 	j = -1;
-	while(map[++i])
+	while (map[++i])
 	{
 		j = -1;
-		while(map[i][++j])
+		while (map[i][++j])
 		{
-			if (map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'N' || map[i][j] == 'S')
+			if (map[i][j] == 'W' || map[i][j] == 'E' || \
+			map[i][j] == 'N' || map[i][j] == 'S')
 			{
 				ft_get_player_dir(player, map, i, j);
 				(*player)->pos.x = j + 0.5;
@@ -73,6 +75,5 @@ void	get_player(t_game *game)
 		return ;
 	game->p = player;
 	ft_get_player_pos(&player, game->map.grid);
-	//printf("la posicion del jugador es de x: %f, y: %f con una direccion en rad de : %f\n", player->pos.x, player->pos.y, player->rad);
 	return ;
 }

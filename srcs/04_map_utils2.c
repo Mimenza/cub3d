@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:43 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/11 18:43:30 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:29:58 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	ft_replace_p(char ***p_grid)
 		x = 0;
 		while (grid[y][x])
 		{
-			if (grid[y][x] == 'N' || grid[y][x] == 'S' || grid[y][x] == 'E' || grid[y][x] == 'W')
+			if (grid[y][x] == 'N' || grid[y][x] == 'S' || \
+			grid[y][x] == 'E' || grid[y][x] == 'W')
 				grid[y][x] = 'P';
 			x++;
 		}
@@ -64,8 +65,8 @@ void	ft_replace_p(char ***p_grid)
 //Returns the size of the longest line
 static size_t	max_line(char **grid)
 {
-	size_t max;
-	int	i;
+	size_t	max;
+	int		i;
 
 	i = 0;
 	max = 0;

@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 09:20:58 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/05 20:40:02 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:33:05 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,3 @@ void	ft_copy_doubleptr(char **grid, char **p_grid, t_size size)
 	}
 	p_grid[i] = NULL;
 }
-
