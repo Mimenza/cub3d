@@ -6,7 +6,7 @@
 #    By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 10:48:36 by emimenza          #+#    #+#              #
-#    Updated: 2024/05/11 18:37:03 by emimenza         ###   ########.fr        #
+#    Updated: 2024/05/13 15:51:48 by emimenza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ gnl:
 
 # Eliminar tmp mlx
 fclean_mlx:
-	@make fclean -C ./$(MINILIBX)
+	@make clean -C ./$(MINILIBX)
 	@echo "$(RED)MINILIBX FULL CLEANED!$(NC)"
 
 # Eliminar tmp gnl

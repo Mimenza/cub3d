@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/12 18:41:48 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:19:26 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
-# include "../libs/minilibx/mlx.h"
+# include "../libs/minilibx-linux/mlx.h"
 # include "../libs/gnl/get_next_line.h"
 # include "../libs/Libft/libft.h"
 // ----------------------------------
@@ -202,6 +202,7 @@ void			ft_render_map(t_game *game);
 
 //12 PARSING
 int				ft_read_file(t_map *map, char *strmap);
+void			free_map(t_map *map);
 
 //13 PARSING UTILS
 int		assign_data_t(char *line, char **ref);

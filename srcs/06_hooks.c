@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/12 18:32:41 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:25:42 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,9 @@ void	key_press_hook_aux(t_game *game, double move_x, double move_y, int mode)
 		tmp_x = player->pos.x + (move_x * (MOVE_STEP / 10));
 		tmp_y = player->pos.y + (move_y * (MOVE_STEP / 10));
 	}
-	printf("player curr x: %f e y: %f\n", player->pos.x, player->pos.y);
-	printf("player next pos x: %f e y: %f\n", tmp_x, tmp_y);
-	if (game->map.grid[(int)tmp_y][(int)tmp_x] != '1' && \
-	game->map.grid[(int)tmp_y][(int)tmp_x] != ' ')
+	//printf("player curr x: %f e y: %f\n", player->pos.x, player->pos.y);
+	//printf("player next pos x: %f e y: %f\n", tmp_x, tmp_y);
+	if (game->map.grid[(int)tmp_y][(int)tmp_x] != '1' && game->map.grid[(int)tmp_y][(int)tmp_x] != ' ')
 	{
 		player->pos.x = tmp_x;
 		player->pos.y = tmp_y;
