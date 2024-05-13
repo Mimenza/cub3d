@@ -6,7 +6,7 @@
 #    By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 10:48:36 by emimenza          #+#    #+#              #
-#    Updated: 2024/05/13 12:20:23 by anurtiag         ###   ########.fr        #
+#    Updated: 2024/05/13 16:18:24 by anurtiag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ gnl:
 
 # Eliminar tmp mlx
 fclean_mlx:
-	@make fclean -C ./$(MINILIBX)
+	@make clean -C ./$(MINILIBX)
 	@echo "$(RED)MINILIBX FULL CLEANED!$(NC)"
 
 # Eliminar tmp gnl
