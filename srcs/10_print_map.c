@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_print_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/08 22:48:49 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/10 10:28:07 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,6 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 	double dtw = 0;
 
 	int	dir = 0;
-	
 	while (steps < length)
 	{
 		end_x += cos(game->p->rad + desv);
@@ -234,7 +233,9 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 					grid_y =ceil(grid_y) + 0.9;
 				}
 			}
-			// printf("%d y %d\n", (int)grid_y)
+			// if(*patata)
+			// printf("vamos a mirar el if de calcular la distancia\n");
+			// printf("grid x es %d, grid y %d\n", (int)grid_x, (int)grid_y);
 			if (game->map.grid[(int)grid_y][(int)grid_x] && (game->map.grid[(int)grid_y][(int)grid_x] == '1' || game->map.grid[(int)grid_y][(int)grid_x] == ' '))
 			{
 				// printf("el rayo ha chocado en las coordenadas x: %f e y:%f\nlas coordenadas del jugador son x", grid_x, grid_y);
