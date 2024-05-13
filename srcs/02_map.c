@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:41:11 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/07 12:41:54 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:35:26 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,5 @@ t_map	ft_create_map(char *strmap)
 		return (map);
 	calculate_size(&map);
 	map.created = 1;
-
 	return (map);
 }

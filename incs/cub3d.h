@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/08 22:37:51 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:41:48 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@
 # define PURPLESTONE	"./textures/purplestone.xpm"
 # define REDBRICK		"./textures/redbrick.xpm"
 # define WOOD			"./textures/wood.xpm"
+
+# define TREAD_FLAG 0
+# define EMPTY_FLAG 1
+# define G_FLAG 2
+# define FD_MAP 3
 
 // Assets location
 # define IMG_COUNT	4
@@ -162,13 +167,13 @@ t_game			ft_create_game(char *strmap, t_game *game);
 t_map			ft_create_map(char *strmap);
 
 //03_MAP_UTILS1
-int				ft_reachable(char **grid, char *strmap);
+int				ft_reachable(char **grid);
 int				ft_count_item(char c, int *player);
-int				ft_check_item(char c, int *player);
+int				ft_check_item(int *player);
 
 //04_MAP_UTILS2
 int				ft_create_grid(t_map *map, char *strmap, char ***grid);
-int				ft_map_coll(char **grid);
+int				ft_check_p(char **grid);
 void			ft_replace_p(char ***p_grid);
 void			fill_w_sp(char	***grid);
 
@@ -199,7 +204,8 @@ void			ft_render_map(t_game *game);
 int				ft_read_file(t_map *map, char *strmap);
 
 //13 PARSING UTILS
-char	*parse_textures(char *line);
-int		parse_colors(char *line);
+int		assign_data_t(char *line, char **ref);
+int		assign_data_c(char *line, int *ref);
 int		check_flags(int *flag, int empty_flag);
 int		is_empty(char *str);
+void	init_data(int (*flags)[4], t_map *map, char **grid_line, char *path);

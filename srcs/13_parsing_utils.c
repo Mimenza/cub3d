@@ -6,52 +6,66 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 12:42:48 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/07 12:43:32 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/11 17:56:26 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
-char	*parse_textures(char *line)
+void	init_data(int (*flags)[4], t_map *map, char **grid_line, char *path)
 {
-	char * r_line;
-	
-	while (*line != ' ' && *line != '\t' && *line != '\0')
-		line++;
-
-	while (*line == ' ' || *line == '\t')
-		line++;
-
-	r_line = ft_substr(line, 0, ft_strchr(line, '\n') - line);//REMOVES THE LAST JUMP LINE
-	//free(line);
-	return (r_line);
+	(*flags)[TREAD_FLAG] = 10;
+	(*flags)[EMPTY_FLAG] = 10;
+	(*flags)[G_FLAG] = 1;
+	(*flags)[FD_MAP] = open(path, O_RDONLY);
+	map->no_texture = NULL;
+	map->so_texture = NULL;
+	map->we_texture = NULL;
+	map->ea_texture = NULL;
+	map->c_color = 0;
+	map->f_color = 0;
+	(*grid_line) = ft_strdup("");
+	free(path);
+	printf("CHECKING FILE SYNTAX...");
 }
 
-int		parse_colors(char *line)
+int	assign_data_t(char *line, char **ref)
+{
+	char	*r_line;
+
+	if (*ref != NULL)
+		return (0);
+	while (*line != ' ' && *line != '\t' && *line != '\0')
+		line++;
+	while (*line == ' ' || *line == '\t')
+		line++;
+	r_line = ft_substr(line, 0, ft_strchr(line, '\n') - line);
+	*ref = r_line;
+	return (1);
+}
+
+int	assign_data_c(char *line, int *ref)
 {
 	int	r;
 	int	g;
 	int	b;
 
+	if (*ref != 0)
+		return (0);
 	while (*line != ' ' && *line != '\t' && *line != '\0')
 		line++;
-
 	while (*line == ' ' || *line == '\t')
 		line++;
-			
 	r = atoi(line);
-	g = atoi(ft_strchr(line, ',') + 1); //Ref to the first ,
-	b = atoi(ft_strchr(ft_strchr(line, ',') + 1, ',') + 1); // Ref to the second ,
-	
-	return((r << 16) | (g << 8) | b);
+	g = atoi(ft_strchr(line, ',') + 1);
+	b = atoi(ft_strchr(ft_strchr(line, ',') + 1, ',') + 1);
+	*ref = (r << 16) | (g << 8) | b;
+	return (1);
 }
 
 //CHECKS THE PREV LINES
 int	check_flags(int *flag, int empty_flag)
 {
-	//error si empezamos nuevo grupo (flag == 1) y la anterio linea no esta vacia (empty_flag != 0)
-	//error si no empezamos nuevo grupo (flag == 0) y la anterior linea esta vacia (empty_flag == 1)
-	
 	if ((empty_flag == 0 && *flag == 1) || (empty_flag == 1 && *flag == 0))
 	{
 		if (*flag == 1)
@@ -60,12 +74,11 @@ int	check_flags(int *flag, int empty_flag)
 	}
 	if (*flag == 1)
 		*flag = 0;
-	
 	return (1);
 }
 
 //CHECKS IF THE LINE IS EMPTY
-int is_empty(char *str)
+int	is_empty(char *str)
 {
 	while (*str != '\0')
 	{

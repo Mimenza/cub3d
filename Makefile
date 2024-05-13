@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+         #
+#    By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 10:48:36 by emimenza          #+#    #+#              #
-#    Updated: 2024/05/07 13:13:04 by emimenza         ###   ########.fr        #
+#    Updated: 2024/05/13 12:20:23 by anurtiag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NC = \033[0m # No color (reiniciar)
 #Comandos
 DEL			=	rm -f
 CC			=	gcc
-CCFLAGS		=	-O0 -Wall -Wextra -Werror
+CFLAGS		=	-O0 -g3 -Wall -Wextra -Werror
 # MLX			=	-framework OpenGL -framework AppKit
 MLX			=	-lXext -lX11 -lm #-g3 -fsanitize=address
 # -g3 -fsanitize=address

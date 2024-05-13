@@ -6,14 +6,14 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:43 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/07 13:44:50 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:41:48 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
 //Check the map collectables and player/exit
-int	ft_map_coll(char **grid)
+int	ft_check_p(char **grid)
 {
 	int		x;
 	int		y;
@@ -33,7 +33,7 @@ int	ft_map_coll(char **grid)
 		}
 		y++;
 	}
-	if (ft_check_item(0, &player) == 0)
+	if (ft_check_item(&player) == 0)
 		return (0);
 	printf("\033[0;32m [OK] \033[0m\n\n");
 	return (1);
@@ -53,7 +53,8 @@ void	ft_replace_p(char ***p_grid)
 		x = 0;
 		while (grid[y][x])
 		{
-			if (grid[y][x] == 'N' || grid[y][x] == 'S' || grid[y][x] == 'E' || grid[y][x] == 'W')
+			if (grid[y][x] == 'N' || grid[y][x] == 'S' || \
+			grid[y][x] == 'E' || grid[y][x] == 'W')
 				grid[y][x] = 'P';
 			x++;
 		}
@@ -64,8 +65,8 @@ void	ft_replace_p(char ***p_grid)
 //Returns the size of the longest line
 static size_t	max_line(char **grid)
 {
-	size_t max;
-	int	i;
+	size_t	max;
+	int		i;
 
 	i = 0;
 	max = 0;
@@ -84,7 +85,7 @@ void	fill_w_sp(char	***grid)
 	size_t	len;
 	size_t	max;
 	int		x;
-	int		y;
+	size_t	y;
 	char	*tmp;
 
 	max = max_line(*grid) - 1;

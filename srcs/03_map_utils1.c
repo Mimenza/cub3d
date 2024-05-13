@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:33:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/06 19:09:29 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:42:26 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	**ft_create_doubleptr(char **grid)
 	char	**ptr;
 	int		size;
 
-	
 	size = 0;
 	while (grid[size])
 		size++;
@@ -37,7 +36,6 @@ void	ft_copy_doubleptr(char **grid, char **p_grid)
 	size = 0;
 	while (grid[size])
 		size++;
-	
 	i = 0;
 	while (i <= (size - 1))
 	{
@@ -91,17 +89,14 @@ static int	ft_expandable(char **grid, int *w_flag)
 }
 
 //Main function which checks if the map is doable
-int	ft_reachable(char **grid, char *strmap)
+int	ft_reachable(char **grid)
 {
-	t_player	player;
 	int			expandable;
 	char		**p_grid;
 	int			w_flag;
-	int			size;
 
 	expandable = 1;
 	w_flag = 0;
-	size = 
 	printf("CHECKING IF THE MAP IS DO-ABLE...");
 	p_grid = ft_create_doubleptr(grid);
 	ft_copy_doubleptr(grid, p_grid);
@@ -121,7 +116,8 @@ int	ft_reachable(char **grid, char *strmap)
 //Counts the entity number
 int	ft_count_item(char c, int *player)
 {
-	if (c != 'N' && c != 'S' && c != 'E' && c != 'W' && c != '0' && c != '1' && c != ' ' && c != '	')
+	if (c != 'N' && c != 'S' && c != 'E' && c != 'W' && \
+	c != '0' && c != '1' && c != ' ' && c != '	')
 	{
 		ft_print_error(7);
 		return (0);
@@ -132,7 +128,7 @@ int	ft_count_item(char c, int *player)
 }
 
 //Check the  entity number
-int	ft_check_item(char c, int *player)
+int	ft_check_item(int *player)
 {
 	if (*player != 1)
 		ft_print_error(8);

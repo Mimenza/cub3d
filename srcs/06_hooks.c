@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   06_hooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/08 22:35:10 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:00:28 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
-int mouse_movement(int x, int y, t_game *game)
+int	mouse_movement(int x, int y, t_game *game)
 {
 	t_player	*player;
 	static int	prev_mouse_x;
 	int			curr_mouse_x;
 	int			delta_x;
-	
+
+	(void)y;
 	player = game->p;
 	curr_mouse_x = x;
-
 	delta_x = curr_mouse_x - prev_mouse_x;
-		player->rad += delta_x * 0.03;
+	player->rad += delta_x * 0.03;
 	ft_render_map(game);
 	usleep(200);
 	prev_mouse_x = curr_mouse_x;
@@ -49,32 +49,28 @@ void	key_press_hook_aux(t_game *game, double move_x, double move_y, int mode)
 		tmp_x = player->pos.x + (move_x * (MOVE_STEP / 10));
 		tmp_y = player->pos.y + (move_y * (MOVE_STEP / 10));
 	}
-
-	printf("player curr x: %f e y: %f\n", player->pos.x, player->pos.y);
-	printf("player next pos x: %f e y: %f\n", tmp_x , tmp_y);
-	printf("%c\n", game->map.grid[(int)tmp_y][(int)tmp_x]);
-
-	if (game->map.grid[(int)tmp_y][(int)tmp_x] != '1' && game->map.grid[(int)tmp_y][(int)tmp_x] != ' ')
+	if (game->map.grid[(int)tmp_y][(int)tmp_x] != '1' && \
+	game->map.grid[(int)tmp_y][(int)tmp_x] != ' ')
 	{
 		player->pos.x = tmp_x;
 		player->pos.y = tmp_y;
 	}
 }
 
-int  key_press_hook(int keycode, t_game *game)
+int	key_press_hook(int keycode, t_game *game)
 {
 	t_player	*p;
 
 	p = game->p;
 	if (keycode == KEY_ESC)
 		exit(0);
-	if (keycode == KEY_RIGHT) // Girar a la derecha
+	if (keycode == KEY_RIGHT)
 	{
 		p->rad -= R_SPEED;
 		if (p->rad < 0)
 			p->rad += 2 * M_PI;
 	}
-	else if (keycode == KEY_LEFT) // Girar a la izquierda
+	else if (keycode == KEY_LEFT)
 	{
 		p->rad += R_SPEED;
 		if (p->rad >= 2 * M_PI)
@@ -89,4 +85,5 @@ int  key_press_hook(int keycode, t_game *game)
 	else if (keycode == KEY_W)
 		key_press_hook_aux(game, cos(p->rad), sin(p->rad), 2);
 	ft_render_map(game);
+	return (0);
 }

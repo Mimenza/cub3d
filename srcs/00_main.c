@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:46:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/06 16:49:46 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:28:45 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_check_ext(char *str, char *ext)
 		size_ext--;
 		size_s--;
 	}
-	return (ft_print_ok(),1);
+	return (ft_print_ok(), 1);
 }
 
 int	main(int argc, char **argv)
