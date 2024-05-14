@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:20:29 by anurtiag          #+#    #+#             */
-/*   Updated: 2024/05/12 18:34:37 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:25:22 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ size_t	ft_mtxlen(const char **s)
 	return (i);
 }
 
-void	ft_get_player_dir(t_player **player, char **map, size_t i, size_t j)
+//Sets the direction to of the player
+static void	ft_get_player_dir(t_player **player, char **map, size_t i, size_t j)
 {
 	if (map[i][j] == 'N')
 	{
@@ -42,7 +43,8 @@ void	ft_get_player_dir(t_player **player, char **map, size_t i, size_t j)
 	}
 }
 
-void	ft_get_player_pos(t_player **player, char **map)
+//Looks for the player in the grid
+static void	ft_get_player_pos(t_player **player, char **map)
 {
 	size_t	i;
 	size_t	j;
@@ -66,6 +68,7 @@ void	ft_get_player_pos(t_player **player, char **map)
 	}
 }
 
+//Sets the player info
 void	get_player(t_game *game)
 {
 	t_player	*player;

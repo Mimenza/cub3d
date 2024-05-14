@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/13 16:20:03 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:43:05 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,8 @@ t_game			ft_create_game(char *strmap, t_game *game);
 
 //02_MAP
 t_map			ft_create_map(char *strmap);
+char			**ft_create_doubleptr(char **grid);
+void			ft_copy_doubleptr(char **grid, char **p_grid);
 
 //03_MAP_UTILS1
 int				ft_reachable(char **grid);

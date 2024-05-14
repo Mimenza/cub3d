@@ -6,14 +6,14 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/13 15:48:20 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:18:40 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
 //This functions loads the imgs.
-t_imgs	*ft_load_img(t_game *game, char *path)
+static t_imgs	*ft_load_img(t_game *game, char *path)
 {
 	int		h;
 	int		w;
@@ -48,13 +48,11 @@ static int	ft_cpy_imgs(char files[IMG_COUNT][42], t_game *game)
 		{
 			while (++i <= IMG_COUNT)
 			{
-				printf("i %i\n", i);
 				free(game->window.imgs[i]->img);
 				free(game->window.imgs[i]);
 			}
 			return (0);
 		}
-			
 		game->window.imgs[i] = img;
 		i--;
 	}
@@ -72,7 +70,9 @@ static int	ft_load_imgs(t_game *game)
 	ft_strlcpy(files[2], game->map.ea_texture, 41);
 	ft_strlcpy(files[3], game->map.we_texture, 41);
 	if (ft_cpy_imgs(files, game) == 0)
-		return (ft_free_doubleptr(game->map.grid), free(game->window.mlx), free(game->window.win), free(game->window.img), free(game->window.size), free_map(&game->map), free(game->map.size), 0);
+		return (ft_free_doubleptr(game->map.grid), free(game->window.mlx), \
+	free(game->window.win), free(game->window.img), free(game->window.size), \
+		free_map(&game->map), free(game->map.size), 0);
 	return (ft_print_ok(), 1);
 }
 

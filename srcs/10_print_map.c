@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_print_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/13 16:00:48 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:09:33 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ void draw_line_to_direction(t_game *game, int x, int y, double length, double de
 				grid_x = 0;
 			if ((game->map.grid[(int)grid_y][(int)grid_x] && (game->map.grid[(int)grid_y][(int)grid_x] == '1' || game->map.grid[(int)grid_y][(int)grid_x] == ' ')))
 			{
-				dtw = 50000 / cal_distance(game->p, end_x, end_y, x, y);
+				dtw = 50000 / cal_distance(game->p, (int)end_x, (int)end_y, x, y);
 				realx = end_x / GRID_SIZE;
 				realy = end_y / GRID_SIZE;
 				break;

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   06_hooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/13 16:21:50 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:23:15 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
+//Function of the mouse movement
 int	mouse_movement(int x, int y, t_game *game)
 {
 	t_player	*player;
@@ -30,7 +31,7 @@ int	mouse_movement(int x, int y, t_game *game)
 	return (0);
 }
 
-void	key_press_hook_aux(t_game *game, double move_x, double move_y, int mode)
+static void	key_press_hook_aux(t_game *game, double move_x, double move_y, int mode)
 {
 	t_player	*player;
 	double		tmp_x;
@@ -57,6 +58,7 @@ void	key_press_hook_aux(t_game *game, double move_x, double move_y, int mode)
 	}
 }
 
+//Main function of the key hooks
 int	key_press_hook(int keycode, t_game *game)
 {
 	t_player	*p;
@@ -84,6 +86,5 @@ int	key_press_hook(int keycode, t_game *game)
 		key_press_hook_aux(game, cos(p->rad + M_PI / 2), sin(p->rad + M_PI / 2), 2);
 	else if (keycode == KEY_W)
 		key_press_hook_aux(game, cos(p->rad), sin(p->rad), 2);
-	ft_render_map(game);
-	return (0);
+	return (ft_render_map(game), 0);
 }
