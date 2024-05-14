@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/14 11:43:05 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:19:23 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define PXW 100         //variable for the window size
 # define BPP 32         //bites per pixel
 # define ANGLE_S -45    //fov start angle
-# define ANGLE_E 45     //fov end angle
+# define ANGLE_E 45    //fov end angle
 # define ITER 0.1       //number of iters of the rays (less = more)
 # define RES_3D 1
 # define RES 1			//scalation of the minimap (pwx % res must return 0)
@@ -115,6 +115,7 @@ typedef struct s_imgs
 typedef struct s_window
 {
 	void	*mlx;
+	int		mouse_in;
 	void	*img;
 	void	*win;
 	char	*addrs;
@@ -186,6 +187,8 @@ t_window		ft_new_window(void *mlx, int widht, int height, char *name);
 //06_HOOKS
 int				key_press_hook(int keycode, t_game *game);
 int				mouse_movement(int x, int y, t_game *game);
+int				mouse_exit(int x, int y, t_game *game);
+int				save_mouse_in(int mode, int data);
 //07_UTILS
 
 //08_FREE

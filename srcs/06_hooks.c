@@ -6,27 +6,58 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/14 11:23:15 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:19:55 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
+//0 out 1 moving
+int	save_mouse_in(int mode, int data)
+{
+	static int res = 0;
+
+	if (mode == 1)
+		res = data;
+	else
+		return (res);
+	return(-1);
+}
+
+int mouse_exit(int x, int y, t_game *game)
+{
+	// Código para manejar el evento de entrada del ratón
+	(void)x;
+	(void)y;
+	(void)game;
+	save_mouse_in(1, 0);
+	return (0);
+}
 //Function of the mouse movement
 int	mouse_movement(int x, int y, t_game *game)
 {
 	t_player	*player;
-	static int	prev_mouse_x;
+	static int	prev_mouse_x = 0;
 	int			curr_mouse_x;
 	int			delta_x;
+	static	int	delay;
 
 	(void)y;
+	delay++;
 	player = game->p;
 	curr_mouse_x = x;
-	delta_x = curr_mouse_x - prev_mouse_x;
-	player->rad += delta_x * 0.03;
-	ft_render_map(game);
-	usleep(200);
+	if (prev_mouse_x == 0)
+		prev_mouse_x = curr_mouse_x;
+	else
+		delta_x = curr_mouse_x - prev_mouse_x;
+	if (0 != save_mouse_in(2, -1))
+		player->rad += delta_x * 0.005;
+	save_mouse_in(1, 1);
+	if (delay == 5)
+	{
+		ft_render_map(game);
+		delay = 0;
+	}
 	prev_mouse_x = curr_mouse_x;
 	return (0);
 }
