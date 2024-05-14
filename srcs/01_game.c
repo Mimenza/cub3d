@@ -6,12 +6,11 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/14 15:19:35 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:32:27 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
-
 
 //This functions loads the imgs.
 static t_imgs	*ft_load_img(t_game *game, char *path)
@@ -96,11 +95,9 @@ static void	ft_start_game(t_game *game)
 	get_player(game);
 	ft_replace_p(&(game->map.grid));
 	ft_render_map(game);
-
 	mlx_hook(game->window.win, 2, (1L << 0), key_press_hook, game);
 	mlx_hook(game->window.win, 6, (1L << 6), mouse_movement, game);
 	mlx_hook(game->window.win, 8, (1L << 5), mouse_exit, game);
-
 	mlx_loop(mlx);
 }
 
