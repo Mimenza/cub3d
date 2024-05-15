@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:46:08 by anurtiag          #+#    #+#             */
-/*   Updated: 2024/05/15 11:25:45 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:42:21 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,6 @@ void	add_h_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2])
 			(*array_d)[GRID_X] -= 1;
 		}
 	}
-	if ((*array_d)[GRID_Y] < 0)
-		(*array_d)[GRID_Y] = 0;
-	if ((*array_d)[GRID_X] < 0)
-		(*array_d)[GRID_X] = 0;
 }
 
 void	add_c_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2])
@@ -75,6 +71,10 @@ void	add_c_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2])
 		else if (rel_pos[Y] < (int)(*array_d)[END_Y] && (*array_i)[INTER] == 3)
 			(*array_d)[GRID_Y] = ceil((*array_d)[GRID_Y]) + 0.9;
 	}
+	if ((*array_d)[GRID_Y] < 0)
+		(*array_d)[GRID_Y] = 0;
+	if ((*array_d)[GRID_X] < 0)
+		(*array_d)[GRID_X] = 0;
 }
 
 int	draw_line_utils(t_game *game, int rel_pos[2], \
