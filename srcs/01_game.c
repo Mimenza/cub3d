@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_game.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/14 15:32:27 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:37:27 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static t_imgs	*ft_load_img(t_game *game, char *path)
 	img->img = mlx_xpm_file_to_image(game->window.mlx, path, &w, &h);
 	if (img->img == NULL)
 	{
-		printf("\033[1;31m [KO] \033[0m \n\
-		Error loading the img with the path: %s\n", path);
+		printf("\033[1;31m [KO] \033[0m \
+		\nError loading the img with the path: %s\n", path);
 		free(img);
 		return (NULL);
 	}
@@ -46,7 +46,7 @@ static int	ft_cpy_imgs(char files[IMG_COUNT][42], t_game *game)
 		img = ft_load_img(game, files[i]);
 		if (img == NULL)
 		{
-			while (++i <= IMG_COUNT)
+			while (++i < IMG_COUNT)
 			{
 				free(game->window.imgs[i]->img);
 				free(game->window.imgs[i]);
@@ -79,8 +79,8 @@ static int	ft_load_imgs(t_game *game)
 //Main function which starts the game.
 static void	ft_start_game(t_game *game)
 {
-	void		*mlx;
 	t_window	win;
+	void		*mlx;
 
 	mlx = mlx_init();
 	if (!mlx)
@@ -88,6 +88,7 @@ static void	ft_start_game(t_game *game)
 		ft_print_error(1);
 		exit(EXIT_FAILURE);
 	}
+	
 	win = ft_new_window(mlx, (16 * PXW), (9 * PXW), "CUB3D");
 	game->window = win;
 	if (ft_load_imgs(game) == 0)
@@ -98,7 +99,8 @@ static void	ft_start_game(t_game *game)
 	mlx_hook(game->window.win, 2, (1L << 0), key_press_hook, game);
 	mlx_hook(game->window.win, 6, (1L << 6), mouse_movement, game);
 	mlx_hook(game->window.win, 8, (1L << 5), mouse_exit, game);
-	mlx_loop(mlx);
+	mlx_hook(game->window.win, 17, 0, ft_close, game);
+	mlx_loop(game->window.mlx);
 }
 
 //Main function which creates the game struct.

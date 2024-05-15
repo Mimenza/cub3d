@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   12_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/14 15:33:42 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:00:37 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,27 @@ int	treat_data(t_map *map, char *line, int empty_flag, int *g_flag)
 	return (1);
 }
 
+int	treat_line(t_map *map, char **grid_line, char *line, int (*flags)[4])
+{
+	char	*tmp;
+
+	tmp = ft_strdup(*grid_line);
+	free(*grid_line);
+	(*flags)[TREAD_FLAG] = treat_data(map, line,(*flags)[EMPTY_FLAG], &(*flags)[G_FLAG]);
+	if ((*flags)[TREAD_FLAG] == 0)
+		return (free(tmp), free(line), 0);
+	else if ((*flags)[TREAD_FLAG] == 1)
+		*grid_line = ft_strjoin(tmp, line);
+	else
+		*grid_line = ft_strdup(tmp);
+	free(tmp);
+	(*flags)[EMPTY_FLAG] = 0;
+	return (1);
+}
+
 int	ft_read_each_line(int (*flags)[4], t_map *map, char **grid_line)
 {
 	char	*line;
-	char	*tmp;
 
 	while (1)
 	{
@@ -64,17 +81,8 @@ int	ft_read_each_line(int (*flags)[4], t_map *map, char **grid_line)
 				(*flags)[EMPTY_FLAG] = 1;
 			else
 			{
-				tmp = ft_strdup(*grid_line);
-				free(*grid_line);
-				(*flags)[TREAD_FLAG] = treat_data(map, line, (*flags)[EMPTY_FLAG], &(*flags)[G_FLAG]);
-				if ((*flags)[TREAD_FLAG] == 0)
-					return (free(tmp), free(line), 0);
-				else if ((*flags)[TREAD_FLAG] == 1)
-					*grid_line = ft_strjoin(tmp, line);
-				else
-					*grid_line = ft_strdup(tmp);
-				free(tmp);
-				(*flags)[EMPTY_FLAG] = 0;
+				if (treat_line(map, grid_line, line, flags) == 0)
+					return (free(line), 0);
 			}
 			free(line);
 		}

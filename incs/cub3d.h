@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 11:28:10 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:37:49 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ void			fill_w_sp(char	***grid);
 
 //05_WINDOW
 t_window		ft_new_window(void *mlx, int widht, int height, char *name);
+int				ft_close(t_game *game);
 
 //06_HOOKS
 int				key_press_hook(int keycode, t_game *game);

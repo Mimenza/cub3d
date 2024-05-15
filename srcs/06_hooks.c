@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 11:28:22 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:10:42 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	key_press_aux(t_game *game, double move_x, double move_y, int mode)
 int	key_press_hook(int keycode, t_game *g)
 {
 	if (keycode == KEY_ESC)
-		exit(0);
+		ft_close(g);
 	if (keycode == KEY_RIGHT)
 	{
 		g->p->rad -= R_SPEED;
