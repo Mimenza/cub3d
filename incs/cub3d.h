@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/13 16:20:03 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:25:29 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 // MACROS
 # define PXW 100         //variable for the window size
 # define BPP 32         //bites per pixel
-# define ANGLE_S -45    //fov start angle
-# define ANGLE_E 45     //fov end angle
+# define ANGLE_S -33    //fov start angle
+# define ANGLE_E 33     //fov end angle
 # define ITER 0.1       //number of iters of the rays (less = more)
 # define RES_3D 1
 # define RES 1			//scalation of the minimap (pwx % res must return 0)
@@ -80,6 +80,24 @@
 // Assets location
 # define IMG_COUNT	4
 
+//draw_line_to_direction double macros
+
+# define END_X 0
+# define END_Y 1
+# define GRID_X 2
+# define GRID_Y 3
+# define REAL_X 4
+# define REAL_Y 5
+# define DTW 6
+
+//draw_line_to_direction int macros
+
+# define STEPS 0
+# define INTER 1
+# define DIR 2
+
+# define X 0
+# define Y 1
 // ----------------------------------
 
 typedef struct s_coords
@@ -195,6 +213,9 @@ void			ft_print_ok(void);
 
 //10_PRINT_MAP
 void		ft_print_grid(char **grid);
+double	cal_distance(t_player *player, double c_x, \
+double c_y, int rel_pos[2]);
+void	draw_fov(t_game *game, int rel_pos[2]);
 
 //11_COORDINATES
 void			get_player(t_game *game);
@@ -211,3 +232,17 @@ int		assign_data_c(char *line, int *ref);
 int		check_flags(int *flag, int empty_flag);
 int		is_empty(char *str);
 void	init_data(int (*flags)[4], t_map *map, char **grid_line, char *path);
+
+//14 DRAW LINE UTILS
+int		c_dir(int x, int y, int grid_size);
+void	add_v_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2]);
+void	add_h_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2]);
+void	add_c_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2]);
+int		draw_line_utils(t_game *game, int rel_pos[2], \
+double (*array_d)[7], int (*array_i)[3]);
+
+//15 RENDER UTILS
+void	my_mlx_pixel_put(t_game *game, int x, int y, int color);
+int		static_int(int num, int mode);
+double	static_double(double num, int mode);
+void	ft_render_map(t_game *game);

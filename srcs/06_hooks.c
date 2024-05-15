@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/13 16:21:50 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/14 19:59:50 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	key_press_hook_aux(t_game *game, double move_x, double move_y, int mode)
 		tmp_x = player->pos.x + (move_x * (MOVE_STEP / 10));
 		tmp_y = player->pos.y + (move_y * (MOVE_STEP / 10));
 	}
-	if (game->map.grid[(int)tmp_y][(int)tmp_x] != '1' && \
+	if (game->map.grid[(int)(tmp_y)][(int)(tmp_x)] != '1' && \
 	game->map.grid[(int)tmp_y][(int)tmp_x] != ' ')
 	{
 		player->pos.x = tmp_x;

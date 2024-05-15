@@ -6,7 +6,7 @@
 #    By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 10:48:36 by emimenza          #+#    #+#              #
-#    Updated: 2024/05/13 16:18:24 by anurtiag         ###   ########.fr        #
+#    Updated: 2024/05/15 11:02:00 by anurtiag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NC = \033[0m # No color (reiniciar)
 #Comandos
 DEL			=	rm -f
 CC			=	gcc
-CFLAGS		=	-O0 -g3 -Wall -Wextra -Werror
+CFLAGS		=	 -Wall -Wextra -Werror
 # MLX			=	-framework OpenGL -framework AppKit
 MLX			=	-lXext -lX11 -lm #-g3 -fsanitize=address
 # -g3 -fsanitize=address
@@ -28,7 +28,7 @@ MLX			=	-lXext -lX11 -lm #-g3 -fsanitize=address
 NAME		=	cub3d
 
 #Ficheros
-SRC_FILES	=	00_main 01_game 02_map 03_map_utils1 04_map_utils2 05_window 06_hooks 08_free 09_error 10_print_map 11_coordinates 12_parsing 13_parsing_utils
+SRC_FILES	=	00_main 01_game 02_map 03_map_utils1 04_map_utils2 05_window 06_hooks 08_free 09_error 10_print_map 11_coordinates 12_parsing 13_parsing_utils 14_draw_line_utils 15_render_utils
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
