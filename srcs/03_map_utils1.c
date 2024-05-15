@@ -6,44 +6,11 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:33:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/11 18:42:26 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:42:04 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
-
-//This function creates a double ptr.
-char	**ft_create_doubleptr(char **grid)
-{
-	char	**ptr;
-	int		size;
-
-	size = 0;
-	while (grid[size])
-		size++;
-	ptr = (char **)malloc((size + 1) * sizeof(char *));
-	if (ptr == NULL)
-		return (ptr);
-	return (ptr);
-}
-
-//This function copies a double ptr.
-void	ft_copy_doubleptr(char **grid, char **p_grid)
-{
-	int	i;
-	int	size;
-
-	size = 0;
-	while (grid[size])
-		size++;
-	i = 0;
-	while (i <= (size - 1))
-	{
-		p_grid[i] = ft_strdup(grid[i]);
-		i++;
-	}
-	p_grid[i] = NULL;
-}
 
 //Checks if the above position is expandable, and expand to it.
 static int	ft_check_position(int x, int y, char **grid, int *w_flag)

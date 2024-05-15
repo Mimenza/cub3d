@@ -6,13 +6,13 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:43 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/12 18:41:48 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:19:28 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
-//Check the map collectables and player/exit
+//Check the map player
 int	ft_check_p(char **grid)
 {
 	int		x;

@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 11:25:29 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:28:10 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ typedef struct s_imgs
 typedef struct s_window
 {
 	void	*mlx;
+	int		mouse_in;
 	void	*img;
 	void	*win;
 	char	*addrs;
@@ -184,6 +185,8 @@ t_game			ft_create_game(char *strmap, t_game *game);
 
 //02_MAP
 t_map			ft_create_map(char *strmap);
+char			**ft_create_doubleptr(char **grid);
+void			ft_copy_doubleptr(char **grid, char **p_grid);
 
 //03_MAP_UTILS1
 int				ft_reachable(char **grid);
@@ -202,6 +205,8 @@ t_window		ft_new_window(void *mlx, int widht, int height, char *name);
 //06_HOOKS
 int				key_press_hook(int keycode, t_game *game);
 int				mouse_movement(int x, int y, t_game *game);
+int				mouse_exit(int x, int y, t_game *game);
+int				save_mouse_in(int mode, int data);
 //07_UTILS
 
 //08_FREE
