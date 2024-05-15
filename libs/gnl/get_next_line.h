@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:22:02 by emimenza          #+#    #+#             */
-/*   Updated: 2023/11/08 09:19:55 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:46:45 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
+# define BUFFER_SIZE 1
 
 # include <fcntl.h>
 # include <stdlib.h>

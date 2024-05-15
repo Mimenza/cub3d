@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 12:37:49 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:08:31 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,11 +175,6 @@ typedef struct s_game
 	int			created;
 }			t_game;
 
-#endif
-
-
-//00_MAIN
-
 //01_GAME
 t_game			ft_create_game(char *strmap, t_game *game);
 
@@ -218,10 +213,10 @@ void			ft_print_error(int type);
 void			ft_print_ok(void);
 
 //10_PRINT_MAP
-void		ft_print_grid(char **grid);
-double	cal_distance(t_player *player, double c_x, \
-double c_y, int rel_pos[2]);
-void	draw_fov(t_game *game, int rel_pos[2]);
+void			ft_print_grid(char **grid);
+double			cal_distance(t_player *player, double c_x, \
+				double c_y, int rel_pos[2]);
+void			draw_fov(t_game *game, int rel_pos[2]);
 
 //11_COORDINATES
 void			get_player(t_game *game);
@@ -233,22 +228,28 @@ int				ft_read_file(t_map *map, char *strmap);
 void			free_map(t_map *map);
 
 //13 PARSING UTILS
-int		assign_data_t(char *line, char **ref);
-int		assign_data_c(char *line, int *ref);
-int		check_flags(int *flag, int empty_flag);
-int		is_empty(char *str);
-void	init_data(int (*flags)[4], t_map *map, char **grid_line, char *path);
+int				assign_data_t(char *line, char **ref);
+int				assign_data_c(char *line, int *ref);
+int				check_flags(int *flag, int empty_flag);
+int				is_empty(char *str);
+void			init_data(int (*flags)[4], t_map *map, \
+				char **grid_line, char *path);
 
 //14 DRAW LINE UTILS
-int		c_dir(int x, int y, int grid_size);
-void	add_v_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2]);
-void	add_h_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2]);
-void	add_c_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2]);
-int		draw_line_utils(t_game *game, int rel_pos[2], \
-double (*array_d)[7], int (*array_i)[3]);
+int				c_dir(int x, int y, int grid_size);
+void			add_v_step(double (*array_d)[7], \
+				int (*array_i)[3], int rel_pos[2]);
+void			add_h_step(double (*array_d)[7], \
+				int (*array_i)[3], int rel_pos[2]);
+void			add_c_step(double (*array_d)[7], \
+				int (*array_i)[3], int rel_pos[2]);
+int				draw_line_utils(t_game *game, int rel_pos[2], \
+				double (*array_d)[7], int (*array_i)[3]);
 
 //15 RENDER UTILS
-void	my_mlx_pixel_put(t_game *game, int x, int y, int color);
-int		static_int(int num, int mode);
-double	static_double(double num, int mode);
-void	ft_render_map(t_game *game);
+void			my_mlx_pixel_put(t_game *game, int x, int y, int color);
+int				static_int(int num, int mode);
+double			static_double(double num, int mode);
+void			ft_render_map(t_game *game);
+
+#endif

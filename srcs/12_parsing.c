@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 13:00:37 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:02:40 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	treat_line(t_map *map, char **grid_line, char *line, int (*flags)[4])
 
 	tmp = ft_strdup(*grid_line);
 	free(*grid_line);
-	(*flags)[TREAD_FLAG] = treat_data(map, line,(*flags)[EMPTY_FLAG], &(*flags)[G_FLAG]);
+	(*flags)[TREAD_FLAG] = treat_data(map, line, \
+	(*flags)[EMPTY_FLAG], &(*flags)[G_FLAG]);
 	if ((*flags)[TREAD_FLAG] == 0)
 		return (free(tmp), free(line), 0);
 	else if ((*flags)[TREAD_FLAG] == 1)
@@ -82,7 +83,7 @@ int	ft_read_each_line(int (*flags)[4], t_map *map, char **grid_line)
 			else
 			{
 				if (treat_line(map, grid_line, line, flags) == 0)
-					return (free(line), 0);
+					return (0);
 			}
 			free(line);
 		}

@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:29:45 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 12:37:27 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:59:53 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ static void	ft_start_game(t_game *game)
 		ft_print_error(1);
 		exit(EXIT_FAILURE);
 	}
-	
 	win = ft_new_window(mlx, (16 * PXW), (9 * PXW), "CUB3D");
 	game->window = win;
 	if (ft_load_imgs(game) == 0)

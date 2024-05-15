@@ -6,14 +6,14 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:35:31 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 12:38:30 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:00:34 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
 //This function closes the window.
-int ft_close(t_game *game)
+int	ft_close(t_game *game)
 {
 	free(game->window.imgs[0]->img);
 	free(game->window.imgs[1]->img);
