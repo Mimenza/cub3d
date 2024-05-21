@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+         #
+#    By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 10:48:36 by emimenza          #+#    #+#              #
-#    Updated: 2024/05/15 14:40:11 by anurtiag         ###   ########.fr        #
+#    Updated: 2024/05/21 11:07:59 by emimenza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,11 +26,17 @@ MLX			=	-lXext -lX11 -lm #-g3 -fsanitize=address
 
 #Nombre ejecutable
 NAME		=	cub3d
+NAME_BONUS	=	cub3d_bonus
 
 #Ficheros
 SRC_FILES	=	00_main 01_game 02_map 03_map_utils1 04_map_utils2 05_window 06_hooks 08_free 09_error 10_print_map 11_coordinates 12_parsing 13_parsing_utils 14_draw_line_utils 15_render_utils
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+
+#Ficheros bonus
+SRC_FILES_BONUS	=	00_main_bonus 01_game_bonus 02_map_bonus 03_map_utils1_bonus 04_map_utils2_bonus 05_window_bonus 06_hooks_bonus 08_free_bonus 09_error_bonus 10_print_map_bonus 11_coordinates_bonus 12_parsing_bonus 13_parsing_utils_bonus 14_draw_line_utils_bonus 15_render_utils_bonus
+SRC_BONUS		=	$(addprefix $(SRC_DIR_BONUS), $(addsuffix .c, $(SRC_FILES_BONUS)))
+OBJ_BONUS		=	$(addprefix $(OBJ_DIR_BONUS), $(addsuffix .o, $(SRC_FILES_BONUS)))
 
 MINILIBX	=	libs/minilibx-linux
 GNL			=	libs/gnl
@@ -43,8 +49,13 @@ LIBS		= $(MINILIBX)/libmlx.a $(MLX) $(GNL)/get_next_line.a $(LIBFT)/libft.a
 SRC_DIR = srcs/
 OBJ_DIR = objs/
 
+#Directorios bonus
+SRC_DIR_BONUS = srcs_bonus/
+OBJ_DIR_BONUS = objs_bonus/
+
 # REGLAS # 
 all:	minilibx gnl libft $(NAME)
+bonus:  minilibx gnl libft $(NAME_BONUS)
 
 #Compilar 
 $(NAME):$(OBJ)
@@ -53,6 +64,17 @@ $(NAME):$(OBJ)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
+	@echo "$(YELLOW)Compiling: $<$(NC)"
+	@$(CC) $(CFLAGS) -o $@ -c $< 
+	@echo "$(YELLOW)Compiled!$(NC)"
+
+#Compilar BONUS
+$(NAME_BONUS):$(OBJ_BONUS)
+		@$(CC) $(OBJ_BONUS) $(LIBS) -o $(NAME_BONUS)
+		@echo "$(GREEN)CUB3D HAS BEEN COMPILED!$(NC)"
+
+$(OBJ_DIR_BONUS)%.o: $(SRC_DIR_BONUS)%.c
+	@mkdir -p $(OBJ_DIR_BONUS)
 	@echo "$(YELLOW)Compiling: $<$(NC)"
 	@$(CC) $(CFLAGS) -o $@ -c $< 
 	@echo "$(YELLOW)Compiled!$(NC)"
@@ -102,5 +124,15 @@ fclean: clean  fclean_gnl fclean_libft
 	@$(RM) $(NAME)
 	@echo "$(RED)EXECUTABLE CLEANED!$(NC)"
 
+# Eliminar temporales bonus
+clean_bonus:
+	@$(RM) -r $(OBJ_DIR_BONUS)
+	@echo "$(RED)OBJS AND DIRECTORY CLEANED!$(NC)"
 
+
+# Eliminar temporales y ejecutable fclean_mlx bonus
+fclean_bonus: clean_bonus  fclean_gnl fclean_libft
+	@$(RM) $(NAME_BONUS)
+	@echo "$(RED)EXECUTABLE CLEANED!$(NC)"
+	
 re: fclean all

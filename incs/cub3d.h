@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/21 09:40:41 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:54:41 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <math.h>
 # include <stddef.h>
+# include <stdbool.h>
 # include "../libs/minilibx-linux/mlx.h"
 # include "../libs/gnl/get_next_line.h"
 # include "../libs/Libft/libft.h"
@@ -203,7 +204,7 @@ int				key_press_hook(int keycode, t_game *game);
 int				mouse_movement(int x, int y, t_game *game);
 int				mouse_exit(int x, int y, t_game *game);
 //07_UTILS
-
+long			ft_atol(const char *str, int *control);
 //08_FREE
 void			ft_free_doubleptr(char **grid);
 
