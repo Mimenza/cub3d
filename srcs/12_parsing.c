@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   12_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 14:02:40 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:35:31 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_map(t_map *map)
 }
 
 //2 non grid but saved, 0 error, 1 grid
-int	treat_data(t_map *map, char *line, int empty_flag, int *g_flag)
+static int	treat_data(t_map *map, char *line, int empty_flag, int *g_flag)
 {
 	int	flag;
 
@@ -50,7 +50,7 @@ int	treat_data(t_map *map, char *line, int empty_flag, int *g_flag)
 	return (1);
 }
 
-int	treat_line(t_map *map, char **grid_line, char *line, int (*flags)[4])
+static int	treat_line(t_map *map, char **grid_line, char *line, int (*flags)[4])
 {
 	char	*tmp;
 
@@ -69,7 +69,7 @@ int	treat_line(t_map *map, char **grid_line, char *line, int (*flags)[4])
 	return (1);
 }
 
-int	ft_read_each_line(int (*flags)[4], t_map *map, char **grid_line)
+static int	ft_read_each_line(int (*flags)[4], t_map *map, char **grid_line)
 {
 	char	*line;
 

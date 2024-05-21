@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 14:08:31 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:40:41 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,6 @@ int				ft_close(t_game *game);
 int				key_press_hook(int keycode, t_game *game);
 int				mouse_movement(int x, int y, t_game *game);
 int				mouse_exit(int x, int y, t_game *game);
-int				save_mouse_in(int mode, int data);
 //07_UTILS
 
 //08_FREE
@@ -236,13 +235,6 @@ void			init_data(int (*flags)[4], t_map *map, \
 				char **grid_line, char *path);
 
 //14 DRAW LINE UTILS
-int				c_dir(int x, int y, int grid_size);
-void			add_v_step(double (*array_d)[7], \
-				int (*array_i)[3], int rel_pos[2]);
-void			add_h_step(double (*array_d)[7], \
-				int (*array_i)[3], int rel_pos[2]);
-void			add_c_step(double (*array_d)[7], \
-				int (*array_i)[3], int rel_pos[2]);
 int				draw_line_utils(t_game *game, int rel_pos[2], \
 				double (*array_d)[7], int (*array_i)[3]);
 

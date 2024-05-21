@@ -6,21 +6,11 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:20:29 by anurtiag          #+#    #+#             */
-/*   Updated: 2024/05/14 11:25:22 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:33:40 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
-
-size_t	ft_mtxlen(const char **s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 //Sets the direction to of the player
 static void	ft_get_player_dir(t_player **player, char **map, size_t i, size_t j)

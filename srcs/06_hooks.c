@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   06_hooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:58:52 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 12:10:42 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:39:38 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
 //1 save 2 return
-int	save_mouse_in(int mode, int data)
+static int	save_mouse_in(int mode, int data)
 {
 	static int	res = 0;
 
@@ -67,7 +67,11 @@ static void	key_press_aux(t_game *game, double move_x, double move_y, int mode)
 	t_player	*player;
 	double		tmp_x;
 	double		tmp_y;
+	static int	move = 0;
 
+	move++;
+	if (move == 10)
+		
 	tmp_x = 0;
 	tmp_y = 0;
 	player = game->p;

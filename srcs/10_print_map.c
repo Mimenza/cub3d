@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_print_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:11:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 11:31:26 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:32:29 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ double c_y, int rel_pos[2])
 	return (distance);
 }
 
-void	draw_v_line(t_game *game, double size, int *texture, double column)
+static void	draw_v_line(t_game *game, double size, int *texture, double column)
 {
 	int	y;
 	int	textel_x;
@@ -63,7 +63,7 @@ void	draw_v_line(t_game *game, double size, int *texture, double column)
 	}
 }
 
-void	draw_v_line_utils(t_game *game, double array_d[7], int array_i[3])
+static void	draw_v_line_utils(t_game *game, double array_d[7], int array_i[3])
 {
 	if (array_i[INTER] == 2)
 	{
@@ -85,7 +85,7 @@ void	draw_v_line_utils(t_game *game, double array_d[7], int array_i[3])
 	}
 }
 
-void	draw_line_to_direction(t_game *game, int rel_pos[2], double length)
+static void	draw_line_to_direction(t_game *game, int rel_pos[2], double length)
 {
 	static int	old_inter = 0;
 	static int	old_dir = 0;
@@ -121,7 +121,7 @@ void	draw_fov(t_game *game, int rel_pos[2])
 	double	l;
 	double	angle_increment;
 
-	l = 1000000000;
+	l = 1000000;
 	i = 0;
 	start = ANGLE_S;
 	end = ANGLE_E;

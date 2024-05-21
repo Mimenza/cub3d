@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:41:11 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/14 11:42:14 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:22:54 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_copy_doubleptr(char **grid, char **p_grid)
 }
 
 //Calculates the size of the map
-void	calculate_size(t_map *map)
+static void	calculate_size(t_map *map)
 {
 	int			x;
 	int			y;

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   14_draw_line_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:46:08 by anurtiag          #+#    #+#             */
-/*   Updated: 2024/05/15 14:42:21 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:38:53 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
 //Returns whether the wall is h, v or a corner
-int	c_dir(int x, int y, int grid_size)
+static int	c_dir(int x, int y, int grid_size)
 {
 	if (x % grid_size == 0 && y % grid_size == 0)
 		return (1);
@@ -24,7 +24,7 @@ int	c_dir(int x, int y, int grid_size)
 	return (0);
 }
 
-void	add_v_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2])
+static void	add_v_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2])
 {
 	if ((*array_i)[INTER] == 3)
 	{
@@ -41,7 +41,7 @@ void	add_v_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2])
 	}
 }
 
-void	add_h_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2])
+static void	add_h_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2])
 {
 	if ((*array_i)[INTER] == 2)
 	{
@@ -58,7 +58,7 @@ void	add_h_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2])
 	}
 }
 
-void	add_c_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2])
+static void	add_c_step(double (*array_d)[7], int (*array_i)[3], int rel_pos[2])
 {
 	if ((*array_i)[INTER] == 1)
 	{
