@@ -6,18 +6,20 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:31:06 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 14:02:40 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:36:07 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
 
-void	free_map(t_map *map)
+static int	check_empty_c(t_map *map)
 {
-	free(map->ea_texture);
-	free(map->no_texture);
-	free(map->so_texture);
-	free(map->we_texture);
+	if (map->c_color == 0 || \
+	map->f_color == 0 || map->ea_texture == NULL || \
+	map->no_texture == NULL || map->so_texture == NULL || \
+	map->we_texture == NULL)
+		return (0);
+	return (1);
 }
 
 //2 non grid but saved, 0 error, 1 grid
@@ -40,12 +42,11 @@ int	treat_data(t_map *map, char *line, int empty_flag, int *g_flag)
 		flag = assign_data_c(line, &(map->c_color));
 	if (flag == 1)
 		return (2);
+	if (flag == 2)
+		return (ft_print_error(9), 0);
 	if (flag == 0)
 		return (ft_print_error(5), 0);
-	if (check_flags(g_flag, empty_flag) == 0 || map->c_color == 0 || \
-	map->f_color == 0 || map->ea_texture == NULL || \
-	map->no_texture == NULL || map->so_texture == NULL || \
-	map->we_texture == NULL)
+	if (check_flags(g_flag, empty_flag) == 0 || check_empty_c(map) == 0)
 		return ((void)printf("\033[1;31m [KO] \033\n"), 0);
 	return (1);
 }
@@ -116,7 +117,8 @@ int	ft_read_file(t_map *map, char *strmap)
 	if (ft_check_p(map->grid) == 0)
 		return (0);
 	if (ft_reachable(map->grid) == 0)
-		return (ft_print_error(6), 0);
+		return (ft_print_error(6), ft_free_doubleptr(map->grid), \
+		free_map(map), 0);
 	fill_w_sp(&map->grid);
 	return (1);
 }

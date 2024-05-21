@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 08:49:15 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/15 14:08:31 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:10:22 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <math.h>
 # include <stddef.h>
+# include <stdbool.h>
 # include "../libs/minilibx-linux/mlx.h"
 # include "../libs/gnl/get_next_line.h"
 # include "../libs/Libft/libft.h"
@@ -204,7 +205,7 @@ int				mouse_movement(int x, int y, t_game *game);
 int				mouse_exit(int x, int y, t_game *game);
 int				save_mouse_in(int mode, int data);
 //07_UTILS
-
+long			ft_atol(const char *str, int *control);
 //08_FREE
 void			ft_free_doubleptr(char **grid);
 

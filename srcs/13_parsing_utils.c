@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   13_parsing_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 12:42:48 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/11 17:56:26 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:35:28 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,20 @@ int	assign_data_c(char *line, int *ref)
 	int	r;
 	int	g;
 	int	b;
+	int	control;
 
+	control = true;
 	if (*ref != 0)
 		return (0);
 	while (*line != ' ' && *line != '\t' && *line != '\0')
 		line++;
 	while (*line == ' ' || *line == '\t')
 		line++;
-	r = atoi(line);
-	g = atoi(ft_strchr(line, ',') + 1);
-	b = atoi(ft_strchr(ft_strchr(line, ',') + 1, ',') + 1);
+	r = ft_atol(line, &control);
+	g = ft_atol(ft_strchr(line, ',') + 1, &control);
+	b = ft_atol(ft_strchr(ft_strchr(line, ',') + 1, ',') + 1, &control);
+	if (control == false)
+		return (2);
 	*ref = (r << 16) | (g << 8) | b;
 	return (1);
 }

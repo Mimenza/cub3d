@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   09_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:11:21 by emimenza          #+#    #+#             */
-/*   Updated: 2024/05/12 18:33:37 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:29:34 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,6 @@ void	ft_print_error(int type)
 		printf("\033[1;31m [KO] \033[0m\nFOUND A NON VALID CHAR\n");
 	else if (type == 8)
 		printf("\033[1;31m [KO] \033[0m\nMUST BE ONLY 1 PLAYER\n");
+	else if (type == 9)
+		printf("\033[1;31m [KO] \033[0m\nINVALID COLOR\n");
 }
